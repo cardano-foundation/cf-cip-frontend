@@ -40,3 +40,4 @@ next-env.d.ts
 app/CIPs/
 app/CPSs/
 app/PRs/
+app/Stats/
