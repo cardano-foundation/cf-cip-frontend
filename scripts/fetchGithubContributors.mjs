@@ -1,0 +1,58 @@
+import fetch from 'node-fetch'
+import dotenv from 'dotenv'
+import { fileURLToPath } from 'url'
+import { dirname, join } from 'path'
+import { writeFileSync, existsSync, mkdirSync } from 'fs'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
+dotenv.config({ path: '.env.local' })
+
+const repo = 'cardano-foundation/CIPs'
+const token = process.env.GITHUB_TOKEN
+
+async function fetchGithubContributors() {
+    const contributors = []
+    let page = 1
+    let response
+
+    console.log("Fetching contributors...")
+
+    do {
+        const url = `https://api.github.com/repos/${repo}/contributors?page=${page}&per_page=100`
+    
+        response = await fetch(url, {
+            headers: {
+                Authorization: `token ${token}`,
+            },
+        })
+    
+        if (!response.ok) {
+            throw new Error(`Failed to fetch contributors: ${response.status} ${response.statusText}`)
+        }
+    
+        const pageContributors = await response.json()
+        contributors.push(...pageContributors)
+    
+        page++
+    } while (response.headers.get('link')?.includes('; rel="next"'))
+
+    const modifiedContributors = contributors.map(({ login, url, avatar_url, }) => ({ name: login, url: url, image: avatar_url }))
+
+    const contributorsFolderPath = join(__dirname, '..', 'app', 'Contributors')
+    const contributorsFilePath = join(contributorsFolderPath, 'contributors.json')
+
+    if (!existsSync(contributorsFolderPath)) {
+        mkdirSync(contributorsFolderPath, { recursive: true })
+    }
+
+    writeFileSync(contributorsFilePath, JSON.stringify(modifiedContributors, null, 2))
+
+    console.log("Fetching contributors finished!");
+
+    return modifiedContributors
+}
+
+fetchGithubContributors()
+
