@@ -58,6 +58,7 @@ async function fetchGitHubData(url, token, destination_path) {
   }
 }
 
+
 async function downloadFile(url, filePath) {
   const { default: fetch } = await import('node-fetch')
   const response = await fetch(url)
@@ -67,6 +68,33 @@ async function downloadFile(url, filePath) {
     const dirPath = path.dirname(filePath)
     fs.mkdirSync(dirPath, { recursive: true })
     fs.writeFileSync(filePath, buffer)
+
+// If the file is a README file, extract and log the header
+if (filePath.endsWith('README.md')) {
+  const content = buffer.toString('utf-8')
+  const parts = content.split('---')
+  const headerLines = parts[1].trim().split('\n')
+
+  // Convert the header lines to a JSON object
+  let lastKey = ''
+  const header = headerLines.reduce((obj, line) => {
+    if (line.startsWith('  ')) {
+      // This line is a continuation of the last key
+      obj[lastKey] += ' ' + line.trim()
+    } else {
+      const [key, ...value] = line.split(':')
+      lastKey = key.trim()
+      obj[lastKey] = value.join(':').trim()
+    }
+    return obj
+  }, {})
+
+  // Define the path for the table.json file
+  const jsonFilePath = path.join(path.dirname(filePath), 'table.json')
+
+  // Write the header to the table.json file
+  fs.writeFileSync(jsonFilePath, JSON.stringify(header, null, 2))
+}
   } else {
     console.error(
       `Failed to download file from ${url}. Status code: ${response.status}`,
