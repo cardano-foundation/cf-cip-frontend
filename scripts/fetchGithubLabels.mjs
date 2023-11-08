@@ -13,8 +13,6 @@ const repo = 'cardano-foundation/CIPs'
 const token = process.env.GITHUB_TOKEN
 
 async function fetchGithubLabels() {
-    const repo = 'cardano-foundation/CIPs'
-    const token = process.env.GITHUB_TOKEN
     const url = `https://api.github.com/repos/${repo}/labels`
 
     const response = await fetch(url, {
