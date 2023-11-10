@@ -12,6 +12,7 @@ dotenv.config({ path: '.env.local' })
 const repo = 'cardano-foundation/CIPs'
 const token = process.env.GITHUB_TOKEN
 
+// Fetch GitHub contributors
 async function fetchGithubContributors() {
     const contributors = []
     let page = 1
@@ -36,10 +37,12 @@ async function fetchGithubContributors() {
         contributors.push(...pageContributors)
     
         page++
-    } while (response.headers.get('link')?.includes('; rel="next"'))
+    } while (response.headers.get('link')?.includes('; rel="next"')) // Continue if there's a next page
 
+    // Modify contributors data
     const modifiedContributors = contributors.map(({ login, url, avatar_url, }) => ({ name: login, url: url, image: avatar_url }))
 
+    // Define file path for contributors data
     const contributorsFolderPath = join(__dirname, '..', 'app', 'Contributors')
     const contributorsFilePath = join(contributorsFolderPath, 'contributors.json')
 
@@ -47,6 +50,7 @@ async function fetchGithubContributors() {
         mkdirSync(contributorsFolderPath, { recursive: true })
     }
 
+    // Write contributors data to file
     writeFileSync(contributorsFilePath, JSON.stringify(modifiedContributors, null, 2))
 
     console.log("Fetching contributors finished!");
@@ -55,4 +59,3 @@ async function fetchGithubContributors() {
 }
 
 fetchGithubContributors()
-
