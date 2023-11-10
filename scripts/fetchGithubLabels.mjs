@@ -1,8 +1,8 @@
 import fetch from 'node-fetch'
 import dotenv from 'dotenv'
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
-import { writeFileSync, existsSync, mkdirSync } from 'fs';
+import { fileURLToPath } from 'url'
+import { dirname, join } from 'path'
+import { writeFileSync, existsSync, mkdirSync } from 'fs'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -12,33 +12,43 @@ dotenv.config({ path: '.env.local' })
 const repo = 'cardano-foundation/CIPs'
 const token = process.env.GITHUB_TOKEN
 
+// Fetch GitHub labels
 async function fetchGithubLabels() {
-    const url = `https://api.github.com/repos/${repo}/labels`
+  const url = `https://api.github.com/repos/${repo}/labels`
 
-    const response = await fetch(url, {
-        headers: {
-            Authorization: `token ${token}`,
-        },
-    });
+  const response = await fetch(url, {
+    headers: {
+      Authorization: `token ${token}`,
+    },
+  })
 
-    if (!response.ok) {
-        throw new Error(`Failed to fetch labels: ${response.status} ${response.statusText}`)
-    }
+  if (!response.ok) {
+    throw new Error(
+      `Failed to fetch labels: ${response.status} ${response.statusText}`,
+    )
+  }
 
-    const labels = await response.json()
-    
-    const modifiedLabels = labels.map(({ name, color, description }) => ({ name, color, description }))
+  const labels = await response.json()
 
-    const labelsFolderPath = join(__dirname, '..', 'app', 'Labels')
-    const labelsFilePath = join(labelsFolderPath, 'labels.json')
+  // Modify labels data
+  const modifiedLabels = labels.map(({ name, color, description }) => ({
+    name,
+    color,
+    description,
+  }))
 
-    if (!existsSync(labelsFolderPath)) {
-        mkdirSync(labelsFolderPath, { recursive: true })
-    }
+  // Define file path for labels data
+  const labelsFolderPath = join(__dirname, '..', 'app', 'Labels')
+  const labelsFilePath = join(labelsFolderPath, 'labels.json')
 
-    writeFileSync(labelsFilePath, JSON.stringify(modifiedLabels, null, 2))
+  if (!existsSync(labelsFolderPath)) {
+    mkdirSync(labelsFolderPath, { recursive: true })
+  }
 
-    return modifiedLabels
+  // Write labels data to file
+  writeFileSync(labelsFilePath, JSON.stringify(modifiedLabels, null, 2))
+
+  return modifiedLabels
 }
 
 fetchGithubLabels()

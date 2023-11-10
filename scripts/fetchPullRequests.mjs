@@ -25,22 +25,30 @@ async function fetchGitHubData(url, token, destination_path) {
 
   if (response.ok) {
     const data = await response.json()
+    // Process each pull request in the data
     const promises = data.map(async (pr) => {
-      // Check if the pull request has the specified label
-      if (pr.labels.some(l => l.name === label)) {
+      // Check if pull request has the specified label
+      if (pr.labels.some((l) => l.name === label)) {
         console.log(`Pull request #${pr.number}: ${pr.title}`)
 
-        // Fetch the list of files for this pull request
+        // Fetch files for the pull request
         const filesResponse = await fetch(pr.url + '/files', { headers })
+
+        // Check if fetch was successful
         if (filesResponse.ok) {
           const files = await filesResponse.json()
+
+          // Download each file
           for (const file of files) {
-            // Download each file
-            await downloadFile(file.raw_url, path.join(destination_path, file.filename))
+            await downloadFile(
+              file.raw_url,
+              path.join(destination_path, file.filename),
+            )
           }
         }
       }
     })
+
     await Promise.all(promises)
   } else {
     console.error(
@@ -49,15 +57,21 @@ async function fetchGitHubData(url, token, destination_path) {
   }
 }
 
+// Function to download a file
 async function downloadFile(url, filePath) {
   const { default: fetch } = await import('node-fetch')
+
+  // Fetch file from URL
   const response = await fetch(url)
 
   if (response.ok) {
     const buffer = await response.buffer()
     const dirPath = path.dirname(filePath)
+
+    // Create directory if it doesn't exist
     fs.mkdirSync(dirPath, { recursive: true })
     fs.writeFileSync(filePath, buffer)
+
     console.log(`File downloaded successfully: ${filePath}`)
   } else {
     console.error(
