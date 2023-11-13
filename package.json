@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/fetchMainBranch.mjs && node scripts/fetchPullRequests.mjs && node scripts/fetchGithubData.mjs && next build",
+    "build": "node scripts/fetchMainBranch.mjs && node scripts/fetchPullRequests.mjs && node scripts/fetchGithubContributors.mjs && node scripts/fetchGithubLabels.mjs && node scripts/fetchGithubData.mjs && next build",
     "start": "next start",
     "lint": "next lint",
     "cypress": "cypress open"
