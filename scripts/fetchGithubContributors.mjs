@@ -40,7 +40,7 @@ async function fetchGithubContributors() {
     } while (response.headers.get('link')?.includes('; rel="next"')) // Continue if there's a next page
 
     // Modify contributors data
-    const modifiedContributors = contributors.map(({ login, url, avatar_url, }) => ({ name: login, url: url, image: avatar_url }))
+    const modifiedContributors = contributors.map(({ login, html_url, avatar_url, }) => ({ name: login, html_url: html_url, image: avatar_url }))
 
     // Define file path for contributors data
     const contributorsFolderPath = join(__dirname, '..', 'app', 'Contributors')
