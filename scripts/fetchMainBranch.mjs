@@ -94,8 +94,21 @@ async function downloadFile(url, filePath) {
   if (response.ok) {
     const buffer = await response.buffer()
     const dirPath = path.dirname(filePath)
+
+    // Change the file extension to .mdx
+    let fileName = path.basename(filePath, '.md') + '.mdx';
+
+    // If the file is README.md, rename it to page.mdx
+    if (fileName === 'README.mdx') {
+      fileName = 'page.mdx';
+    }
+
+    // Construct the new file path
+    const newFilePath = path.join(dirPath, fileName);
+    
+    // Create directory if it doesn't exist
     fs.mkdirSync(dirPath, { recursive: true })
-    fs.writeFileSync(filePath, buffer)
+    fs.writeFileSync(newFilePath, buffer)
 
     // If the file is a README file, extract and log the header
     if (filePath.endsWith('README.md')) {
