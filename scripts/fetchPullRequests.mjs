@@ -68,11 +68,22 @@ async function downloadFile(url, filePath) {
     const buffer = await response.buffer()
     const dirPath = path.dirname(filePath)
 
+    // Change the file extension to .mdx
+    let fileName = path.basename(filePath, '.md') + '.mdx';
+
+    // If the file is README.md, rename it to page.mdx
+    if (fileName === 'README.mdx') {
+      fileName = 'page.mdx';
+    }
+
+    // Construct the new file path
+    const newFilePath = path.join(dirPath, fileName);
+    
     // Create directory if it doesn't exist
     fs.mkdirSync(dirPath, { recursive: true })
-    fs.writeFileSync(filePath, buffer)
+    fs.writeFileSync(newFilePath, buffer)
 
-    console.log(`File downloaded successfully: ${filePath}`)
+    console.log(`File downloaded successfully: ${newFilePath}`)
   } else {
     console.error(
       `Failed to download file from ${url}. Status code: ${response.status}`,
