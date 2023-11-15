@@ -89,11 +89,11 @@ console.log('Stats from GitHub fetched successfully!');
 
 // Create stats object
 const stats = {
-    contributors: contributors,
-    cipFolders: cipNames,
-    cpsFolders: cpsNames,
-    mergedPrs: mergedPrs,
-    openPrs: openPrs,
+    Contributors: contributors,
+    CIPs: cipNames,
+    CPSs: cpsNames,
+    Merged: mergedPrs,
+    Open: openPrs,
 }
 
 // Convert stats object to JSON

@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import dotenv from 'dotenv'
+import formatCamelCase from '../lib/formatCamelCase.mjs'
 
 dotenv.config({ path: '.env.local' })
 
@@ -105,7 +106,7 @@ async function downloadFile(url, filePath) {
 
     // Construct the new file path
     const newFilePath = path.join(dirPath, fileName);
-    
+
     // Create directory if it doesn't exist
     fs.mkdirSync(dirPath, { recursive: true })
     fs.writeFileSync(newFilePath, buffer)
@@ -129,6 +130,16 @@ async function downloadFile(url, filePath) {
         }
         return obj
       }, {})
+
+      // Transform CIP/CPS field & URL field
+      if (header.CIP || header.CPS) {
+        const field = header.CIP ? 'CIP' : 'CPS';
+        header.Number = header[field];
+        header.Href = `/${field}s/${field}-${header.Number}`
+
+        delete header[field];
+      }
+
 
       // Transform the Authors field
       if (header.Authors) {
@@ -174,9 +185,35 @@ async function downloadFile(url, filePath) {
         }
       }
 
+      // Add status badge colour
+      switch (header.Status) {
+        case 'Proposed':
+        case 'Draft':
+          header['Status Badge Color'] = 'bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600'
+          break
+        case 'Solved':
+        case 'Active':
+          header['Status Badge Color'] = 'bg-cf-green-600/30 ring-cf-green-600/30 text-green-600'
+          break
+        case 'Inactive':
+          header['Status Badge Color'] = 'bg-cf-red-600/20 ring-cf-red-600/20 text-red-600'
+          break
+        case 'Open':
+          header['Status Badge Color'] = 'bg-cf-yellow-600/20 ring-cf-yellow-600/20 text-yellow-600'
+          break
+        default:
+          header['Status Badge Color'] = 'bg-white/10 ring-gray-100/10 text-slate-300'
+      }
+
+      // Format all headers in the header array to camel case
+      const formattedHeader = {};
+      Object.keys(header).forEach((key) => {
+        formattedHeader[formatCamelCase(key)] = header[key];
+      });
+
       // Add the header to the headers array
       const category = filePath.includes('CIP') ? 'CIPs' : 'CPSs'
-      fileHeaders[category].push(header)
+      fileHeaders[category].push(formattedHeader)
     }
   } else {
     console.error(
