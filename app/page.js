@@ -1,5 +1,6 @@
 import StatCard from '@/components/StatCard'
 import CipList from '@/components/CipList'
+import Stats from '@/app/Stats/stats.json'
 
 export default function Home() {
   const stats = [
@@ -44,14 +45,10 @@ export default function Home() {
           </h1>
 
           <div className="mt-24 grid w-full grid-cols-1 gap-6 sm:grid-cols-3 md:gap-9 lg:grid-cols-5 lg:gap-4">
-            {stats.map((stat, index) => (
-              <StatCard
-                key={index}
-                stat={stat.stat}
-                icon={stat.icon}
-                alt={stat.alt}
-                description={stat.description}
-              />
+            {Stats.stats.map((stat, index) => (
+              Object.entries(stat).map(([key, value], subIndex) => (
+                <StatCard key={`${index}-${subIndex}`} className="your-class-name" data={{[key]: value}} />
+              ))
             ))}
           </div>
           <CipList className="w-full mt-24" />

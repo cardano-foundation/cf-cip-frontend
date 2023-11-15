@@ -73,6 +73,23 @@ module.exports = {
       }
     },
   },
+  safelist: [
+    'bg-white/10',
+    'ring-gray-100/10',
+    'text-slate-300',
+    'bg-cf-green-600/30',
+    'ring-cf-green-600/30',
+    'text-green-600',
+    'bg-cf-red-600/20',
+    'ring-cf-red-600/20',
+    'text-red-600',
+    'bg-cf-yellow-600/20',
+    'ring-cf-yellow-600/20',
+    'text-yellow-600',
+    'bg-cf-blue-600/30',
+    'ring-cf-blue-600/30',
+    'text-blue-600',
+  ],
   plugins: [
     require('@tailwindcss/typography'),
     require('@tailwindcss/forms'),

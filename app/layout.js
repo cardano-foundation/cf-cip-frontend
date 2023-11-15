@@ -12,7 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={chivo.className}>
+      <body className={`${chivo.className} bg-cf-blue-900`}>
         <Navigation />
         {children}
       </body>
