@@ -6,7 +6,7 @@ import formatCamelCase from '../lib/formatCamelCase.mjs'
 dotenv.config({ path: '.env.local' })
 
 const repo = 'CIPs'
-const destination_path = 'app'
+const destination_path = './'
 const owner = 'cardano-foundation'
 const github_token = process.env.GITHUB_TOKEN
 const url = `https://api.github.com/repos/${owner}/${repo}/contents`
@@ -46,12 +46,11 @@ async function fetchGitHubData(url, token, destination_path) {
         // Fetch data for the directory
         await fetchGitHubData(item.url, token, dirPath)
       } else if (item.type === 'file') {
+
         // Set file path based on whether item path includes 'CIP' or 'CPS'
         let filePath = ''
-        if (item.path.includes('CIP')) {
-          filePath = `${destination_path}/CIPs/${item.path}`
-        } else if (item.path.includes('CPS')) {
-          filePath = `${destination_path}/CPSs/${item.path}`
+        if (item.path.includes('CIP') || item.path.includes('CPS')) {
+          filePath = `${destination_path}/${item.name}`
         }
 
         // Download file if file path is set
@@ -135,7 +134,7 @@ async function downloadFile(url, filePath) {
       if (header.CIP || header.CPS) {
         const field = header.CIP ? 'CIP' : 'CPS';
         header.Number = header[field];
-        header.Href = `/${field}s/${field}-${header.Number}`
+        header.Href = `/${field}s/${field}-${header.Number}`;
 
         delete header[field];
       }

@@ -1,6 +1,6 @@
 import Filters from "@/components/Filters"
 import ListGroup from "@/components/ListGroup"
-import table from "@/app/CIPs/table.json"
+import table from "@/CIPs/table.json"
 
 const CipList = ({ className, ...props }) => (
   <div className={`${className}`}>

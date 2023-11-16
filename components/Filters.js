@@ -14,18 +14,24 @@ const filters = [
     id: 'category',
     name: 'Category',
     options: [
-      { value: 'ledger', label: 'Ledger' },
       { value: 'meta', label: 'Meta' },
-      { value: 'metadata', label: 'metadata' },
+      { value: 'wallets', label: 'Wallets' },
+      { value: 'tokens', label: 'Tokens' },
+      { value: 'metadata', label: 'Metadata' },
+      { value: 'tools', label: 'Tools' },
+      { value: 'plutus', label: 'Plutus' },
+      { value: 'ledger', label: 'Ledger' },
+      { value: 'catalyst', label: 'Catalyst' },
     ],
   },
   {
     id: 'status',
     name: 'Status',
     options: [
-      { value: 'active', label: 'Active' },
       { value: 'proposed', label: 'Proposed' },
-      { value: 'draft', label: 'Draft' },
+      { value: 'active', label: 'Active' },
+      { value: 'Inactive', label: 'Inactive' },
+      { value: 'Draft', label: 'Draft' },
     ],
   },
 ]

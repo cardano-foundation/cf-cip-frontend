@@ -48,8 +48,8 @@ const Navigation = () => {
                       key={item.name}
                       href={item.href}
                       className={classNames(
-                        item.current ? 'underline text-cf-gray-100' : 'hover:text-cf-gray-100',
-                        'text-slate-50 px-2 py-2'
+                        item.current ? 'text-cf-gray-100' : 'hover:text-cf-gray-100',
+                        'text-slate-50 px-2 py-2 hover:text-cf-gray-100'
                       )}
                       aria-current={item.current ? 'page' : undefined}
                     >

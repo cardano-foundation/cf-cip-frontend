@@ -1,0 +1,1912 @@
+[
+  {
+    "title": "Cardano Improvement Proposals",
+    "status": "Active",
+    "category": "Meta",
+    "authors": [
+      {
+        "name": "Frederic Johnson",
+        "email": "frederic@advanceweb3.com"
+      },
+      {
+        "name": "Sebastien Guillemot",
+        "email": "sebastien@dcspark.io"
+      },
+      {
+        "name": "Matthias Benkort",
+        "email": "matthias.benkort@cardanofoundation.org"
+      },
+      {
+        "name": "Duncan Coutts",
+        "email": "duncan.coutts@iohk.io"
+      },
+      {
+        "name": "Michael Peyton Jones",
+        "email": "michael.peyton-jones@iohk.io"
+      }
+    ],
+    "implementors": [
+      {
+        "name": "N/A",
+        "url": ""
+      }
+    ],
+    "discussions": [
+      "https://github.com/cardano-foundation/cips/pull/366",
+      "https://github.com/cardano-foundation/cips/pull/331",
+      "https://github.com/cardano-foundation/CIPs/tree/3da306f3bfe89fa7de8fe1bf7a436682aeee25c5/CIP-0001#abstract"
+    ],
+    "created": "2020-03-21",
+    "license": "CC-BY-4.0",
+    "number": "1",
+    "href": "/CIPs/CIP-1",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "Wallet Key Generation",
+    "status": "Active",
+    "category": "Wallets",
+    "authors": [
+      {
+        "name": "Matthias Benkort",
+        "email": "matthias.benkort@cardanofoundation.org"
+      },
+      {
+        "name": "Sebastien Guillemot",
+        "email": "seba@dcspark.io"
+      }
+    ],
+    "implementors": [
+      {
+        "name": "Matthias Benkort",
+        "url": "matthias.benkort@cardanofoundation.org"
+      },
+      {
+        "name": "Sebastien Guillemot",
+        "url": "seba@dcspark.io"
+      }
+    ],
+    "discussions": [
+      "https://github.com/input-output-hk/implementation-decisions/pull/18",
+      "https://github.com/cardano-foundation/cips/pull/33",
+      "https://github.com/cardano-foundation/cips/pull/76",
+      "https://github.com/cardano-foundation/cips/pull/132"
+    ],
+    "created": "2020-05-07",
+    "license": "CC-BY-4.0",
+    "number": "3",
+    "href": "/CIPs/CIP-3",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "Explicit Collateral Output",
+    "authors": [
+      {
+        "name": "Sebastien Guillemot",
+        "email": "seba@dcspark.io>, Jared Cordua"
+      }
+    ],
+    "status": "Active",
+    "type": "Standards",
+    "created": "2022-02-10",
+    "license": "CC-BY-4.0",
+    "number": "40",
+    "href": "/CIPs/CIP-40",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "Cardano Off-Chain Metadata",
+    "authors": [
+      {
+        "name": "Matthias Benkort",
+        "email": "matthias.benkort@iohk.io>, Michael Peyton Jone"
+      }
+    ],
+    "commentsSummary": "No comments yet",
+    "commentsURI": "https://github.com/CardanoFoundation/CIPs/pulls/112",
+    "status": "Draft",
+    "type": "Process",
+    "created": "2021-08-10",
+    "license": "CC-BY-4.0",
+    "number": "26",
+    "href": "/CIPs/CIP-26",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "Sums-of-products in Plutus Core",
+    "authors": [
+      {
+        "name": "Michael Peyton Jones",
+        "email": "michael.peyton-jones@iohk.io"
+      }
+    ],
+    "implementors": [
+      {
+        "name": "Michael Peyton Jones",
+        "url": "michael.peyton-jones@iohk.io"
+      }
+    ],
+    "status": "Proposed",
+    "category": "Plutus",
+    "created": "2023-01-30",
+    "discussions": [
+      "https://github.com/cardano-foundation/CIPs/pull/455"
+    ],
+    "license": "CC-BY-4.0",
+    "number": "85",
+    "href": "/CIPs/CIP-85",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "Datum Metadata Standard",
+    "status": "Active",
+    "category": "Tokens",
+    "authors": [
+      {
+        "name": "Alessandro Konrad",
+        "email": "alessandro.konrad@live.de"
+      },
+      {
+        "name": "Thomas Vellekoop",
+        "email": "thomas.vellekoop@iohk.io"
+      }
+    ],
+    "implementors": [
+      {
+        "name": "Alessandro Konrad (SpaceBudz)",
+        "url": ""
+      },
+      {
+        "name": "5Binaries (Blockfrost)",
+        "url": ""
+      },
+      {
+        "name": "Smaug (Pool.pm)",
+        "url": ""
+      }
+    ],
+    "discussions": [
+      "https://github.com/cardano-foundation/CIPs/pull/299",
+      "https://github.com/cardano-foundation/CIPs/pull/359",
+      "https://github.com/cardano-foundation/CIPs/pull/458",
+      "https://github.com/cardano-foundation/CIPs/pull/471",
+      "https://github.com/cardano-foundation/CIPs/pull/494",
+      "https://github.com/cardano-foundation/CIPs/issues/520"
+    ],
+    "created": "2022-07-13",
+    "license": "CC-BY-4.0",
+    "number": "68",
+    "href": "/CIPs/CIP-68",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "Transaction Serialization Deprecation Cycle",
+    "status": "Active",
+    "category": "Ledger",
+    "authors": [
+      {
+        "name": "Jared Corduan",
+        "email": "jared.corduan@iohk.io"
+      }
+    ],
+    "implementors": [
+      {
+        "name": "N/A",
+        "url": ""
+      }
+    ],
+    "discussions": [
+      "https://github.com/cardano-foundation/CIPs/pull/372"
+    ],
+    "created": "2022-11-09",
+    "license": "CC-BY-4.0",
+    "number": "80",
+    "href": "/CIPs/CIP-80",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "Inline datums",
+    "authors": [
+      {
+        "name": "Michael Peyton Jones",
+        "email": "michael.peyton-jones@iohk.io"
+      }
+    ],
+    "implementors": [
+      {
+        "name": "Michael Peyton Jones",
+        "url": "michael.peyton-jones@iohk.io"
+      },
+      {
+        "name": "Jared Corduan",
+        "url": "jared.corduan@iohk.io"
+      }
+    ],
+    "status": "Active",
+    "category": "Plutus",
+    "created": "2021-11-29",
+    "license": "CC-BY-4.0",
+    "number": "32",
+    "href": "/CIPs/CIP-32",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "Fair Stake Pool Rewards",
+    "status": "Proposed",
+    "category": "Ledger",
+    "authors": [
+      {
+        "name": "Tobias Fancee",
+        "email": "tobiasfancee@gmail.com"
+      }
+    ],
+    "implementors": [
+      {
+        "name": "[]",
+        "url": ""
+      }
+    ],
+    "discussions": [
+      "https://forum.cardano.org/t/cip-fair-stakepool-rewards/109368"
+    ],
+    "created": "2022-10-21",
+    "license": "CC-BY-4.0",
+    "number": "75",
+    "href": "/CIPs/CIP-75",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "Pool operator verification",
+    "authors": [
+      {
+        "name": "Andrew Westberg",
+        "email": "andrewwestberg@gmail.com>, Martin Lan"
+      }
+    ],
+    "commentsURI": "no comments yet",
+    "status": "Active",
+    "type": "Informational",
+    "created": "2021-06-21",
+    "license": "CC-BY-4.0",
+    "number": "22",
+    "href": "/CIPs/CIP-22",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "HD (Hierarchy for Deterministic) Stake Pool Cold Keys for Cardano",
+    "authors": [
+      {
+        "name": "Rafael Korbas",
+        "email": "rafael.korbas@vacuumlabs.com"
+      }
+    ],
+    "commentsURI": "https://forum.cardano.org/t/stake-pool-cold-keys-hd-derivation/43360",
+    "status": "Active",
+    "type": "Standards",
+    "created": "2020-12-14",
+    "license": "CC-BY-4.0",
+    "number": "1853",
+    "href": "/CIPs/CIP-1853",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "New Plutus built-in serialiseData",
+    "authors": [
+      {
+        "name": "Matthias Benkort",
+        "email": "matthias.benkort@iohk.io>, Sebastian Nage"
+      }
+    ],
+    "discussionsTo": "https://github.com/cardano-foundation/CIPs/pull/218",
+    "commentsURI": "https://github.com/cardano-foundation/CIPs/pull/218",
+    "category": "Plutus",
+    "status": "Active",
+    "type": "Standards Track",
+    "created": "2022-02-09",
+    "license": "Apache-2.0",
+    "requires": "CIP-35",
+    "number": "42",
+    "href": "/CIPs/CIP-42",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "ECDSA and Schnorr signatures in Plutus Core",
+    "authors": [
+      {
+        "name": "Koz Ross (koz@mlabs.city), Michael Peyton-Jones (michael.peyton-jones@iohk.io), Iñigo Querejeta Azurmendi (querejeta.azurmendi@iohk.io)",
+        "email": ""
+      }
+    ],
+    "discussionsTo": "koz@mlabs.city",
+    "status": "Proposed",
+    "type": "Standards Track",
+    "created": "2022-04-27",
+    "number": "49",
+    "href": "/CIPs/CIP-49",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "Royalty Datum Metadata",
+    "authors": "",
+    "SamDelaney<sdelaney@ikigaitech.org>": "",
+    "implementors": "",
+    "Grabbit<https": "//grabbit.market/>",
+    "Nebula<https": "//github.com/spacebudz/nebula/>",
+    "discussions": "",
+    "Https": "//github.com/cardano-foundation/CIPs/pull/551",
+    "status": "Proposed",
+    "category": "Tokens",
+    "created": "2023-08-08",
+    "license": "CC-BY-4.0",
+    "number": "102",
+    "href": "/CIPs/CIP-102",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "HD (Hierarchy for Deterministic) Wallets for Cardano",
+    "authors": [
+      {
+        "name": "Sebastien Guillemot",
+        "email": "sebastien@emurgo.io>, Matthias Benkor"
+      }
+    ],
+    "commentsURI": "https://forum.cardano.org/t/cip1852-hd-wallets-for-cardano/41740",
+    "status": "Active",
+    "type": "Standards",
+    "created": "2019-10-28",
+    "license": "CC-BY-4.0",
+    "number": "1852",
+    "href": "/CIPs/CIP-1852",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "CNFT Community Royalties Standard",
+    "authors": [
+      {
+        "name": "Huth S0lo",
+        "email": "john@digitalsyndicate.io>, TheRealAdamDea"
+      }
+    ],
+    "commentsURI": "https://forum.cardano.org/t/cip-royalties/68599",
+    "status": "Active",
+    "type": "Informational",
+    "created": "2021-08-29",
+    "license": "Apache-2.0",
+    "number": "27",
+    "href": "/CIPs/CIP-27",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "Registration Transaction Metadata Format",
+    "category": "Metadata",
+    "status": "Active",
+    "authors": [
+      {
+        "name": "Sebastien Guillemot",
+        "email": "sebastien@dcspark.io>"
+      },
+      {
+        "name": "Rinor Hoxha",
+        "email": "rinor.hoxha@iohk.io>"
+      },
+      {
+        "name": "Mikhail Zabaluev",
+        "email": "mikhail.zabaluev@iohk.io"
+      }
+    ],
+    "implementors": [
+      {
+        "name": "Daedalus",
+        "url": "https://daedaluswallet.io/>"
+      },
+      {
+        "name": "DcSpark",
+        "url": "https://www.dcspark.io/>"
+      },
+      {
+        "name": "Eternl",
+        "url": "https://eternl.io/>"
+      },
+      {
+        "name": "Flint",
+        "url": "https://flint-wallet.com/>"
+      },
+      {
+        "name": "Project Catalyst",
+        "url": "https://projectcatalyst.io/>"
+      },
+      {
+        "name": "Typhon",
+        "url": "https://typhonwallet.io/>"
+      },
+      {
+        "name": "Yoroi",
+        "url": "https://yoroi-wallet.com/"
+      }
+    ],
+    "discussions": [
+      "https://forum.cardano.org/t/cip-catalyst-registration-metadata-format/44038",
+      "https://github.com/cardano-foundation/cips/pulls/58"
+    ],
+    "created": "2020-01-05",
+    "license": "CC-BY-4.0",
+    "number": "15",
+    "href": "/CIPs/CIP-15",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "Plutus Bitwise Primitives",
+    "category": "Plutus",
+    "authors": [
+      {
+        "name": "Koz Ross",
+        "email": "koz@mlabs.city"
+      },
+      {
+        "name": "Maximilian König",
+        "email": "maximilian@mlabs.city"
+      }
+    ],
+    "implementors": [
+      {
+        "name": "Las Safin",
+        "url": "me@las.rs"
+      }
+    ],
+    "status": "Proposed",
+    "discussions": [
+      "https://github.com/cardano-foundation/CIPs/pull/283",
+      "https://github.com/input-output-hk/plutus/issues/4252",
+      "https://github.com/input-output-hk/plutus/pull/4733"
+    ],
+    "created": "2022-05-27",
+    "license": "Apache-2.0",
+    "number": "58",
+    "href": "/CIPs/CIP-58",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "Fair Min Fees",
+    "authors": [
+      {
+        "name": "Shawn McMurdo",
+        "email": "shawn_mcmurdo@yahoo.com"
+      }
+    ],
+    "category": "Ledger",
+    "status": "Proposed",
+    "created": "2021-02-04",
+    "discussions": "",
+    "Https": "//github.com/cardano-foundation/CIPs/pull/66",
+    "implementors": [
+      {
+        "name": "[]",
+        "url": ""
+      }
+    ],
+    "license": "CC-BY-4.0",
+    "number": "23",
+    "href": "/CIPs/CIP-23",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "Protocol Parameters (Shelley Era)",
+    "authors": [
+      {
+        "name": "Kevin Hammond",
+        "email": "kevin.hammond@iohk.io"
+      }
+    ],
+    "status": "Active",
+    "type": "Informational",
+    "created": "2021-01-29",
+    "license": "CC-BY-4.0",
+    "number": "9",
+    "href": "/CIPs/CIP-9",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "Improved Rewards Scheme Parameters",
+    "status": "Proposed",
+    "category": "Ledger",
+    "authors": [
+      {
+        "name": "Tobias Fancee",
+        "email": "tobiasfancee@gmail.com"
+      }
+    ],
+    "implementors": [
+      {
+        "name": "[]",
+        "url": ""
+      }
+    ],
+    "discussions": [
+      "https://forum.cardano.org/t/cip-improved-rewards-scheme-parameters/112409"
+    ],
+    "created": "2022-01-03",
+    "license": "CC-BY-4.0",
+    "number": "82",
+    "href": "/CIPs/CIP-82",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "Dynamic Saturation",
+    "authors": [
+      {
+        "name": "Casey Gibson",
+        "email": "caseygibson@protonmail.ch"
+      }
+    ],
+    "status": "Proposed",
+    "type": "Standards Track",
+    "created": "2021-12-03",
+    "updated": "2022-07-19",
+    "license": "CC-BY-4.0",
+    "number": "37",
+    "href": "/CIPs/CIP-37",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "Reference scripts",
+    "authors": [
+      {
+        "name": "Michael Peyton Jones",
+        "email": "michael.peyton-jones@iohk.io"
+      }
+    ],
+    "implementors": [
+      {
+        "name": "Michael Peyton Jones",
+        "url": "michael.peyton-jones@iohk.io"
+      },
+      {
+        "name": "Jared Corduan",
+        "url": "jared.corduan@iohk.io"
+      }
+    ],
+    "status": "Active",
+    "category": "Plutus",
+    "created": "2021-11-29",
+    "license": "CC-BY-4.0",
+    "requires": "CIP-31",
+    "number": "33",
+    "href": "/CIPs/CIP-33",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "Stake Pool Extended Metadata",
+    "authors": [
+      {
+        "name": "Markus Gufler",
+        "email": "gufmar@gmail.com>, Mike Fullma"
+      }
+    ],
+    "commentsURI": "https://github.com/cardano-foundation/CIPs/pull/15",
+    "status": "Draft",
+    "type": "Standards",
+    "created": "2020-07-20",
+    "updated": "2020-11-24 2nd key-pair for validation 2021-02-08 json schema",
+    "license": "CC-BY-4.0",
+    "number": "6",
+    "href": "/CIPs/CIP-6",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "Phase-1 Monetary Scripts Serialization Formats",
+    "authors": [
+      {
+        "name": "Matthias Benkort",
+        "email": "matthias.benkort@iohk.io"
+      }
+    ],
+    "commentsURI": "https://github.com/cardano-foundation/CIPs/pulls/117",
+    "status": "Active",
+    "type": "Standards",
+    "created": "2020-08-17",
+    "license": "CC-BY-4.0",
+    "number": "29",
+    "href": "/CIPs/CIP-29",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "Cardano dApp-Wallet Web Bridge",
+    "status": "Active",
+    "category": "Wallets",
+    "authors": [
+      {
+        "name": "rooooooooob",
+        "email": ""
+      }
+    ],
+    "implementors": [
+      {
+        "name": "Begin",
+        "url": "https://begin.is/"
+      },
+      {
+        "name": "Eternl",
+        "url": "https://eternl.io/"
+      },
+      {
+        "name": "Flint",
+        "url": "https://flint-wallet.com/"
+      },
+      {
+        "name": "GeroWallet",
+        "url": "https://www.gerowallet.io/"
+      },
+      {
+        "name": "Lace",
+        "url": "https://www.lace.io/"
+      },
+      {
+        "name": "Nami",
+        "url": "https://namiwallet.io/"
+      },
+      {
+        "name": "NuFi",
+        "url": "https://nu.fi/"
+      },
+      {
+        "name": "RayWallet",
+        "url": "https://raywallet.io/"
+      },
+      {
+        "name": "Yoroi",
+        "url": "https://yoroi-wallet.com/"
+      }
+    ],
+    "discussions": [
+      "https://github.com/cardano-foundation/CIPs/pull/88",
+      "https://github.com/cardano-foundation/CIPs/pull/148",
+      "https://github.com/cardano-foundation/CIPs/pull/151",
+      "https://github.com/cardano-foundation/CIPs/pull/183",
+      "https://github.com/cardano-foundation/CIPs/pull/208",
+      "https://github.com/cardano-foundation/CIPs/pull/323",
+      "https://github.com/cardano-foundation/CIPs/issues/169",
+      "https://github.com/cardano-foundation/CIPs/issues/178",
+      "https://github.com/cardano-foundation/CIPs/issues/204",
+      "https://github.com/cardano-foundation/CIPs/issues/253",
+      "https://github.com/cardano-foundation/CIPs/issues/386",
+      "https://github.com/cardano-foundation/CIPs/issues/404",
+      "https://github.com/cardano-foundation/CIPs/issues/419",
+      "https://github.com/cardano-foundation/CIPs/pull/446"
+    ],
+    "created": "2021-04-29",
+    "license": "CC-BY-4.0",
+    "number": "30",
+    "href": "/CIPs/CIP-30",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "Wallet Checksums",
+    "status": "Proposed",
+    "category": "Wallets",
+    "authors": [
+      {
+        "name": "Ruslan Dudin",
+        "email": "ruslan@emurgo.io"
+      },
+      {
+        "name": "Sebastien Guillemot",
+        "email": "seba@dcspark.io"
+      }
+    ],
+    "implementors": [
+      {
+        "name": "Ruslan Dudin",
+        "url": "ruslan@emurgo.io"
+      },
+      {
+        "name": "Sebastien Guillemot",
+        "url": "seba@dcspark.io"
+      }
+    ],
+    "discussions": [
+      "https://forum.cardano.org/t/cip4-wallet-checksum/32819",
+      "https://github.com/cardano-foundation/CIPs/pull/4"
+    ],
+    "created": "2019-05-01",
+    "license": "Apache-2.0",
+    "number": "4",
+    "href": "/CIPs/CIP-4",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "Non-Centralizing Rankings",
+    "authors": [
+      {
+        "name": "Shawn McMurdo",
+        "email": "shawn_mcmurdo@yahoo.com"
+      }
+    ],
+    "category": "Wallets",
+    "status": "Proposed",
+    "discussions": [
+      "https://forum.cardano.org/t/how-to-improve-daedalus-rankings/40478",
+      "https://github.com/cardano-foundation/CIPs/pull/21"
+    ],
+    "implementors": [
+      {
+        "name": "[]",
+        "url": ""
+      }
+    ],
+    "created": "2020-09-15",
+    "license": "CC-BY-4.0",
+    "number": "24",
+    "href": "/CIPs/CIP-24",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "Cardano audit best practice guidelines",
+    "authors": [
+      {
+        "name": "Simon Thompson",
+        "email": "simon.thompson@iohk.io"
+      }
+    ],
+    "commentsSummary": "No comments yet.",
+    "commentsURI": "https://github.com/cardano-foundation/CIPs/wiki/Comments:CIP-0052",
+    "status": "Proposed",
+    "type": "Process",
+    "created": "2022-04-25",
+    "license": "CC-BY-4.0",
+    "number": "52",
+    "href": "/CIPs/CIP-52",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "Protocol Parameters (Alonzo Era)",
+    "authors": [
+      {
+        "name": "Kevin Hammond",
+        "email": "kevin.hammond@iohk.io"
+      }
+    ],
+    "status": "Active",
+    "type": "Informational",
+    "created": "2021-10-14",
+    "license": "CC-BY-4.0",
+    "requires": "CIP-0009",
+    "number": "28",
+    "href": "/CIPs/CIP-28",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "Staking key chain for HD wallets",
+    "authors": [
+      {
+        "name": "Sebastien Guillemot",
+        "email": "sebastien@emurgo.io>, Matthias Benkor"
+      }
+    ],
+    "commentsURI": "https://forum.cardano.org/t/staking-key-chain-for-hd-wallets/41857",
+    "status": "Active",
+    "type": "Standards",
+    "created": "2020-11-04",
+    "license": "CC-BY-4.0",
+    "number": "11",
+    "href": "/CIPs/CIP-11",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "Transaction Metadata Label Registry",
+    "authors": [
+      {
+        "name": "Sebastien Guillemot",
+        "email": "sebastien@emurgo.io"
+      }
+    ],
+    "commentsURI": "https://forum.cardano.org/t/cip10-transaction-metadata-label-registry/41746",
+    "status": "Active",
+    "type": "Standards",
+    "created": "2020-10-31",
+    "license": "CC-BY-4.0",
+    "number": "10",
+    "href": "/CIPs/CIP-10",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "Cardano Addresses",
+    "authors": [
+      {
+        "name": "Matthias Benkort",
+        "email": "matthias.benkort@iohk.io"
+      }
+    ],
+    "commentsSummary": "A description of the structure of addresses in Cardano.",
+    "commentsURI": "https://github.com/cardano-foundation/CIPs/wiki/Comments:CIP-0019",
+    "status": "Active",
+    "type": "Standards",
+    "created": "2020-03-25",
+    "license": "CC-BY-4.0",
+    "number": "19",
+    "href": "/CIPs/CIP-19",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "Cardano URI Scheme",
+    "status": "Proposed",
+    "category": "Wallets",
+    "authors": [
+      {
+        "name": "Robert Phair",
+        "email": "rphair@cosd.com"
+      },
+      {
+        "name": "Sebastien Guillemot",
+        "email": "sebastien@emurgo.io"
+      },
+      {
+        "name": "Vicente Almonacid",
+        "email": "vicente@emurgo.io"
+      }
+    ],
+    "implementors": [
+      {
+        "name": "N/A",
+        "url": ""
+      }
+    ],
+    "discussions": [
+      "https://github.com/Emurgo/EmIPs/pull/2",
+      "https://forum.cardano.org/t/cip-cardano-payment-uri-scheme/41457",
+      "https://github.com/cardano-foundation/CIPs/pull/25",
+      "https://github.com/cardano-foundation/CIPs/pull/61",
+      "https://github.com/cardano-foundation/CIPs/pull/86",
+      "https://forum.cardano.org/t/cip-stake-uri-scheme-for-pools-delegation-portfolios/40594",
+      "https://forum.cardano.org/t/cip-generalized-cardano-urls/57464",
+      "https://github.com/cardano-foundation/CIPs/pull/546",
+      "https://github.com/cardano-foundation/CIPs/pull/559"
+    ],
+    "created": "2020-09-22",
+    "license": "CC-BY-4.0",
+    "number": "13",
+    "href": "/CIPs/CIP-13",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "Chain ID Registry",
+    "authors": [
+      {
+        "name": "Sebastien Guillemot",
+        "email": "seba@dcspark.io"
+      }
+    ],
+    "commentsURI": "No comments",
+    "status": "Draft",
+    "type": "Informational",
+    "created": "2021-11-24",
+    "license": "CC-BY-4.0",
+    "number": "34",
+    "href": "/CIPs/CIP-34",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "Script Signature Unification",
+    "category": "Plutus",
+    "authors": [
+      {
+        "name": "Maksymilian 'zygomeb' Brodowicz",
+        "email": "zygomeb@gmail.com"
+      }
+    ],
+    "implementors": [
+      {
+        "name": "N/A",
+        "url": ""
+      }
+    ],
+    "status": "Proposed",
+    "discussions": [
+      "https://github.com/cardano-foundation/CIPs/pull/321"
+    ],
+    "created": "2022-08-23",
+    "license": "CC-BY-4.0",
+    "number": "69",
+    "href": "/CIPs/CIP-69",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "Encrypted Transaction message/comment metadata (Addendum to CIP-0020)",
+    "status": "Active",
+    "category": "Metadata",
+    "authors": [
+      {
+        "name": "Martin Lang",
+        "email": "martin@martinlang.at"
+      },
+      {
+        "name": "Ola Ahlman",
+        "email": "ola@ahlnet.nu"
+      },
+      {
+        "name": "Andrew Westberg",
+        "email": "andrewwestberg@gmail.com"
+      },
+      {
+        "name": "Adam Dean",
+        "email": "adam@crypto2099.io"
+      }
+    ],
+    "implementors": [
+      {
+        "name": "Cardano Explorer",
+        "url": "https://cexplorer.io"
+      },
+      {
+        "name": "StakePoolOperator Scripts",
+        "url": "https://github.com/gitmachtl/scripts"
+      },
+      {
+        "name": "AdaStat.net",
+        "url": "https://adastat.net"
+      },
+      {
+        "name": "Eternl Wallet",
+        "url": "https://eternl.io"
+      },
+      {
+        "name": "CNTools",
+        "url": "https://cardano-community.github.io/guild-operators/#/Scripts/cntools"
+      },
+      {
+        "name": "JorManager",
+        "url": "https://bitbucket.org/muamw10/jormanager/"
+      },
+      {
+        "name": "Cardanoscan.io",
+        "url": "https://cardanoscan.io"
+      }
+    ],
+    "discussions": [
+      "https://github.com/cardano-foundation/CIPs/pull/394"
+    ],
+    "created": "2022-12-08",
+    "license": "CC-BY-4.0",
+    "number": "83",
+    "href": "/CIPs/CIP-83",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "User-Facing Asset Fingerprint",
+    "authors": [
+      {
+        "name": "Matthias Benkort",
+        "email": "matthias.benkort@iohk.io>, Rodney Lorrima"
+      }
+    ],
+    "commentsSummary": "A common format for displaying a user-facing identifier for assets.",
+    "commentsURI": "https://github.com/cardano-foundation/CIPs/wiki/Comments:CIP-0014",
+    "status": "Active",
+    "type": "Standards",
+    "created": "2020-02-01",
+    "license": "CC-BY-4.0",
+    "number": "14",
+    "href": "/CIPs/CIP-14",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "Music Token Metadata",
+    "authors": [
+      {
+        "name": "Andrew Westberg",
+        "email": "awestberg@projectnewm.io>, Ryan Jone"
+      }
+    ],
+    "commentsURI": "no comments yet",
+    "status": "Active",
+    "type": "Process",
+    "created": "2022-07-26",
+    "license": "CC-BY-4.0",
+    "number": "60",
+    "href": "/CIPs/CIP-60",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "Cardano dApp Registration & Discovery",
+    "status": "Proposed",
+    "category": "Metadata",
+    "authors": [
+      {
+        "name": "Bruno Martins",
+        "email": "bruno.martins@iohk.io"
+      },
+      {
+        "name": "Mateusz Czeladka",
+        "email": "mateusz.czeladka@cardanofoundation.org"
+      }
+    ],
+    "implementors": [
+      {
+        "name": "[\"Lace Wallet dApp Store\", \"DappsOnCardano dApp Store\"]",
+        "url": ""
+      }
+    ],
+    "discussions": [
+      "https://github.com/cardano-foundation/CIPs/pull/355"
+    ],
+    "created": "2022-10-18",
+    "license": "CC-BY-4.0",
+    "number": "72",
+    "href": "/CIPs/CIP-72",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "Reference inputs",
+    "authors": [
+      {
+        "name": "Michael Peyton Jones",
+        "email": "michael.peyton-jones@iohk.io"
+      }
+    ],
+    "implementors": [
+      {
+        "name": "Michael Peyton Jones",
+        "url": "michael.peyton-jones@iohk.io"
+      },
+      {
+        "name": "Jared Corduan",
+        "url": "jared.corduan@iohk.io"
+      }
+    ],
+    "status": "Active",
+    "category": "Plutus",
+    "created": "2021-11-29",
+    "license": "CC-BY-4.0",
+    "number": "31",
+    "href": "/CIPs/CIP-31",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "Transaction requirements for interoperability with hardware wallets",
+    "authors": [
+      {
+        "name": "Gabriel Kerekes",
+        "email": "gabriel.kerekes@vacuumlabs.com>, Rafael Korba"
+      }
+    ],
+    "status": "Active",
+    "type": "Informational",
+    "created": "2021-06-15",
+    "license": "CC-BY-4.0",
+    "number": "21",
+    "href": "/CIPs/CIP-21",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "Terminology Surrounding Core Features",
+    "authors": [
+      {
+        "name": "Jared Corduan",
+        "email": "jared.corduan@iohk.io"
+      }
+    ],
+    "status": "Active",
+    "type": "Informational",
+    "created": "2022-06-09",
+    "license": "CC-BY-4.0",
+    "number": "59",
+    "href": "/CIPs/CIP-59",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "Pledge Leverage-Based Staking Rewards",
+    "status": "Proposed",
+    "category": "Ledger",
+    "authors": [
+      {
+        "name": "Michael Liesenfelt",
+        "email": "michael.liesenfelt@gmail.com"
+      }
+    ],
+    "implementors": [
+      {
+        "name": "N/A",
+        "url": ""
+      }
+    ],
+    "discussions": [
+      "https://github.com/cardano-foundation/CIPs/pull/242",
+      "https://forum.cardano.org/t/cip-shelley-s-basho-voltaire-decentralization-update/97685",
+      "https://forum.cardano.org/t/minimum-pool-fees-with-a-brief-mention-of-k-changes/97002/82"
+    ],
+    "created": "2022-04-04",
+    "license": "CC-BY-4.0",
+    "number": "50",
+    "href": "/CIPs/CIP-50",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "Cardano Ledger Evolution",
+    "status": "Active",
+    "category": "Meta",
+    "authors": [
+      {
+        "name": "Jared Corduan",
+        "email": "jared.corduan@iohk.io"
+      }
+    ],
+    "implementors": [
+      {
+        "name": "N/A",
+        "url": ""
+      }
+    ],
+    "created": "2023-01-30",
+    "discussions": [
+      "https://github.com/cardano-foundation/CIPs/pull/456"
+    ],
+    "license": "CC-BY-4.0",
+    "number": "84",
+    "href": "/CIPs/CIP-84",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "Authenticated Web3 HTTP requests",
+    "category": "Tools",
+    "status": "Proposed",
+    "authors": [
+      {
+        "name": "Juan Salvador Magán Valero",
+        "email": "jmaganvalero@gmail.com"
+      }
+    ],
+    "implementors": [
+      {
+        "name": "[]",
+        "url": ""
+      }
+    ],
+    "discussions": [
+      "https://github.com/cardano-foundation/cips/pulls/442"
+    ],
+    "created": "2022-12-27",
+    "license": "CC-BY-4.0",
+    "number": "93",
+    "href": "/CIPs/CIP-93",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "Curve Pledge Benefit",
+    "authors": [
+      {
+        "name": "Shawn McMurdo",
+        "email": "shawn_mcmurdo@yahoo.com"
+      }
+    ],
+    "category": "Ledger",
+    "status": "Proposed",
+    "created": "2020-08-11",
+    "discussions": [
+      "https://github.com/cardano-foundation/CIPs/pull/12",
+      "https://forum.cardano.org/t/protocol-parameters-pledge-and-sybil-resistance/35100",
+      "https://github.com/input-output-hk/cardano-node/issues/1518"
+    ],
+    "implementors": [
+      {
+        "name": "[]",
+        "url": ""
+      }
+    ],
+    "license": "Apache 2.0",
+    "number": "7",
+    "href": "/CIPs/CIP-7",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "NFT Metadata Update Oracles",
+    "status": "Proposed",
+    "category": "Metadata",
+    "authors": [
+      {
+        "name": "Nicolas Ayotte",
+        "email": "nick@equine.gg"
+      },
+      {
+        "name": "George Flerovsky",
+        "email": "george@mlabs.city"
+      },
+      {
+        "name": "Samuel Williams",
+        "email": "samuel@mlabs.city"
+      },
+      {
+        "name": "Nathaniel Lane",
+        "email": "nathaniel@mlabs.city"
+      }
+    ],
+    "implementors": [
+      {
+        "name": "Equine",
+        "url": "https://www.equine.gg/"
+      },
+      {
+        "name": "MLabs",
+        "url": "https://mlabs.city/"
+      }
+    ],
+    "discussions": [
+      "https://github.com/cardano-foundation/CIPs/pull/430"
+    ],
+    "created": "2022-11-01",
+    "license": "CC-BY-4.0",
+    "number": "86",
+    "href": "/CIPs/CIP-86",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "Plutus support for Pairings over BLS12-381",
+    "authors": [
+      {
+        "name": "Iñigo Querejeta-Azurmendi",
+        "email": "inigo.querejeta@iohk.io"
+      }
+    ],
+    "discussionsTo": "https://github.com/cardano-foundation/CIPs/pull/220",
+    "commentsURI": "https://github.com/cardano-foundation/CIPs/pull/220",
+    "category": "Plutus",
+    "status": "Proposed",
+    "type": "Standards Track",
+    "created": "2022-02-11",
+    "license": "Apache-2.0",
+    "number": "0381",
+    "href": "/CIPs/CIP-0381",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "Multi-signatures HD Wallets",
+    "authors": [
+      {
+        "name": "Matthias Benkort",
+        "email": "matthias.benkort@iohk.io>, Pawel Jakuba"
+      }
+    ],
+    "commentsSummary": "Multi-party transaction signing and key management for HD wallets.",
+    "commentsURI": "https://github.com/cardano-foundation/CIPs/wiki/Comments:CIP-1854",
+    "status": "Draft",
+    "type": "Standards",
+    "created": "2021-02-23",
+    "license": "CC-BY-4.0",
+    "number": "1854",
+    "href": "/CIPs/CIP-1854",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "Web-Wallet Bridge - Governance",
+    "category": "Wallets",
+    "status": "Proposed",
+    "authors": [
+      {
+        "name": "Ryan Williams",
+        "email": "ryan.williams@iohk.io"
+      }
+    ],
+    "implementors": [
+      {
+        "name": "Eternl",
+        "url": "https://eternl.io/"
+      },
+      {
+        "name": "Lace",
+        "url": "https://www.lace.io/"
+      },
+      {
+        "name": "NuFi",
+        "url": "https://nu.fi/"
+      },
+      {
+        "name": "Ryan Williams",
+        "url": "ryan.williams@iohk.io"
+      },
+      {
+        "name": "Typhon",
+        "url": "https://typhonwallet.io/"
+      },
+      {
+        "name": "Yoroi",
+        "url": "https://yoroi-wallet.com/"
+      }
+    ],
+    "discussions": [
+      "https://github.com/cardano-foundation/cips/pulls/509",
+      "https://discord.com/channels/826816523368005654/1101547251903504474/1101548279277309983",
+      "https://discord.com/channels/826816523368005654/1143258005354328156/1143272934966837309"
+    ],
+    "created": "2022-02-24",
+    "license": "CC-BY-4.0",
+    "number": "95",
+    "href": "/CIPs/CIP-95",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "Plutus Contract Blueprint",
+    "status": "Active",
+    "category": "Tools",
+    "authors": [
+      {
+        "name": "KtorZ",
+        "email": "matthias.benkort@cardanofoundation.org"
+      },
+      {
+        "name": "scarmuega",
+        "email": "santiago@carmuega.me"
+      }
+    ],
+    "implementors": [
+      {
+        "name": "Aiken",
+        "url": "https://aiken-lang.org"
+      },
+      {
+        "name": "Plu-Ts",
+        "url": "https://github.com/HarmonicPool/plu-ts"
+      },
+      {
+        "name": "OpShin",
+        "url": "https://github.com/OpShin"
+      },
+      {
+        "name": "Lucid",
+        "url": "https://lucid.spacebudz.io/"
+      },
+      {
+        "name": "Mesh.js",
+        "url": "https://martify.io/"
+      }
+    ],
+    "discussions": [
+      "https://github.com/cardano-foundation/CIPs/pull/258",
+      "https://discord.gg/yUkkhqBnyV"
+    ],
+    "created": "2022-05-15",
+    "license": "CC-BY-4.0",
+    "number": "57",
+    "href": "/CIPs/CIP-57",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "On-chain stake pool operator to delegates communication",
+    "authors": [
+      {
+        "name": "Marek Mahut",
+        "email": "marek.mahut@fivebinaries.com>, Sebastien Guillemo"
+      }
+    ],
+    "commentsURI": "https://forum.cardano.org/t/on-chain-stake-pool-operator-to-delegates-communication/42229",
+    "status": "Draft",
+    "type": "Standards",
+    "created": "2020-11-07",
+    "license": "CC-BY-4.0",
+    "requires": "CIP10",
+    "number": "12",
+    "href": "/CIPs/CIP-12",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "On-chain SPO polls",
+    "category": "Tools",
+    "status": "Active",
+    "authors": [
+      {
+        "name": "Matthias Benkort",
+        "email": "matthias.benkort@cardanofoundation.org"
+      },
+      {
+        "name": "Markus Gufler",
+        "email": "markus.gufler-ext@cardanofoundation.org"
+      }
+    ],
+    "implementors": [
+      {
+        "name": "Matthias Benkort",
+        "url": "matthias.benkort@cardanofoundation.org"
+      },
+      {
+        "name": "Ashish Prajapati",
+        "url": "https://cardanoscan.io/contactUs"
+      },
+      {
+        "name": "Dmytro Stashenko",
+        "url": "https://preprod.adastat.net/about"
+      }
+    ],
+    "discussions": [
+      "https://github.com/cardano-foundation/cips/pull/496",
+      "https://github.com/cardano-foundation/cips/pull/102",
+      "https://github.com/input-output-hk/cardano-node/pull/5050",
+      "https://github.com/input-output-hk/cardano-node/pull/5132",
+      "https://forum.cardano.org/t/entering-voltaire-on-chain-poll-for-spos/117330",
+      "https://forum.cardano.org/t/entering-voltaire-poll-experiment-live-on-mainnet/117879"
+    ],
+    "created": "2023-03-21",
+    "license": "CC-BY-4.0",
+    "number": "94",
+    "href": "/CIPs/CIP-94",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "Message Signing",
+    "authors": [
+      {
+        "name": "Sebastien Guillemot",
+        "email": "sebastien@emurgo.io"
+      }
+    ],
+    "commentsURI": "",
+    "Https": "//cardano.ideascale.com/a/dtd/Create-message-signing-standard/323158-48088",
+    "status": "Draft",
+    "type": "Standards",
+    "created": "2020-09-28",
+    "license": "CC-BY-4.0",
+    "number": "8",
+    "href": "/CIPs/CIP-8",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "Common Bech32 Prefixes",
+    "category": "Tools",
+    "status": "Active",
+    "authors": [
+      {
+        "name": "Matthias Benkort",
+        "email": "matthias.benkort@cardanofoundation.org"
+      }
+    ],
+    "implementors": [
+      {
+        "name": "N/A",
+        "url": ""
+      }
+    ],
+    "discussions": [
+      "https://forum.cardano.org/t/cip5-common-bech32-prefixes/35189",
+      "https://github.com/cardano-foundation/CIPs/pull/427",
+      "https://github.com/cardano-foundation/CIPs/pull/342",
+      "https://github.com/cardano-foundation/CIPs/pull/251",
+      "https://github.com/cardano-foundation/CIPs/pull/177",
+      "https://github.com/cardano-foundation/CIPs/pull/31"
+    ],
+    "created": "2020-05-28",
+    "license": "Apache-2.0",
+    "number": "5",
+    "href": "/CIPs/CIP-5",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "Cardano Delegation Portfolio",
+    "authors": [
+      {
+        "name": "Matthias Benkort",
+        "email": "matthias.benkort@iohk.io"
+      }
+    ],
+    "commentsSummary": "A Common format for sharing Cardano delegation portfolios",
+    "commentsURI": "https://github.com/cardano-foundation/CIPs/wiki/Comments:CIP-0017",
+    "status": "Active",
+    "type": "Standards",
+    "created": "2020-04-02",
+    "license": "CC-BY-4.0",
+    "number": "17",
+    "href": "/CIPs/CIP-17",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "Set minPoolCost to 0",
+    "authors": "",
+    "RobinOfLoxley<adarobinhood@tutanota.com>": "",
+    "category": "Ledger",
+    "status": "Proposed",
+    "created": "2022-10-17",
+    "discussions": "",
+    "Https": "//github.com/cardano-foundation/CIPs/pull/358",
+    "implementors": [
+      {
+        "name": "[]",
+        "url": ""
+      }
+    ],
+    "license": "CC-BY-4.0",
+    "number": "74",
+    "href": "/CIPs/CIP-74",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "Coin Selection Algorithms for Cardano",
+    "category": "Wallets",
+    "authors": [
+      {
+        "name": "Jonathan Knowles",
+        "email": "jonathan.knowles@iohk.io"
+      }
+    ],
+    "implementors": [
+      {
+        "name": "N/A",
+        "url": ""
+      }
+    ],
+    "discussions": [
+      "https://github.com/cardano-foundation/CIPs/pull/2",
+      "https://github.com/cardano-foundation/CIPs/issues/232"
+    ],
+    "status": "Active",
+    "created": "2020-05-04",
+    "license": "CC-BY-4.0",
+    "number": "2",
+    "href": "/CIPs/CIP-2",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "Cardano Smart NFTs",
+    "authors": [
+      {
+        "name": "Kieran Simkin",
+        "email": ""
+      }
+    ],
+    "commentsURI": "https://forum.cardano.org/t/cip-draft-cardano-smart-nfts/100470",
+    "status": "Draft",
+    "type": "Standards",
+    "created": "2022-05-18",
+    "license": "CC-BY-4.0",
+    "number": "54",
+    "href": "/CIPs/CIP-54",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "Transaction message/comment metadata",
+    "status": "Active",
+    "category": "Metadata",
+    "authors": [
+      {
+        "name": "Martin Lang",
+        "email": "martin@martinlang.at"
+      },
+      {
+        "name": "Ola Ahlman",
+        "email": "ola@ahlnet.nu"
+      },
+      {
+        "name": "Andrew Westberg",
+        "email": "andrewwestberg@gmail.com"
+      }
+    ],
+    "implementors": [
+      {
+        "name": "CNTools",
+        "url": "https://cardano-community.github.io/guild-operators/#/Scripts/cntools"
+      },
+      {
+        "name": "JorManager",
+        "url": "https://bitbucket.org/muamw10/jormanager/"
+      },
+      {
+        "name": "StakePoolOperator Scripts",
+        "url": "https://github.com/gitmachtl/scripts"
+      },
+      {
+        "name": "Cardanoscan.io",
+        "url": "https://cardanoscan.io"
+      },
+      {
+        "name": "AdaStat.net",
+        "url": "https://adastat.net"
+      },
+      {
+        "name": "Eternl Wallet",
+        "url": "https://eternl.io"
+      },
+      {
+        "name": "CardanoWall",
+        "url": "https://cardanowall.com"
+      },
+      {
+        "name": "Nami Wallet",
+        "url": "https://namiwallet.io"
+      },
+      {
+        "name": "CNFT",
+        "url": "https://cnft.io"
+      },
+      {
+        "name": "Cardano Explorer",
+        "url": "https://cexplorer.io"
+      },
+      {
+        "name": "SundaeSwap",
+        "url": "https://https://sundaeswap.finance/"
+      },
+      {
+        "name": "Minswap",
+        "url": "https://minswap.org/"
+      },
+      {
+        "name": "MuesliSwap",
+        "url": "https://muesliswap.com/"
+      },
+      {
+        "name": "DripDropz.io",
+        "url": "https://dripdropz.io/"
+      },
+      {
+        "name": "Typhon Wallet",
+        "url": "https://typhonwallet.io/"
+      },
+      {
+        "name": "Ledger Live",
+        "url": "https://www.ledger.com/"
+      }
+    ],
+    "discussions": [
+      "https://github.com/cardano-foundation/CIPs/pull/100",
+      "https://github.com/cardano-foundation/CIPs/pull/394"
+    ],
+    "created": "2021-06-13",
+    "license": "CC-BY-4.0",
+    "number": "20",
+    "href": "/CIPs/CIP-20",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "Catalyst/Voltaire Registration Transaction Metadata Format (Updated)",
+    "authors": [
+      {
+        "name": "Giacomo Pasini",
+        "email": "giacomo.pasini@iohk.io>, Kevin Hammon"
+      }
+    ],
+    "commentsURI": "https://forum.cardano.org/t/cip-catalyst-registration-metadata-format/44038",
+    "status": "Proposed",
+    "type": "Standards",
+    "created": "2021-12-06",
+    "license": "CC-BY-4.0",
+    "number": "36",
+    "href": "/CIPs/CIP-36",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "Forging policy keys for HD Wallets",
+    "authors": [
+      {
+        "name": "Samuel Leathers",
+        "email": "samuel.leathers@iohk.io>, John Lotosk"
+      }
+    ],
+    "commentsSummary": "Multi-party transaction signing and key management for HD wallets.",
+    "commentsURI": "https://github.com/cardano-foundation/CIPs/wiki/Comments:CIP-1855",
+    "status": "Active",
+    "type": "Standards",
+    "created": "2021-06-02",
+    "license": "CC-BY-4.0",
+    "number": "1855",
+    "href": "/CIPs/CIP-1855",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "Cardano Problem Statements",
+    "status": "Active",
+    "category": "Meta",
+    "authors": [
+      {
+        "name": "Matthias Benkort",
+        "email": "matthias.benkort@cardanofoundation.org"
+      },
+      {
+        "name": "Michael Peyton Jones",
+        "email": "michael.peyton-jones@iohk.io"
+      }
+    ],
+    "implementors": [
+      {
+        "name": "N/A",
+        "url": ""
+      }
+    ],
+    "discussions": [
+      "https://github.com/cardano-foundation/CIPs/pulls/366"
+    ],
+    "created": "2022-10-14",
+    "license": "CC-BY-4.0",
+    "number": "9999",
+    "href": "/CIPs/CIP-9999",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "Changes to Plutus Core",
+    "authors": [
+      {
+        "name": "Michael Peyton Jones",
+        "email": "michael.peyton-jones@iohk.io"
+      }
+    ],
+    "status": "Active",
+    "category": "Meta",
+    "created": "2022-02-09",
+    "license": "CC-BY-4.0",
+    "number": "35",
+    "href": "/CIPs/CIP-35",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "Asset Name Label Registry",
+    "status": "Proposed",
+    "category": "Tokens",
+    "authors": [
+      {
+        "name": "Alessandro Konrad",
+        "email": "alessandro.konrad@live.de"
+      },
+      {
+        "name": "Thomas Vellekoop",
+        "email": "thomas.vellekoop@iohk.io"
+      }
+    ],
+    "implementors": "",
+    "discussions": "",
+    "Https": "//github.com/cardano-foundation/CIPs/pull/586",
+    "created": "2022-07-13",
+    "license": "CC-BY-4.0",
+    "number": "67",
+    "href": "/CIPs/CIP-67",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "Cryptographic Key Serialisation Formats",
+    "authors": [
+      {
+        "name": "Luke Nadur",
+        "email": "luke.nadur@iohk.io"
+      }
+    ],
+    "commentsURI": "https://github.com/cardano-foundation/CIPs/pull/57",
+    "status": "Active",
+    "type": "Standards",
+    "created": "2020-12-21",
+    "license": "Apache-2.0",
+    "number": "16",
+    "href": "/CIPs/CIP-16",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "Multi-Stake-Keys Wallets",
+    "authors": [
+      {
+        "name": "Matthias Benkort",
+        "email": "matthias.benkort@iohk.io"
+      }
+    ],
+    "commentsSummary": "Support for multiple stake keys in Cardano wallets.",
+    "commentsURI": "https://github.com/cardano-foundation/CIPs/wiki/Comments:CIP-0018",
+    "status": "Draft",
+    "type": "Standards",
+    "created": "2020-03-18",
+    "license": "CC-BY-4.0",
+    "number": "18",
+    "href": "/CIPs/CIP-18",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "A First Step Towards On-Chain Decentralized Governance",
+    "status": "Proposed",
+    "category": "Ledger",
+    "authors": [
+      {
+        "name": "Jared Corduan",
+        "email": "jared.corduan@iohk.io"
+      },
+      {
+        "name": "Matthias Benkort",
+        "email": "matthias.benkort@cardanofoundation.org"
+      },
+      {
+        "name": "Kevin Hammond",
+        "email": "kevin.hammond@iohk.io"
+      },
+      {
+        "name": "Charles Hoskinson",
+        "email": "charles.hoskinson@iohk.io"
+      },
+      {
+        "name": "Andre Knispel",
+        "email": "andre.knispel@iohk.io"
+      },
+      {
+        "name": "Samuel Leathers",
+        "email": "samuel.leathers@iohk.io"
+      }
+    ],
+    "discussions": [
+      ""
+    ],
+    "created": "2022-11-18",
+    "license": "CC-BY-4.0",
+    "number": "1694",
+    "href": "/CIPs/CIP-1694",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "Non-Fungible Token (NFT) Proxy Voting Standard",
+    "authors": [
+      {
+        "name": "Thaddeus Diamond",
+        "email": "support@wildtangz.com"
+      }
+    ],
+    "commentsURI": "",
+    "status": "Proposed",
+    "type": "Process",
+    "created": "2022-10-11",
+    "postHistory": "",
+    "license": "CC-BY-4.0",
+    "number": "71",
+    "href": "/CIPs/CIP-71",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "Media Token Metadata Standard",
+    "authors": [
+      {
+        "name": "Alessandro Konrad",
+        "email": "alessandro.konrad@live.de>, Smau"
+      }
+    ],
+    "commentsURI": "",
+    "status": "Active",
+    "type": "Informational",
+    "created": "2021-04-08",
+    "postHistory": "https://forum.cardano.org/t/cip-nft-metadata-standard/45687 and https://www.reddit.com/r/CardanoDevelopers/comments/mkhlv8/nft_metadata_standard/",
+    "license": "CC-BY-4.0",
+    "number": "25",
+    "href": "/CIPs/CIP-25",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  },
+  {
+    "title": "Integration of `keccak256` into Plutus",
+    "status": "Proposed",
+    "category": "Plutus",
+    "authors": [
+      {
+        "name": "Sergei Patrikeev",
+        "email": "so.patrikeev@gmail.com"
+      },
+      {
+        "name": "Iñigo Querejeta-Azurmendi",
+        "email": "inigo.querejeta@iohk.io"
+      }
+    ],
+    "implementors": [
+      {
+        "name": "Michael Peyton Jones",
+        "url": "michael.peyton-jones@iohk.io"
+      }
+    ],
+    "discussions": [
+      "https://github.com/cardano-foundation/CIPs/pull/524"
+    ],
+    "created": "2023-06-13",
+    "license": "Apache-2.0",
+    "number": "101",
+    "href": "/CIPs/CIP-101",
+    "statusBadgeColor": "bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600"
+  },
+  {
+    "title": "Protocol Parameters (Babbage Era)",
+    "authors": [
+      {
+        "name": "Jared Corduan",
+        "email": "jared.corduan@iohk.io"
+      }
+    ],
+    "status": "Active",
+    "type": "Informational",
+    "created": "2022-05-19",
+    "license": "CC-BY-4.0",
+    "requires": "CIP-0028",
+    "number": "55",
+    "href": "/CIPs/CIP-55",
+    "statusBadgeColor": "bg-cf-green-600/30 ring-cf-green-600/30 text-green-600"
+  }
+]

@@ -1,0 +1,48 @@
+[
+  {
+    "title": "Plutus Script Usability",
+    "status": "Open",
+    "category": "Plutus",
+    "authors": [
+      {
+        "name": "Michael Peyton Jones",
+        "email": "michael.peyton-jones@iohk.io"
+      }
+    ],
+    "proposedSolutions": [
+      "CIP-0038 (tentative)",
+      "CIP-0057 (tentative)",
+      "CIP-0069 (tentative)",
+      "CIP-0087 (tentative)"
+    ],
+    "discussions": [
+      "https://github.com/cardano-foundation/CIPs/pull/497",
+      "https://github.com/input-output-hk/Developer-Experience-working-group"
+    ],
+    "created": "2023-04-04",
+    "number": "5",
+    "href": "/CPSs/CPS-5",
+    "statusBadgeColor": "bg-cf-yellow-600/20 ring-cf-yellow-600/20 text-yellow-600"
+  },
+  {
+    "title": "Voltaire era Governance",
+    "status": "Open",
+    "category": "Ledger",
+    "authors": [
+      {
+        "name": "Pi Lanningham",
+        "email": "pi@sundaeswap.finance"
+      }
+    ],
+    "proposedSolutions": [
+      "CIP-1694"
+    ],
+    "discussions": [
+      "https://discord.gg/hdqHwSgWvG"
+    ],
+    "created": "2023-03-14",
+    "number": "7",
+    "href": "/CPSs/CPS-7",
+    "statusBadgeColor": "bg-cf-yellow-600/20 ring-cf-yellow-600/20 text-yellow-600"
+  }
+]

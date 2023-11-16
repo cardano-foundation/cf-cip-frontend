@@ -1,6 +1,6 @@
 import Button from '@/components/Button'
 
-export default function Home() {
+export default function About() {
   const content = [
     {
       title: 'Cardano Improvement Proposals (CIPs)',
@@ -18,7 +18,7 @@ export default function Home() {
       <div className="flex items-center justify-center overflow-hidden bg-transparent pb-12 pt-40">
         <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center pt-6 sm:px-8 lg:pt-12">
           <h1 className="via-cf-slate-50 bg-gradient-to-br from-white to-cf-blue-50/90 bg-clip-text pb-4 text-center text-5xl font-medium leading-tight tracking-tight text-transparent sm:text-[5rem]">
-            About CIPs
+            About CIPs  
           </h1>
 
           {/* Template Buttons */}
