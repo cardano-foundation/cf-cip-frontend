@@ -41,7 +41,7 @@ export default function About() {
                 {item.title}
               </h1>
               <h1
-                className="via-cf-slate-50 my-4 bg-gradient-to-br from-white to-cf-blue-50/90 bg-clip-text text-lg leading-tight tracking-tight text-transparent"
+                className="my-4 text-cf-offwhite text-lg"
                 dangerouslySetInnerHTML={{ __html: item.text }}
               />
             </div>
