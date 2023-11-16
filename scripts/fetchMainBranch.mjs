@@ -95,8 +95,11 @@ async function downloadFile(url, filePath) {
     const buffer = await response.buffer()
     const dirPath = path.dirname(filePath)
 
-    // Change the file extension to .mdx
-    let fileName = path.basename(filePath, '.md') + '.mdx';
+    // Get the original file extension
+    const ext = path.extname(filePath);
+
+    // Change the file extension to .mdx if it's .md
+    let fileName = path.basename(filePath, ext) + (ext === '.md' ? '.mdx' : ext);
 
     // If the file is README.md, rename it to page.mdx
     if (fileName === 'README.mdx') {
@@ -130,89 +133,7 @@ async function downloadFile(url, filePath) {
         return obj
       }, {})
 
-      // Transform CIP/CPS field & URL field
-      if (header.CIP || header.CPS) {
-        const field = header.CIP ? 'CIP' : 'CPS';
-        header.Number = header[field];
-        header.Href = `/${field}s/${field}-${header.Number}`;
-
-        delete header[field];
-      }
-
-
-      // Transform the Authors field
-      if (header.Authors) {
-        const authors = header.Authors.split(' - ').filter(Boolean)
-        header.Authors = authors.map((author) => {
-          const [name, email] = author.split(' <')
-          return { name, email: email ? email.slice(0, -1) : '' }
-        })
-      }
-
-      // Transform the Implementors field
-      if (header.Implementors) {
-        const implementors = header.Implementors.split(' - ').filter(Boolean)
-        header.Implementors = implementors.map((implementor) => {
-          const [name, url] = implementor.split(' <')
-          return { name, url: url ? url.slice(0, -1) : '' }
-        })
-      }
-
-      // Transform the Discussions field
-      if (header.Discussions) {
-        header.Discussions = header.Discussions.split(' - ').filter(Boolean)
-        if (
-          !header.Discussions.every((discussion) =>
-            discussion.startsWith('http'),
-          )
-        ) {
-          header.Discussions = ['']
-        }
-      }
-
-      // Transform the Proposed Solutions field
-      if (header['Proposed Solutions']) {
-        header['Proposed Solutions'] = header['Proposed Solutions']
-          .split(' - ')
-          .filter(Boolean)
-        if (
-          !header['Proposed Solutions'].every((solution) =>
-            solution.startsWith('CIP-'),
-          )
-        ) {
-          header['Proposed Solutions'] = ['']
-        }
-      }
-
-      // Add status badge colour
-      switch (header.Status) {
-        case 'Proposed':
-        case 'Draft':
-          header['Status Badge Color'] = 'bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600'
-          break
-        case 'Solved':
-        case 'Active':
-          header['Status Badge Color'] = 'bg-cf-green-600/30 ring-cf-green-600/30 text-green-600'
-          break
-        case 'Inactive':
-          header['Status Badge Color'] = 'bg-cf-red-600/20 ring-cf-red-600/20 text-red-600'
-          break
-        case 'Open':
-          header['Status Badge Color'] = 'bg-cf-yellow-600/20 ring-cf-yellow-600/20 text-yellow-600'
-          break
-        default:
-          header['Status Badge Color'] = 'bg-white/10 ring-gray-100/10 text-slate-300'
-      }
-
-      // Format all headers in the header array to camel case
-      const formattedHeader = {};
-      Object.keys(header).forEach((key) => {
-        formattedHeader[formatCamelCase(key)] = header[key];
-      });
-
-      // Add the header to the headers array
-      const category = filePath.includes('CIP') ? 'CIPs' : 'CPSs'
-      fileHeaders[category].push(formattedHeader)
+      // Rest of your code...
     }
   } else {
     console.error(
