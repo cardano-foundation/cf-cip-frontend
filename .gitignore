@@ -36,9 +36,9 @@ yarn-error.log*
 next-env.d.ts
 
 
-# fetched content 
-app/CIPs/
-app/CPSs/
+# fetched content
+CIPs/
+CPSs/
 app/PRs/
 app/Stats/
 app/Labels/

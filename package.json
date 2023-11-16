@@ -12,6 +12,10 @@
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
+    "@mdx-js/loader": "^3.0.0",
+    "@mdx-js/react": "^3.0.0",
+    "@next/mdx": "^14.0.2",
+    "@types/mdx": "^2.0.10",
     "dotenv": "^16.3.1",
     "next": "^14.0",
     "node-fetch": "^3.3.2",
