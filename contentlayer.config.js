@@ -62,7 +62,7 @@ export default makeSource({
   contentDirPath: 'CIPs',
   documentTypes: [Cip],
   mdx: {
-    // remarkPlugins: [remarkGfm],
+    remarkPlugins: [remarkGfm],
     rehypePlugins: [
       rehypeSlug,
       [
