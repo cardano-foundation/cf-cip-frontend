@@ -33,7 +33,7 @@ export default async function Cip({ params }) {
   return (
     <div className="pt-40 flex items-center justify-center overflow-hidden bg-transparent pb-12 pt-40">
       <div className="mx-auto flex flex-col w-full max-w-7xl items-center justify-center px-6 sm:px-8 lg:px-12">
-        <article className="prose dark:prose-invert">
+        <article className="prose prose-invert lg:prose-xl">
           <h1 className="mb-2">#{cip.CIP} {cip.Title}</h1>
           <hr className="my-4" />
           <Mdx code={cip.body.code} />
