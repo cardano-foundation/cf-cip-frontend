@@ -1,4 +1,4 @@
-import createMDX from '@next/mdx'
+import { withContentlayer } from 'next-contentlayer'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -8,11 +8,4 @@ const nextConfig = {
   },
 }
 
-// const withMDX = createMDX({
-//   options: {
-//     remarkPlugins: [remarkGfm, remarkStringify, remarkFrontmatter, remarkToc],
-//     rehypePlugins: [],
-//   },
-// })
-
-export default nextConfig
+export default withContentlayer(nextConfig)
