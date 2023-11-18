@@ -5,9 +5,8 @@ import Navigation from '@/components/Navigation'
 const chivo = Chivo({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Cardano Implementation Proposals',
-  description: 'CIPs',
-}
+  title: 'Cardano Improvement Proposals',
+  description: 'Home of Cardano Improvement Proposals (CIPs) and Cardano Problem Statements (CPSs).'}
 
 export default function RootLayout({ children }) {
   return (
