@@ -1,11 +1,11 @@
 import Filters from "@/components/Filters"
 import ListGroup from "@/components/ListGroup"
-import table from "@/CIPs/table.json"
+import { allCIPs } from "contentlayer/generated"
 
 const CipList = ({ className, ...props }) => (
   <div className={`${className}`}>
     <Filters />
-    <ListGroup items={table} />
+    <ListGroup items={allCIPs} type="cips" />
   </div>
 )
 

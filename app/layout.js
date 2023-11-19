@@ -1,6 +1,7 @@
 import './globals.css'
 import { Chivo } from 'next/font/google'
 import Navigation from '@/components/Navigation'
+import Footer from '@/components/Footer'
 
 const chivo = Chivo({ subsets: ['latin'] })
 
@@ -14,6 +15,7 @@ export default function RootLayout({ children }) {
       <body className={`${chivo.className} bg-cf-blue-900`}>
         <Navigation />
         {children}
+        <Footer />
       </body>
     </html>
   )

@@ -26,7 +26,6 @@ export async function generateMetadata({params}) {
   }
 }
 
-// parse authors from the CIP's authors field from string array like "Frederic Johnson <frederic@advanceweb3.com>" into { name, email } objects array
 function parseAuthors(authors) {
   return authors.map((author) => {
     const [name, email] = author.split("<")
@@ -36,7 +35,6 @@ function parseAuthors(authors) {
     }
   })
 }
-
 
 export default async function Cip({ params }) {
   const cip = await getCipFromParams(params.slug)
@@ -50,7 +48,7 @@ export default async function Cip({ params }) {
               <div className="flex justify-between items-center mb-2">
                 <span className="text-cf-blue-50 text-3xl">#{cip.CIP}</span>
                 <div>
-                  <Badge className={`text-sm`} title={cip.Status} />
+                  <Badge className={`text-sm ${cip.statusBadgeColor}`} title={cip.Status} />
                   {cip.Category && <Badge className="text-sm bg-cf-blue-50/70 ring-cf-blue-50/70 text-cf-blue-600 ml-2" title={cip.Category} />}
                 </div>
               </div>
@@ -58,11 +56,23 @@ export default async function Cip({ params }) {
                 {cip.Title}
               </h1>
             </div>
-            <div className="mt-4 text-slate-400">
+            <div className="mt-4 text-slate-400 flex flex-wrap">
+              Created on&nbsp;
+              <time dateTime={cip.Created}>
+                {new Date(cip.Created).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </time>
+              {cip.Authors && <>&nbsp;by&nbsp;</>}
               {cip.Authors && parseAuthors(cip.Authors).map((author ,index) => (
-                <Link href={`mailto:${author.email}`} key={index} className="relative truncate hover:underline">
-                  {author.name}{index + 1 < cip.Authors.length && ",\u00A0"}
-                </Link>
+                <>
+                  {cip.Authors.length !== 1 && index + 1 === cip.Authors.length && <>&nbsp;and&nbsp;</>}
+                  <Link href={`mailto:${author.email}`} key={index} className="relative truncate hover:underline">
+                    {author.name}{index + 1 < cip.Authors.length && ",\u00A0"}
+                  </Link>
+                </>
               ))}
             </div>
           </div>
