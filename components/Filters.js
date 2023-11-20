@@ -19,24 +19,24 @@ const filters = [
     id: 'category',
     name: 'Category',
     options: [
-      { value: 'meta', label: 'Meta' },
-      { value: 'wallets', label: 'Wallets' },
-      { value: 'tokens', label: 'Tokens' },
-      { value: 'metadata', label: 'Metadata' },
-      { value: 'tools', label: 'Tools' },
-      { value: 'plutus', label: 'Plutus' },
-      { value: 'ledger', label: 'Ledger' },
-      { value: 'catalyst', label: 'Catalyst' },
+      { value: 'Meta', label: 'Meta' },
+      { value: 'Wallets', label: 'Wallets' },
+      { value: 'Tokens', label: 'Tokens' },
+      { value: 'Metadata', label: 'Metadata' },
+      { value: 'Tools', label: 'Tools' },
+      { value: 'Plutus', label: 'Plutus' },
+      { value: 'Ledger', label: 'Ledger' },
+      { value: 'Catalyst', label: 'Catalyst' },
     ],
   },
   {
     id: 'status',
     name: 'Status',
     options: [
-      { value: 'proposed', label: 'Proposed' },
-      { value: 'active', label: 'Active' },
-      { value: 'inactive', label: 'Inactive' },
-      { value: 'draft', label: 'Draft' },
+      { value: 'Proposed', label: 'Proposed' },
+      { value: 'Active', label: 'Active' },
+      { value: 'Inactive', label: 'Inactive' },
+      { value: 'Draft', label: 'Draft' },
     ],
   },
 ]
@@ -46,12 +46,12 @@ function classNames(...classes) {
 }
 
 export default function Filters() {
-  const [open, setOpen] = useState(false)
-  const [searchQuery, setSearchQuery] = useState('')
-  const [debouncedSearchQuery] = useDebounce(searchQuery, 500)
-
   const searchParams = useSearchParams()
   const router = useRouter()
+
+  const [open, setOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
+  const [debouncedSearchQuery] = useDebounce(searchQuery, 500)
 
   const sort = searchParams.get('sort') || 'number'
   const category = searchParams.get('category')
@@ -74,7 +74,7 @@ export default function Filters() {
       query,
     }, { skipNull: true });
 
-    router.replace(url);
+    router.replace(url, { scroll: false });
   }
 
   const handleSort = (value) => {
@@ -90,7 +90,7 @@ export default function Filters() {
       query,
     }, { skipNull: true });
 
-    router.replace(url);
+    router.replace(url, { scroll: false });
   }
 
   const handleSearchQueryChange = (e) => {
@@ -110,7 +110,7 @@ export default function Filters() {
       query,
     }, { skipNull: true });
 
-    router.replace(url);
+    router.replace(url, { scroll: false });
   }
 
   // useEffect that updates the search query in the URL from debouncedSearchQuery
@@ -275,6 +275,7 @@ export default function Filters() {
                   id="search"
                   type="search"
                   placeholder="Search"
+                  value={searchQuery}
                   className="border-0 rounded-xl bg-transparent pl-6 text-slate-50 text-sm font-medium placeholder:text-cf-slate-300 focus:ring-2 focus:ring-inset focus:ring-cf-blue-50 sm:leading-6"
                 />
               </div>
