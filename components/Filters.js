@@ -145,12 +145,12 @@ export default function Filters() {
               leaveFrom="translate-x-0"
               leaveTo="translate-x-full"
             >
-              <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white py-4 pb-6">
+              <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-transparent backdrop-blur-lg border-l border-gray-100/10 py-4 pb-6">
                 <div className="flex items-center justify-between px-4">
-                  <h2 className="text-lg font-medium text-gray-900">Filters</h2>
+                  <h2 className="text-lg font-medium text-slate-50">Filters</h2>
                   <button
                     type="button"
-                    className="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="-mr-2 flex h-10 w-10 items-center justify-center rounded-md p-2 text-slate-50 hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/30"
                     onClick={() => setOpen(false)}
                   >
                     <span className="sr-only">Close menu</span>
@@ -161,12 +161,12 @@ export default function Filters() {
                 {/* Filters */}
                 <form className="mt-4">
                   {filters.map((section) => (
-                    <Disclosure as="div" key={section.name} className="border-t border-gray-200 px-4 py-6">
+                    <Disclosure as="div" key={section.name} className="border-t border-gray-100/10 px-4 py-6">
                       {({ open }) => (
                         <>
                           <h3 className="-mx-2 -my-3 flow-root">
-                            <Disclosure.Button className="flex w-full items-center justify-between bg-white px-2 py-3 text-sm text-gray-400">
-                              <span className="font-medium text-gray-900">{section.name}</span>
+                            <Disclosure.Button className="flex w-full items-center justify-between px-2 py-3 text-sm text-slate-100">
+                              <span className="font-medium text-slate-100">{section.name}</span>
                               <span className="ml-6 flex items-center">
                                 <ChevronDownIcon
                                   className={classNames(open ? '-rotate-180' : 'rotate-0', 'h-5 w-5 transform')}
@@ -188,12 +188,12 @@ export default function Filters() {
                                       (status && status.split(',').includes(option.value))
                                     }
                                     type="checkbox"
-                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                    className="h-4 w-4 rounded text-cf-blue-900/50 bg-cf-blue-900/10 focus:ring-cf-blue-200 cursor-pointer"
                                     onChange={() => handleFilters(section.id, option.value)}
                                   />
                                   <label
                                     htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
-                                    className="ml-3 text-sm text-gray-500"
+                                    className="ml-3 text-sm text-slate-50"
                                   >
                                     {option.label}
                                   </label>
@@ -214,11 +214,11 @@ export default function Filters() {
 
       <section aria-labelledby="filter-heading" className="border-t border-gray-100/10 py-6">
         <h2 id="filter-heading" className="sr-only">
-          Product filters
+          Filters
         </h2>
 
         <div className="flex items-center justify-between">
-          <div className="flex items-center">
+          <div className="flex items-center flex-grow">
             <Menu as="div" className="relative inline-block text-left pr-4 border-r border-gray-100/10">
               <div>
                 <Menu.Button className="group inline-flex justify-center text-sm font-medium text-slate-50 hover:text-cf-gray-100">
@@ -262,11 +262,11 @@ export default function Filters() {
               </Transition>
             </Menu>
 
-            <div className="flex flex-col pl-4 max-w-4xl w-full">
+            <div className="flex px-4 w-full">
               <label htmlFor="search" className="hidden">
                 Search
               </label>
-              <div className="relative">
+              <div className="relative w-full">
                 <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center">
                   <MagnifyingGlassIcon className="h-4 w-4 outline-current text-slate-300" aria-hidden="true" />
                 </div>
@@ -276,7 +276,7 @@ export default function Filters() {
                   type="search"
                   placeholder="Search"
                   value={searchQuery}
-                  className="border-0 rounded-xl bg-transparent pl-6 text-slate-50 text-sm font-medium placeholder:text-cf-slate-300 focus:ring-2 focus:ring-inset focus:ring-cf-blue-50 sm:leading-6"
+                  className="w-full border-0 rounded-xl bg-transparent pl-6 text-slate-50 text-sm font-medium placeholder:text-cf-slate-300 focus:ring-2 focus:ring-inset focus:ring-cf-blue-50 sm:leading-6"
                 />
               </div>
             </div>
@@ -284,7 +284,7 @@ export default function Filters() {
 
           <button
             type="button"
-            className="inline-block text-sm font-medium text-gray-700 hover:text-gray-900 sm:hidden"
+            className="inline-block text-sm font-medium text-slate-50 hover:text-cf-gray-100 sm:hidden"
             onClick={() => setOpen(true)}
           >
             Filters
