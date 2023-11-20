@@ -12,6 +12,25 @@ const computedFields = {
   slugAsParams: {
     type: 'string',
     resolve: (doc) => doc._raw.flattenedPath.split('/').slice(0).join('/'),
+  },
+  statusBadgeColor: {
+    type: 'string',
+    resolve: (doc) => {
+      switch (doc.Status) {
+        case 'Proposed':
+        case 'Draft':
+          return 'bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600'
+        case 'Solved':
+        case 'Active':
+          return 'bg-cf-green-600/30 ring-cf-green-600/30 text-green-600'
+        case 'Inactive':
+          return 'bg-cf-red-600/20 ring-cf-red-600/20 text-red-600'
+        case 'Open':
+          return 'bg-cf-yellow-600/20 ring-cf-yellow-600/20 text-yellow-600'
+        default:
+          return 'bg-white/10 ring-gray-100/10 text-slate-300'
+      }
+    },
   }
 }
 
@@ -68,7 +87,7 @@ export default makeSource({
       [
         rehypePrettyCode,
         {
-          theme: 'github-dark',
+          theme: 'nord',
           onVisitLine(node) {
             if (node.children.length === 0) {
               node.children = [{ type: 'text', value: ' ' }]
