@@ -39,9 +39,9 @@ next-env.d.ts
 .idea/
 
 # fetched content
-/CIPs/
-/CPSs/
-app/PRs/
-app/Stats/
-app/Labels/
-app/Contributors/
+/content/cip/
+/content/cps/
+/content/pr/
+/data/contributors.json
+/data/labels.json
+/data/stats.json

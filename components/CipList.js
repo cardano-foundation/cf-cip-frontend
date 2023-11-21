@@ -39,7 +39,7 @@ const CipList = ({ className, searchParams, ...props }) => {
   return (
     <div className={`${className}`}>
       <Filters/>
-      {!filteredCIPs.length && <p className="text-center text-slate-50 text-xl">No CIPs found.</p>}
+      {!filteredCIPs.length && <p className="text-center text-slate-50 text-xl mt-4">No CIPs found.</p>}
       {!!filteredCIPs.length && <ListGroup items={filteredCIPs} type="cips"/>}
     </div>
   )

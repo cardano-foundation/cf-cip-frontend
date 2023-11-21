@@ -43,7 +43,7 @@ async function fetchGithubContributors() {
     const modifiedContributors = contributors.map(({ login, html_url, avatar_url, }) => ({ name: login, html_url: html_url, image: avatar_url }))
 
     // Define file path for contributors data
-    const contributorsFolderPath = join(__dirname, '..', 'app', 'Contributors')
+    const contributorsFolderPath = join(__dirname, '..', 'data')
     const contributorsFilePath = join(contributorsFolderPath, 'contributors.json')
 
     if (!existsSync(contributorsFolderPath)) {

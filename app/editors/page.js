@@ -1,5 +1,5 @@
 import EditorCard from '@/components/EditorCard'
-import Contributors from '../Contributors/Contributors.json'
+import Contributors from '@/data/contributors.json'
 import Image from 'next/image'
 import Link from 'next/link'
 

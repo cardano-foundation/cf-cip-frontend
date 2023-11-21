@@ -1,6 +1,6 @@
 import StatCard from '@/components/StatCard'
 import CipList from '@/components/CipList'
-import Stats from '@/app/Stats/stats.json'
+import Stats from '@/data/stats.json'
 
 export default function Home({searchParams}) {
   const statCardIcons = [

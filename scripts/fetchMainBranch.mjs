@@ -6,7 +6,7 @@ import formatCamelCase from '../lib/formatCamelCase.mjs'
 dotenv.config({ path: '.env.local' })
 
 const repo = 'CIPs'
-const destination_path = './'
+const destination_path = './content'
 const owner = 'cardano-foundation'
 const github_token = process.env.GITHUB_TOKEN
 const url = `https://api.github.com/repos/${owner}/${repo}/contents`
@@ -35,9 +35,9 @@ async function fetchGitHubData(url, token, destination_path) {
         // Set directory path based on whether item name includes 'CIP' or 'CPS'
         let dirPath = ''
         if (item.name.includes('CIP')) {
-          dirPath = `${destination_path}/CIPs/${item.name}`
+          dirPath = `${destination_path}/cip/${item.name}`
         } else if (item.name.includes('CPS')) {
-          dirPath = `${destination_path}/CPSs/${item.name}`
+          dirPath = `${destination_path}/cps/${item.name}`
         }
 
         // Create directory
@@ -62,24 +62,24 @@ async function fetchGitHubData(url, token, destination_path) {
     })
     await Promise.all(promises)
 
-    if (
-      destination_path.includes('CIPs') ||
-      destination_path.includes('CPSs')
-    ) {
-      const category = destination_path.includes('CIPs') ? 'CIPs' : 'CPSs'
-      const jsonFilePath = path.join(
-        destination_path.split(category)[0],
-        category,
-        'table.json',
-      )
-
-      if (fileHeaders[category]) {
-        fs.writeFileSync(
-          jsonFilePath,
-          JSON.stringify(fileHeaders[category], null, 2),
-        )
-      }
-    }
+    // if (
+    //   destination_path.includes('cip') ||
+    //   destination_path.includes('cps')
+    // ) {
+    //   const category = destination_path.includes('cip') ? 'cip' : 'cps'
+    //   const jsonFilePath = path.join(
+    //     destination_path.split(category)[0],
+    //     category,
+    //     'table.json',
+    //   )
+    //
+    //   if (fileHeaders[category]) {
+    //     fs.writeFileSync(
+    //       jsonFilePath,
+    //       JSON.stringify(fileHeaders[category], null, 2),
+    //     )
+    //   }
+    // }
   } else {
     console.error(
       `Failed to fetch the repository contents. Status code: ${response.status}`,

@@ -3,6 +3,8 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypePrettyCode from 'rehype-pretty-code'
 import rehypeSlug from 'rehype-slug'
 import remarkGfm from 'remark-gfm'
+import remarkMath from 'remark-math'
+import remarkComment from 'remark-comment'
 
 const computedFields = {
   slug: {
@@ -36,7 +38,7 @@ const computedFields = {
 
 export const Cip = defineDocumentType(() => ({
   name: 'CIP',
-  filePathPattern: '**/page.mdx',
+  filePathPattern: 'cip/**/page.mdx',
   contentType: 'mdx',
   fields: {
     "Title": {
@@ -78,10 +80,10 @@ export const Cip = defineDocumentType(() => ({
 }))
 
 export default makeSource({
-  contentDirPath: 'CIPs',
+  contentDirPath: 'content',
   documentTypes: [Cip],
   mdx: {
-    remarkPlugins: [remarkGfm],
+    remarkPlugins: [remarkGfm, remarkMath, remarkComment],
     rehypePlugins: [
       rehypeSlug,
       [
