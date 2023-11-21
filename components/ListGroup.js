@@ -7,7 +7,7 @@ function parseAuthors(authors) {
     const [name, email] = author.split("<")
     return {
       name: name.trim(),
-      email: email.replace(">", "").trim(),
+      email: email ? email.replace(">", "").trim() : '',
     }
   })
 }
@@ -23,7 +23,7 @@ export default function ListGroup({items, type}) {
           <div className="flex min-w-0 gap-x-4">
             <div className="min-w-0 flex-auto">
               <p className="leading-6 text-cf-blue-50">
-                #{item.CIP}
+                #{item[type.toUpperCase()]}
               </p>
               <p className="font-semibold leading-6 text-slate-50">
                 <Link href={`/${type}/${item.slug}`}>
@@ -31,11 +31,11 @@ export default function ListGroup({items, type}) {
                   {item.Title}
                 </Link>
               </p>
-              <p className="mt-1 flex text-xs leading-5 text-slate-300">
+              <p className="mt-1 flex text-xs leading-5 text-slate-300 flex-wrap">
                 {item.Authors && parseAuthors(item.Authors).map((author ,index) => (
                   <>
                     {item.Authors.length !== 1 && index + 1 === item.Authors.length && <>&nbsp;and&nbsp;</>}
-                    <Link href={`mailto:${author.email}`} key={index} className="relative truncate hover:underline">
+                    <Link href={`mailto:${author.email}`} key={index} className="relative hover:underline">
                       {author.name}{index + 1 < item.Authors.length && ",\u00A0"}
                     </Link>
                   </>

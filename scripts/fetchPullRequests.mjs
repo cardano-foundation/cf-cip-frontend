@@ -5,7 +5,7 @@ import dotenv from 'dotenv'
 dotenv.config({ path: '.env.local' })
 
 const repo = 'CIPs'
-const destination_path = 'app/PRs'
+const destination_path = 'content/pr'
 const owner = 'cardano-foundation'
 const github_token = process.env.GITHUB_TOKEN
 const label = 'Waiting for Author'
@@ -73,7 +73,7 @@ async function downloadFile(url, filePath) {
 
     // If the file is README.md, rename it to page.mdx
     if (fileName === 'README.mdx') {
-      fileName = 'page.mdx';
+      fileName = 'page.md';
     }
 
     // Construct the new file path

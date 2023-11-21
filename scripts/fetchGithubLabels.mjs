@@ -38,7 +38,7 @@ async function fetchGithubLabels() {
   }))
 
   // Define file path for labels data
-  const labelsFolderPath = join(__dirname, '..', 'app', 'Labels')
+  const labelsFolderPath = join(__dirname, '..', 'data')
   const labelsFilePath = join(labelsFolderPath, 'labels.json')
 
   if (!existsSync(labelsFolderPath)) {

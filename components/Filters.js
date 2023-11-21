@@ -1,7 +1,7 @@
 'use client'
 
 import qs from 'query-string'
-import {Fragment, useEffect, useState} from 'react'
+import {Fragment, useEffect, useRef, useState} from 'react'
 import { useDebounce } from "use-debounce"
 import { useSearchParams, useRouter } from "next/navigation"
 import { Dialog, Disclosure, Menu, Popover, Transition } from '@headlessui/react'
@@ -33,10 +33,13 @@ const filters = [
     id: 'status',
     name: 'Status',
     options: [
-      { value: 'Proposed', label: 'Proposed' },
-      { value: 'Active', label: 'Active' },
-      { value: 'Inactive', label: 'Inactive' },
-      { value: 'Draft', label: 'Draft' },
+      { value: 'Proposed', label: 'Proposed', type: 'cip' },
+      { value: 'Active', label: 'Active', type: 'cip' },
+      { value: 'Inactive', label: 'Inactive', type: 'cip' },
+      { value: 'Draft', label: 'Draft', type: 'cip' },
+      { value: 'Open', label: 'Open', type: 'cps' },
+      { value: 'Solved', label: 'Solved', type: 'cps' },
+      { value: 'Inactive', label: 'Inactive', type: 'cps' },
     ],
   },
 ]
@@ -45,7 +48,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Filters() {
+export default function Filters({ type }) {
   const searchParams = useSearchParams()
   const router = useRouter()
 
@@ -58,7 +61,7 @@ export default function Filters() {
   const status = searchParams.get('status')
 
   const handleFilters = (type, value) => {
-    const current = qs.parse(searchParams.toString());
+    const current = qs.parse(searchParams.toString())
 
     const query = {
       ...current,
@@ -72,13 +75,13 @@ export default function Filters() {
     const url = qs.stringifyUrl({
       url: window.location.href,
       query,
-    }, { skipNull: true });
+    }, { skipNull: true })
 
-    router.replace(url, { scroll: false });
+    router.replace(url, { scroll: false })
   }
 
   const handleSort = (value) => {
-    const current = qs.parse(searchParams.toString());
+    const current = qs.parse(searchParams.toString())
 
     const query = {
       ...current,
@@ -90,7 +93,7 @@ export default function Filters() {
       query,
     }, { skipNull: true });
 
-    router.replace(url, { scroll: false });
+    router.replace(url, { scroll: false })
   }
 
   const handleSearchQueryChange = (e) => {
@@ -98,7 +101,7 @@ export default function Filters() {
   }
 
   const handleSearch = () => {
-    const current = qs.parse(searchParams.toString());
+    const current = qs.parse(searchParams.toString())
 
     const query = {
       ...current,
@@ -108,15 +111,21 @@ export default function Filters() {
     const url = qs.stringifyUrl({
       url: window.location.href,
       query,
-    }, { skipNull: true });
+    }, { skipNull: true })
 
     router.replace(url, { scroll: false });
   }
 
   // useEffect that updates the search query in the URL from debouncedSearchQuery
   useEffect(() => {
+    if (searchQuery === '') {
+      return
+    }
+
+    console.log('this ran')
+
     handleSearch()
-  }, [debouncedSearchQuery]);
+  }, [debouncedSearchQuery])
 
   return (
     <div className="w-full">
@@ -177,28 +186,32 @@ export default function Filters() {
                           </h3>
                           <Disclosure.Panel className="pt-6">
                             <div className="space-y-6">
-                              {section.options.map((option, optionIdx) => (
-                                <div key={option.value} className="flex items-center">
-                                  <input
-                                    id={`filter-mobile-${section.id}-${optionIdx}`}
-                                    name={`${section.id}[]`}
-                                    defaultValue={option.value}
-                                    defaultChecked={
-                                      (category && category.split(',').includes(option.value)) ||
-                                      (status && status.split(',').includes(option.value))
-                                    }
-                                    type="checkbox"
-                                    className="h-4 w-4 rounded text-cf-blue-900/50 bg-cf-blue-900/10 focus:ring-cf-blue-200 cursor-pointer"
-                                    onChange={() => handleFilters(section.id, option.value)}
-                                  />
-                                  <label
-                                    htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
-                                    className="ml-3 text-sm text-slate-50"
-                                  >
-                                    {option.label}
-                                  </label>
-                                </div>
-                              ))}
+                              {section.options.map((option, optionIdx) => {
+                                if (section.id === 'category' || (section.id === 'status' && type === option.type)) {
+                                  return (
+                                    <div key={option.value} className="flex items-center">
+                                      <input
+                                        id={`filter-mobile-${section.id}-${optionIdx}`}
+                                        name={`${section.id}[]`}
+                                        defaultValue={option.value}
+                                        defaultChecked={
+                                          (category && category.split(',').includes(option.value)) ||
+                                          (status && status.split(',').includes(option.value))
+                                        }
+                                        type="checkbox"
+                                        className="h-4 w-4 rounded text-cf-blue-900/50 bg-cf-blue-900/10 focus:ring-cf-blue-200 cursor-pointer"
+                                        onChange={() => handleFilters(section.id, option.value)}
+                                      />
+                                      <label
+                                        htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
+                                        className="ml-3 text-sm text-slate-50"
+                                      >
+                                        {option.label}
+                                      </label>
+                                    </div>
+                                  )
+                                }
+                              })}
                             </div>
                           </Disclosure.Panel>
                         </>
@@ -212,7 +225,7 @@ export default function Filters() {
         </Dialog>
       </Transition.Root>
 
-      <section aria-labelledby="filter-heading" className="border-t border-gray-100/10 py-6">
+      <section aria-labelledby="filter-heading" className="py-6">
         <h2 id="filter-heading" className="sr-only">
           Filters
         </h2>
@@ -325,28 +338,32 @@ export default function Filters() {
                 >
                   <Popover.Panel className="absolute right-0 z-10 mt-2 origin-top-right rounded-md bg-white/10 backdrop-blur-lg p-4 ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <form className="space-y-4">
-                      {section.options.map((option, optionIdx) => (
-                        <div key={option.value} className="flex items-center">
-                          <input
-                            id={`filter-${section.id}-${optionIdx}`}
-                            name={`${section.id}[]`}
-                            defaultValue={option.value}
-                            defaultChecked={
-                              (category && category.split(',').includes(option.value)) ||
-                              (status && status.split(',').includes(option.value))
-                            }
-                            type="checkbox"
-                            className="h-4 w-4 rounded text-cf-blue-900/50 bg-cf-blue-900/10 focus:ring-cf-blue-200 cursor-pointer"
-                            onChange={() => handleFilters(section.id, option.value)}
-                          />
-                          <label
-                            htmlFor={`filter-${section.id}-${optionIdx}`}
-                            className="ml-3 whitespace-nowrap pr-6 text-sm font-medium text-slate-50 cursor-pointer"
-                          >
-                            {option.label}
-                          </label>
-                        </div>
-                      ))}
+                      {section.options.map((option, optionIdx) => {
+                        if (section.id === 'category' || (section.id === 'status' && type === option.type)) {
+                          return (
+                            <div key={option.value} className="flex items-center">
+                              <input
+                                id={`filter-${section.id}-${optionIdx}`}
+                                name={`${section.id}[]`}
+                                defaultValue={option.value}
+                                defaultChecked={
+                                  (category && category.split(',').includes(option.value)) ||
+                                  (status && status.split(',').includes(option.value))
+                                }
+                                type="checkbox"
+                                className="h-4 w-4 rounded text-cf-blue-900/50 bg-cf-blue-900/10 focus:ring-cf-blue-200 cursor-pointer"
+                                onChange={() => handleFilters(section.id, option.value)}
+                              />
+                              <label
+                                htmlFor={`filter-${section.id}-${optionIdx}`}
+                                className="ml-3 whitespace-nowrap pr-6 text-sm font-medium text-slate-50 cursor-pointer"
+                              >
+                                {option.label}
+                              </label>
+                            </div>
+                          )
+                        }
+                      })}
                     </form>
                   </Popover.Panel>
                 </Transition>

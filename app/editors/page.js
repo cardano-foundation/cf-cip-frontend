@@ -1,5 +1,5 @@
 import EditorCard from '@/components/EditorCard'
-import Contributors from '../Contributors/Contributors.json'
+import Contributors from '@/data/contributors.json'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -74,7 +74,7 @@ export default function Editors() {
                   className="relative group"
                 >
                   <Image
-                    className="relative z-30 inline-block h-full w-full rounded-full ring-2 ring-cf-blue-50/20"
+                    className="relative z-30 inline-block h-full w-full rounded-full ring-2 group-hover:ring-8 group-hover:animate-spin ring-cf-blue-50/20"
                     src={contributor.image}
                     alt={contributor.name}
                     width={500}

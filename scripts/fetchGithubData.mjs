@@ -100,7 +100,7 @@ const stats = {
 const statsJson = JSON.stringify({ stats: [stats] }, null, 2)
 
 // Write JSON to file
-const dirPath = join(__dirname, '..', 'app', 'Stats');
+const dirPath = join(__dirname, '..', 'data');
 const filePath = join(dirPath, 'stats.json');
 
 if (!existsSync(dirPath)) {

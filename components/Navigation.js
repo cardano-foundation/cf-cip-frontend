@@ -2,9 +2,10 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { Disclosure, Transition } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Logo from '@/components/Logo'
+import {Fragment} from "react";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -80,35 +81,44 @@ const Navigation = () => {
             </div>
           </div>
 
-          <Disclosure.Panel className="lg:hidden shadow-2xl">
-            <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-              <Disclosure.Button
-                as={Link}
-                href="/"
-                className={classNames(
-                  pathname === '/' ? 'bg-white/20' : 'hover:bg-white/20',
-                  'block rounded-md px-3 py-2 text-base font-medium text-slate-50'
-                )}
-                aria-current={pathname === '/' ? 'page' : undefined}
-              >
-                Home
-              </Disclosure.Button>
-              {navigation.map((item) => (
+          <Transition
+            enter="transition duration-100 ease-in"
+            enterFrom="transform scale-95 opacity-0"
+            enterTo="transform scale-100 opacity-100"
+            leave="transition duration-75 ease-out"
+            leaveFrom="transform scale-100 opacity-100"
+            leaveTo="transform scale-95 opacity-0"
+          >
+            <Disclosure.Panel className="lg:hidden shadow-2xl">
+              <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
                 <Disclosure.Button
-                  key={item.name}
                   as={Link}
-                  href={item.href}
+                  href="/"
                   className={classNames(
-                    item.current ? 'bg-white/20' : 'hover:bg-white/20',
+                    pathname === '/' ? 'bg-white/20' : 'hover:bg-white/20',
                     'block rounded-md px-3 py-2 text-base font-medium text-slate-50'
                   )}
-                  aria-current={item.current ? 'page' : undefined}
+                  aria-current={pathname === '/' ? 'page' : undefined}
                 >
-                  {item.name}
+                  Home
                 </Disclosure.Button>
-              ))}
-            </div>
-          </Disclosure.Panel>
+                {navigation.map((item) => (
+                  <Disclosure.Button
+                    key={item.name}
+                    as={Link}
+                    href={item.href}
+                    className={classNames(
+                      item.current ? 'bg-white/20' : 'hover:bg-white/20',
+                      'block rounded-md px-3 py-2 text-base font-medium text-slate-50'
+                    )}
+                    aria-current={item.current ? 'page' : undefined}
+                  >
+                    {item.name}
+                  </Disclosure.Button>
+                ))}
+              </div>
+            </Disclosure.Panel>
+          </Transition>
         </>
       )}
     </Disclosure>
