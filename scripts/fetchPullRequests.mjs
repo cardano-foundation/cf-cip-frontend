@@ -73,7 +73,7 @@ async function downloadFile(url, filePath) {
 
     // If the file is README.md, rename it to page.mdx
     if (fileName === 'README.mdx') {
-      fileName = 'page.mdx';
+      fileName = 'page.md';
     }
 
     // Construct the new file path

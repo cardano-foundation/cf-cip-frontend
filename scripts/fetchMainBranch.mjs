@@ -61,25 +61,6 @@ async function fetchGitHubData(url, token, destination_path) {
       }
     })
     await Promise.all(promises)
-
-    // if (
-    //   destination_path.includes('cip') ||
-    //   destination_path.includes('cps')
-    // ) {
-    //   const category = destination_path.includes('cip') ? 'cip' : 'cps'
-    //   const jsonFilePath = path.join(
-    //     destination_path.split(category)[0],
-    //     category,
-    //     'table.json',
-    //   )
-    //
-    //   if (fileHeaders[category]) {
-    //     fs.writeFileSync(
-    //       jsonFilePath,
-    //       JSON.stringify(fileHeaders[category], null, 2),
-    //     )
-    //   }
-    // }
   } else {
     console.error(
       `Failed to fetch the repository contents. Status code: ${response.status}`,
@@ -103,7 +84,7 @@ async function downloadFile(url, filePath) {
 
     // If the file is README.md, rename it to page.mdx
     if (fileName === 'README.mdx') {
-      fileName = 'page.mdx';
+      fileName = 'page.md';
     }
 
     // Construct the new file path

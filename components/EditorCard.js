@@ -8,7 +8,7 @@ const PersonCard = ({ className, ...props }) => (
     <div className="flex h-[74px] w-auto flex-col items-center pb-5">
       <Link href={props.github_link} target="_blank" className="relative group my-4">
         <Image
-          className="h-48 w-48 rounded-full object-cover object-center ring-2 ring-cf-blue-50/20"
+          className="h-48 w-48 rounded-full object-cover object-center ring-2 ring-cf-blue-50/20 group-hover:ring-8 group-hover:animate-pulse"
           src={`/${props.image}`}
           alt={props.name}
           priority={true}

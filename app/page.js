@@ -1,6 +1,8 @@
 import StatCard from '@/components/StatCard'
 import CipList from '@/components/CipList'
+import CpsList from '@/components/CpsList'
 import Stats from '@/data/stats.json'
+import TypeTabs from '@/components/TypeTabs'
 
 export default function Home({searchParams}) {
   const statCardIcons = [
@@ -21,6 +23,8 @@ export default function Home({searchParams}) {
     },
   ]
 
+  const type = searchParams.type || 'cip'
+
   return (
     <main className="relative isolate bg-cf-blue-900 min-h-screen">
       <div className="flex items-center justify-center bg-transparent pb-12 pt-40">
@@ -40,7 +44,11 @@ export default function Home({searchParams}) {
               ))
             ))}
           </div>
-          <CipList className="w-full mt-24" searchParams={searchParams} />
+          <div className="mt-24 w-full">
+            <TypeTabs className="w-full" />
+            {type === 'cip' && <CipList className="w-full" searchParams={searchParams} />}
+            {type === 'cps' && <CpsList className="w-full" searchParams={searchParams} />}
+          </div>
         </div>
       </div>
 

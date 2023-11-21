@@ -1,28 +1,27 @@
-import { allCIPs } from 'contentlayer/generated'
+import { allCPs } from 'contentlayer/generated'
 import { notFound } from 'next/navigation'
-import { Mdx } from "@/components/mdx-components"
 import Link from "next/link"
 import Badge from "@/components/Badge"
 
-async function getCipFromParams(slug) {
-  const cip = allCIPs.find((cip) => cip.slug === slug)
+async function getCpsFromParams(slug) {
+  const cps = allCPs.find((cps) => cps.slug === slug)
 
-  if (!cip) {
+  if (!cps) {
     notFound()
   }
 
-  return cip
+  return cps
 }
 
 export async function generateMetadata({params}) {
-  const cip = await getCipFromParams(params.slug)
+  const cps = await getCpsFromParams(params.slug)
 
-  if (!cip) {
+  if (!cps) {
     return notFound()
   }
 
   return {
-    title: `${params.slug} | ${cip.Title}`,
+    title: `${params.slug} | ${cps.Title}`,
   }
 }
 
@@ -36,8 +35,8 @@ function parseAuthors(authors) {
   })
 }
 
-export default async function Cip({ params }) {
-  const cip = await getCipFromParams(params.slug)
+export default async function Cps({ params }) {
+  const cps = await getCpsFromParams(params.slug)
 
   return (
     <div className="pt-40 flex justify-center pb-12">
@@ -46,31 +45,31 @@ export default async function Cip({ params }) {
           <div className="mb-16 flex flex-col">
             <div>
               <div className="flex justify-between items-center mb-2">
-                <span className="text-cf-blue-50 text-3xl">#{cip.CIP}</span>
+                <span className="text-cf-blue-50 text-3xl">#{cps.CPS}</span>
                 <div>
-                  <Badge className={`text-sm ${cip.statusBadgeColor}`} title={cip.Status} />
-                  {cip.Category && <Badge className="text-sm bg-cf-blue-50/70 ring-cf-blue-50/70 text-cf-blue-600 ml-2" title={cip.Category} />}
+                  <Badge className={`text-sm ${cps.statusBadgeColor}`} title={cps.Status} />
+                  {cps.Category && <Badge className="text-sm bg-cf-blue-50/70 ring-cf-blue-50/70 text-cf-blue-600 ml-2" title={cps.Category} />}
                 </div>
               </div>
               <h1 className="text-5xl font-medium leading-tight tracking-tight text-transparent sm:text-6xl bg-clip-text bg-gradient-to-br from-white via-cf-slate-50 to-cf-blue-50/90">
-                {cip.Title}
+                {cps.Title}
               </h1>
             </div>
             <div className="mt-4 text-slate-400 flex flex-wrap">
               Created on&nbsp;
-              <time dateTime={cip.Created}>
-                {new Date(cip.Created).toLocaleDateString("en-US", {
+              <time dateTime={cps.Created}>
+                {new Date(cps.Created).toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "long",
                   day: "numeric",
                 })}
               </time>
-              {cip.Authors && <>&nbsp;by&nbsp;</>}
-              {cip.Authors && parseAuthors(cip.Authors).map((author ,index) => (
+              {cps.Authors && <>&nbsp;by&nbsp;</>}
+              {cps.Authors && parseAuthors(cps.Authors).map((author ,index) => (
                 <>
-                  {cip.Authors.length !== 1 && index + 1 === cip.Authors.length && <>&nbsp;and&nbsp;</>}
+                  {cps.Authors.length !== 1 && index + 1 === cps.Authors.length && <>&nbsp;and&nbsp;</>}
                   <Link href={`mailto:${author.email}`} key={index} className="relative truncate hover:underline">
-                    {author.name}{index + 1 < cip.Authors.length && ",\u00A0"}
+                    {author.name}{index + 1 < cps.Authors.length && ",\u00A0"}
                   </Link>
                 </>
               ))}
@@ -78,7 +77,7 @@ export default async function Cip({ params }) {
           </div>
 
           <div className="prose prose-invert lg:prose-xl mx-auto">
-            <Mdx code={cip.body.code} />
+            <div dangerouslySetInnerHTML={{ __html: cps.body.html }} />
           </div>
         </article>
       </div>
