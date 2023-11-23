@@ -10,8 +10,6 @@ const TypeTabs = ({ className }) => {
   const type = searchParams.get('type') || 'cip'
 
   const handleTypeChange = (type) => {
-    const current = qs.parse(searchParams.toString())
-
     const query = {
       type,
     }
@@ -27,13 +25,13 @@ const TypeTabs = ({ className }) => {
   return (
     <div className={`${className} grid grid-cols-2 text-white border border-gray-100/10 rounded-3xl overflow-hidden`}>
       <button
-        className={`${type === 'cip' && 'bg-gradient-to-tl from-white/10 via-35% via-white/[5%] to-transparent'} bg-clip-padding hover:bg-white/[7%] text-xl font-medium border-r border-gray-100/10 py-3`}
+        className={`${type === 'cip' && 'bg-gradient-to-tl from-white/10 via-35% via-white/[5%] to-transparent'} bg-clip-padding hover:bg-white/[7%] text-xl font-medium border-r border-gray-100/10 py-3 text-slate-50`}
         onClick={() => handleTypeChange('cip')}
       >
         CIP
       </button>
       <button
-        className={`${type === 'cps' && 'bg-gradient-to-tr from-white/10 via-35% via-white/[5%] to-transparent'} bg-clip-padding hover:bg-white/[7%] text-xl font-medium border-gray-100/10 py-3`}
+        className={`${type === 'cps' && 'bg-gradient-to-tr from-white/10 via-35% via-white/[5%] to-transparent'} bg-clip-padding hover:bg-white/[7%] text-xl font-medium border-gray-100/10 py-3 text-slate-50`}
         onClick={() => handleTypeChange('cps')}
       >
         CPS

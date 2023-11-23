@@ -80,10 +80,10 @@ async function downloadFile(url, filePath) {
     const ext = path.extname(filePath);
 
     // Change the file extension to .mdx if it's .md
-    let fileName = path.basename(filePath, ext) + (ext === '.md' ? '.mdx' : ext);
+    let fileName = path.basename(filePath, ext) + ext;
 
     // If the file is README.md, rename it to page.mdx
-    if (fileName === 'README.mdx') {
+    if (fileName === 'README.md') {
       fileName = 'page.md';
     }
 

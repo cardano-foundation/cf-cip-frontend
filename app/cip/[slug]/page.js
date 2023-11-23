@@ -1,7 +1,8 @@
 import { allCIPs } from 'contentlayer/generated'
 import { notFound } from 'next/navigation'
-import Link from "next/link"
-import Badge from "@/components/Badge"
+import Link from 'next/link'
+import Badge from '@/components/Badge'
+import Markdown from '@/components/Markdown'
 
 async function getCipFromParams(slug) {
   const cip = allCIPs.find((cip) => cip.slug === slug)
@@ -77,7 +78,7 @@ export default async function Cip({ params }) {
           </div>
 
           <div className="prose prose-invert lg:prose-xl mx-auto">
-            <div dangerouslySetInnerHTML={{ __html: cip.body.html }} />
+            <Markdown content={cip.body.html } />
           </div>
         </article>
       </div>

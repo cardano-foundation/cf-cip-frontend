@@ -38,6 +38,7 @@ const cpsComputedFields = {
   },
   statusBadgeColor,
 }
+
 export const Cps = defineDocumentType(() => ({
   name: 'CPS',
   filePathPattern: 'cps/**/page.md',
@@ -195,9 +196,45 @@ export const Cip = defineDocumentType(() => ({
   computedFields: cipComputedFields,
 }))
 
+const cipAnnexComputedFields = {
+  slug: {
+    type: 'string',
+    resolve: (doc) => `${doc._raw.sourceFileDir.split('/')[1]}-${doc._raw.sourceFileName}`,
+  },
+  slugAsParams: {
+    type: 'string',
+    resolve: (doc) => doc._raw.flattenedPath.split('/').slice(0).join('/'),
+  },
+}
+
+export const CipAnnex = defineDocumentType(() => ({
+  name: 'CIPAnnex',
+  filePathPattern: 'cip/**/!(*README*|page).md',
+  contentType: 'markdown',
+  computedFields: cipAnnexComputedFields,
+}))
+
+const cpsAnnexComputedFields = {
+  slug: {
+    type: 'string',
+    resolve: (doc) => `${doc._raw.sourceFileDir.split('/')[1]}-${doc._raw.sourceFileName}`,
+  },
+  slugAsParams: {
+    type: 'string',
+    resolve: (doc) => doc._raw.flattenedPath.split('/').slice(0).join('/'),
+  },
+}
+
+export const CpsAnnex = defineDocumentType(() => ({
+  name: 'CPSAnnex',
+  filePathPattern: 'cps/**/!(*README*|page).md',
+  contentType: 'markdown',
+  computedFields: cpsAnnexComputedFields,
+}))
+
 export default makeSource({
   contentDirPath: 'content',
-  documentTypes: [Cip, Cps],
+  documentTypes: [Cip, Cps, CipAnnex, CpsAnnex],
   markdown: {
     remarkPlugins: [remarkGfm, remarkComment, remarkMath],
     rehypePlugins: [
