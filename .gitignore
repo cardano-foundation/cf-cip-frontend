@@ -45,3 +45,4 @@ next-env.d.ts
 /data/contributors.json
 /data/labels.json
 /data/stats.json
+/data/authors.json
