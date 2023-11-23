@@ -24,12 +24,12 @@ export default function About() {
           {/* Template Buttons */}
           <div className="grid grid-cols-1 gap-4 pb-12 sm:grid-cols-2">
             <a href="https://github.com/cardano-foundation/CIPs/blob/master/.github/CIP-TEMPLATE.md" target="_blank">
-              <Button className="justify-center border border-gray-50/10 border-opacity-100 bg-gradient-to-t from-white/[7%] via-white/[10%] to-transparent bg-clip-padding p-8 text-cf-offwhite ring-1">
+              <Button className="justify-center border border-gray-200/10 border-opacity-100 bg-gradient-to-t from-white/[7%] via-white/[2%] to-transparent bg-clip-padding p-8 text-slate-50">
                 CIP Template
               </Button>
               </a>
               <a href="https://github.com/cardano-foundation/CIPs/blob/master/.github/CPS-TEMPLATE.md" target="_blank">
-              <Button className="justify-center border border-gray-50/10 border-opacity-100 bg-gradient-to-t from-white/[7%] via-white/[10%] to-transparent bg-clip-padding p-8 text-cf-offwhite ring-1">
+              <Button className="justify-center border border-gray-200/10 border-opacity-100 bg-gradient-to-t from-white/[7%] via-white/[2%] to-transparent bg-clip-padding p-8 text-slate-50">
                 CPS Template
               </Button>
             </a>
