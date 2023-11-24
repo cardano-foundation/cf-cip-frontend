@@ -30,21 +30,21 @@ export default function Editors() {
 
   return (
     <main className="relative isolate min-h-screen bg-cf-blue-900">
-      <div className="flex min-h-screen flex-col items-center justify-center overflow-hidden bg-transparent pb-12 pt-40">
+      <div className="flex min-h-screen flex-col items-center justify-center overflow-hidden bg-transparent pb-12 pt-24 md:pt-40">
         {/* Thank you section */}
-        <h1 className="via-cf-slate-50 sm:text-[3 rem] bg-gradient-to-br from-white to-cf-blue-50/90 bg-clip-text text-center text-5xl font-medium leading-tight tracking-tight text-transparent">
+        <h1 className="via-cf-slate-50 px-4 text-3xl md:text-5xl bg-gradient-to-br from-white to-cf-blue-50/90 bg-clip-text text-center font-medium leading-tight tracking-tight text-transparent">
           Thank you for being part of the change!
         </h1>
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center px-4">
           {/* Editors Section */}
           <div className="mt-10 flex w-full flex-col gap-1 text-center text-gray-200">
             {Editors.map((person, index) => (
-              <div key={index} className="grid grid-cols-2">
-                <div className="mr-4 text-right">Editors</div>
+              <div key={index} className="grid grid-cols-2 text-base md:text-lg">
+                <div className="mr-3 text-right text-cf-blue-50/40">Editor</div>
                 <a
                   href={person.github_link}
                   target="_blank"
-                  className="justify-left flex"
+                  className="justify-left flex text-slate-50 hover:text-cf-gray-100"
                 >
                   <div className="">{person.name}</div>
                 </a>
@@ -54,9 +54,9 @@ export default function Editors() {
           {/* Authors Section */}
           <div className="mt-10 flex w-full flex-col gap-1 text-center text-gray-200">
             {Authors.map((person, index) => (
-              <div key={index} className="grid grid-cols-2">
-                <div className="mr-4 text-right">Authors</div>
-                <a href={`mailto:${person.email}`}>
+              <div key={index} className="grid grid-cols-2 text-base md:text-lg">
+                <div className="mr-3 text-right text-cf-blue-50/40">Author</div>
+                <a href={`mailto:${person.email}`} className="text-slate-50 hover:text-cf-gray-100">
                   <div className="flex-grow text-left">{person.name}</div>
                 </a>
               </div>
@@ -65,10 +65,10 @@ export default function Editors() {
           {/* Reviewer Section */}
           <div className="mt-10 flex w-full flex-col gap-1 text-center text-gray-200">
             {Contributors.map((person, index) => (
-              <div key={index} className="grid grid-cols-2">
-                <div className="mr-4 text-right">Reviewer</div>
-                <a href={person.html_url} target="_blank">
-                  <div className="flex-grow text-left">{person.name}</div>
+              <div key={index} className="grid grid-cols-2 text-base md:text-lg">
+                <div className="mr-3 text-right text-cf-blue-50/40">Reviewer</div>
+                <a href={person.html_url} target="_blank" className="text-slate-50 hover:text-cf-gray-100">
+                  <div className="flex-grow text-left hover">{person.name}</div>
                 </a>
               </div>
             ))}

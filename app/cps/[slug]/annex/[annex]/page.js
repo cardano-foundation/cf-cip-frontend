@@ -28,7 +28,7 @@ export default async function CpsAnnex({ params }) {
   const annex = await getAnnexFromParams(params.slug, params.annex)
 
   return (
-    <div className="pt-40 flex justify-center pb-12">
+    <div className="pt-24 md:pt-40 flex justify-center pb-12">
       <div className="max-w-5xl w-full px-6 sm:px-8 lg:px-12">
         <article>
           <div className="mb-16 flex flex-col">
