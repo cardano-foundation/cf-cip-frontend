@@ -15,33 +15,33 @@ export default function About() {
   return (
     <main className="relative isolate min-h-screen bg-cf-blue-900">
       {/* About Section */}
-      <div className="flex items-center justify-center overflow-hidden bg-transparent pb-12 pt-40">
+      <div className="flex items-center justify-center overflow-hidden bg-transparent pb-12 pt-24 md:pt-40">
         <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center pt-6 sm:px-8 lg:pt-12">
-          <h1 className="via-cf-slate-50 bg-gradient-to-br from-white to-cf-blue-50/90 bg-clip-text pb-4 text-center text-5xl font-medium leading-tight tracking-tight text-transparent sm:text-[5rem]">
+          <h1 className="via-cf-slate-50 bg-gradient-to-br from-white to-cf-blue-50/90 bg-clip-text pb-1 text-center text-5xl font-medium leading-tight tracking-tight text-transparent sm:text-[5rem]">
             About CIPs  
           </h1>
 
           {/* Template Buttons */}
-          <div className="grid grid-cols-1 gap-4 pb-12 sm:grid-cols-2">
+          <div className="grid pb-12 gap-2 grid-cols-2">
             <a href="https://github.com/cardano-foundation/CIPs/blob/master/.github/CIP-TEMPLATE.md" target="_blank">
-              <Button className="justify-center border border-gray-200/10 border-opacity-100 bg-gradient-to-t from-white/[7%] via-white/[2%] to-transparent bg-clip-padding p-8 text-slate-50">
+              <button className="justify-center border border-gray-100/10 border-opacity-100 bg-gradient-to-t from-white/[7%] via-white/[2%] to-transparent hover:bg-white/10 bg-clip-padding px-3 py-2 rounded-xl text-slate-50">
                 CIP Template
-              </Button>
+              </button>
               </a>
               <a href="https://github.com/cardano-foundation/CIPs/blob/master/.github/CPS-TEMPLATE.md" target="_blank">
-              <Button className="justify-center border border-gray-200/10 border-opacity-100 bg-gradient-to-t from-white/[7%] via-white/[2%] to-transparent bg-clip-padding p-8 text-slate-50">
+              <button className="justify-center border border-gray-100/10 border-opacity-100 bg-gradient-to-t from-white/[7%] via-white/[2%] to-transparent hover:bg-white/10 bg-clip-padding px-3 py-2 rounded-xl text-slate-50">
                 CPS Template
-              </Button>
+              </button>
             </a>
           </div>
 
           {content.map((item, index) => (
-            <div className="pb-12 px-4 sm:px-0" key={index}>
-              <h1 className="via-cf-slate-50 bg-gradient-to-br from-white to-cf-blue-50/90 bg-clip-text text-4xl font-medium leading-tight tracking-tight text-transparent">
+            <div className="pb-12 px-4 sm:px-0 prose prose-invert lg:prose-xl mx-auto" key={index}>
+              <h2 className="via-cf-slate-50 bg-gradient-to-br from-white to-cf-blue-50/90 bg-clip-text text-4xl font-medium leading-tight tracking-tight text-transparent">
                 {item.title}
-              </h1>
-              <h1
-                className="my-4 text-cf-offwhite text-lg"
+              </h2>
+              <p
+                className="my-4 text-slate-50"
                 dangerouslySetInnerHTML={{ __html: item.text }}
               />
             </div>

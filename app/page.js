@@ -27,13 +27,13 @@ export default function Home({searchParams}) {
 
   return (
     <main className="relative isolate bg-cf-blue-900 min-h-screen">
-      <div className="flex items-center justify-center bg-transparent pb-12 pt-40">
+      <div className="flex items-center justify-center bg-transparent pb-12 pt-24 md:pt-40">
         <div className="mx-auto flex flex-col w-full max-w-7xl items-center justify-center px-6 sm:px-8 lg:px-12">
           <h1 className="text-5xl font-medium leading-tight tracking-tight text-transparent sm:text-[5rem] text-center bg-clip-text bg-gradient-to-br from-white via-cf-slate-50 to-cf-blue-50/90">
             Cardano Improvement <br /> Proposals
           </h1>
 
-          <div className="mt-24 grid w-full grid-cols-1 gap-6 sm:grid-cols-3 md:gap-9 lg:grid-cols-5 lg:gap-4">
+          <div className="pt-12 md:mt-24 grid w-full grid-cols-1 gap-4 md:grid-cols-5">
             {Stats.stats.map((stat, index) => (
               Object.entries(stat).map(([key, value], subIndex) => (
                 <StatCard

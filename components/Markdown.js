@@ -12,7 +12,14 @@ const Markdown = ({ content }) => {
 
     const href = e.currentTarget.getAttribute('href')
 
-    const newUrl = `${pathname}/annex/${href.split('./')[1]}`
+    let newUrl = `${pathname}/annex/${href.split('./')[1]}`
+
+    if (href.split('./')[1] !== 'md') {
+      // pathname looks like this http://localhost:3000/cip/CIP-0003
+      const cip = pathname.split('/')[2]
+
+      newUrl = `https://raw.githubusercontent.com/cardano-foundation/CIPs/master/${cip}/${href.split('./')[1]}`
+    }
 
     router.push(newUrl)
   }

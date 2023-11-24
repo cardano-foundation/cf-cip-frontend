@@ -39,7 +39,7 @@ export default async function Cps({ params }) {
   const cps = await getCpsFromParams(params.slug)
 
   return (
-    <div className="pt-40 flex justify-center pb-12">
+    <div className="pt-24 md:pt-40 flex justify-center pb-12">
       <div className="max-w-5xl w-full px-6 sm:px-8 lg:px-12">
         <article>
           <div className="mb-16 flex flex-col">
@@ -48,7 +48,7 @@ export default async function Cps({ params }) {
                 <span className="text-cf-blue-50 text-3xl">#{cps.CPS}</span>
                 <div>
                   <Badge className={`text-sm ${cps.statusBadgeColor}`} title={cps.Status} />
-                  {cps.Category && <Badge className="text-sm bg-cf-blue-50/70 ring-cf-blue-50/70 text-cf-blue-600 ml-2" title={cps.Category} />}
+                  {cps.Category && <Badge className="text-sm bg-white/10 ring-slate-400 text-slate-200 ml-2" title={cps.Category} />}
                 </div>
               </div>
               <h1 className="text-5xl font-medium leading-tight tracking-tight text-transparent sm:text-6xl bg-clip-text bg-gradient-to-br from-white via-cf-slate-50 to-cf-blue-50/90">

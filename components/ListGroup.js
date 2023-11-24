@@ -22,6 +22,10 @@ export default function ListGroup({items, type}) {
         <li key={index} className="relative bg-gradient-to-tl from-white/[7%] via-white/[2%] to-transparent flex justify-between gap-x-6 px-4 py-5 hover:bg-white/[7%] transition-all duration-200 ease-in-out sm:px-6">
           <div className="flex min-w-0 gap-x-4">
             <div className="min-w-0 flex-auto">
+              <div className="mb-2 sm:hidden">
+                <Badge className={`text-sm ${item.statusBadgeColor}`} title={item.Status} />
+                {item.Category && <Badge className="text-sm bg-white/10 ring-slate-400 text-slate-200 ml-2" title={item.Category} />}
+              </div>
               <p className="leading-6 text-cf-blue-50">
                 #{item[type.toUpperCase()]}
               </p>
@@ -47,7 +51,7 @@ export default function ListGroup({items, type}) {
             <div className="hidden sm:flex sm:flex-col sm:items-end">
               <div className="flex leading-6">
                 <Badge className={`text-sm ${item.statusBadgeColor}`} title={item.Status} />
-                {item.Category && <Badge className="text-sm bg-cf-blue-50/70 ring-cf-blue-50/70 text-cf-blue-600 ml-2" title={item.Category} />}
+                {item.Category && <Badge className="text-sm bg-white/10 ring-slate-400 text-slate-200 ml-2" title={item.Category} />}
               </div>
               <p className="text-xs leading-5 text-slate-300 mt-2">
                 Created on <time dateTime={item.Created}>
