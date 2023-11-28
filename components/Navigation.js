@@ -16,7 +16,7 @@ const Navigation = () => {
 
   const navigation = [
     { name: 'About CIPs', href: '/about', current: pathname === '/about' },
-    { name: 'Editors', href: '/editors', current: pathname === '/editors' },
+    { name: 'Contributors', href: '/contributors', current: pathname === '/contributors' },
   ]
 
   return (
