@@ -77,7 +77,7 @@ export default async function Cip({ params }) {
             </div>
           </div>
 
-          <div className="prose prose-invert lg:prose-xl mx-auto">
+          <div className="prose prose-invert lg:prose-xl mx-auto prose-code:px-2 prose-code:py-1 prose-code:rounded-md">
             <Markdown content={cip.body.html } />
           </div>
         </article>
