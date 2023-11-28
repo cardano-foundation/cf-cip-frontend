@@ -11,20 +11,20 @@ export default function Editors() {
       github_link: 'https://github.com/KtorZ',
     },
     {
-      name: 'John Greene',
-      github_link: 'https://github.com/KtorZ',
+      name: 'Sebastien Guillemot',
+      github_link: 'https://github.com/SebastienGllmt',
     },
     {
-      name: 'Vanessa Hurhangee',
-      github_link: 'https://github.com/KtorZ',
+      name: 'Robert Phair',
+      github_link: 'https://github.com/rphair',
     },
     {
-      name: 'Thomas Mayfield',
-      github_link: 'https://github.com/KtorZ',
+      name: 'Ryan Williams',
+      github_link: 'https://github.com/Ryun1',
     },
     {
-      name: 'Michiel Bellen',
-      github_link: 'https://github.com/KtorZ',
+      name: 'Adam Dean',
+      github_link: 'https://github.com/Crypto2099',
     },
   ]
 
@@ -37,14 +37,15 @@ export default function Editors() {
         </h1>
         <div className="flex flex-col items-center px-4">
           {/* Editors Section */}
-          <div className="mt-10 flex w-full flex-col gap-1 text-center text-gray-200">
+          <div className="mt-16 flex w-full flex-col items-center gap-1 text-center text-gray-200">
+            <h2 className="text-3xl text-cf-blue-50/80">Editors</h2>
+            <h3 className="text-xl text-slate-200/80 mb-6 max-w-lg">Editors triage, number, and briefly review new CIPs for visibility and potential reviews.</h3>
             {Editors.map((person, index) => (
-              <div key={index} className="grid grid-cols-2 text-base md:text-lg">
-                <div className="mr-3 text-right text-cf-blue-50/40">Editor</div>
+              <div key={index} className="grid grid-cols-1 text-base md:text-lg ">
                 <a
                   href={person.github_link}
                   target="_blank"
-                  className="justify-left flex text-slate-50 hover:text-cf-gray-100"
+                  className="justify-center flex text-slate-200 hover:text-cf-gray-100"
                 >
                   <div className="">{person.name}</div>
                 </a>
@@ -52,26 +53,32 @@ export default function Editors() {
             ))}
           </div>
           {/* Authors Section */}
-          <div className="mt-10 flex w-full flex-col gap-1 text-center text-gray-200">
-            {Authors.map((person, index) => (
-              <div key={index} className="grid grid-cols-2 text-base md:text-lg">
-                <div className="mr-3 text-right text-cf-blue-50/40">Author</div>
-                <a href={`mailto:${person.email}`} className="text-slate-50 hover:text-cf-gray-100">
-                  <div className="flex-grow text-left">{person.name}</div>
-                </a>
-              </div>
-            ))}
+          <div className="mt-16 flex w-full flex-col items-center gap-1 text-center text-gray-200">
+            <h2 className="text-3xl text-cf-blue-50/80">Authors</h2>
+            <h3 className="text-xl text-slate-200/80 mb-6 max-w-lg">Authors open pull requests and await for feedback.</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-4">
+              {Authors.map((person, index) => (
+                <div key={index} className="grid grid-cols-1 text-base md:text-lg">
+                  <a href={`mailto:${person.email}`} className="text-slate-200 hover:text-cf-gray-100">
+                    <div className="flex-grow text-center">{person.name}</div>
+                  </a>
+                </div>
+              ))}
+            </div>
           </div>
           {/* Reviewer Section */}
-          <div className="mt-10 flex w-full flex-col gap-1 text-center text-gray-200">
-            {Contributors.map((person, index) => (
-              <div key={index} className="grid grid-cols-2 text-base md:text-lg">
-                <div className="mr-3 text-right text-cf-blue-50/40">Reviewer</div>
-                <a href={person.html_url} target="_blank" className="text-slate-50 hover:text-cf-gray-100">
-                  <div className="flex-grow text-left hover">{person.name}</div>
-                </a>
-              </div>
-            ))}
+          <div className="mt-10 flex w-full flex-col items-center gap-1 text-center text-gray-200">
+            <h2 className="text-3xl text-cf-blue-50/80">Reviewers</h2>
+            <h3 className="text-xl text-slate-200/80 mb-6 max-w-lg">Reviewers accept and review CIP and CPS content before it is merged.</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-4">
+              {Contributors.map((person, index) => (
+                <div key={index} className="grid grid-cols-1 text-base md:text-lg">
+                  <a href={person.html_url} target="_blank" className="text-slate-200 hover:text-cf-gray-100">
+                    <div className="flex-grow text-center">{person.name}</div>
+                  </a>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
