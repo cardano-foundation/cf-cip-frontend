@@ -22,7 +22,14 @@ export async function generateMetadata({params}) {
   }
 
   return {
-    title: `${params.slug} | ${cip.Title}`,
+    openGraph: {
+      title: `${params.slug} | ${cip.Title}`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${params.slug} | ${cip.Title}`,
+      creator: "@Cardano_CF",
+    },
   }
 }
 
