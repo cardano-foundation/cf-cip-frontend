@@ -21,6 +21,7 @@ export async function generateMetadata({params}) {
   }
 
   return {
+    title: `${params.slug} | ${cps.Title}`,
     openGraph: {
       title: `${params.slug} | ${cps.Title}`,
     },

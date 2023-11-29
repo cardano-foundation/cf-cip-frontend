@@ -22,6 +22,7 @@ export async function generateMetadata({params}) {
   }
 
   return {
+    title: `${params.slug} | ${cip.Title}`,
     openGraph: {
       title: `${params.slug} | ${cip.Title}`,
     },
