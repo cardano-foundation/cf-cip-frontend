@@ -20,6 +20,7 @@ export async function generateMetadata({params}) {
   }
 
   return {
+    title: `${params.slug} | ${params.annex.split('.')[0]}`,
     openGraph: {
       title: `${params.slug} | ${params.annex.split('.')[0]}`,
     },

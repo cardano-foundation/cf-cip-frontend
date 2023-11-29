@@ -6,6 +6,9 @@ import Footer from '@/components/Footer'
 const chivo = Chivo({ subsets: ['latin'] })
 
 export const metadata = {
+  metadataBase: new URL('https://cips.cardano.org'),
+  title: 'Cardano Improvement Proposals',
+  description: 'Home of Cardano Improvement Proposals (CIPs) and Cardano Problem Statements (CPSs).',
   openGraph: {
     title: 'Cardano Improvement Proposals',
     description: 'Home of Cardano Improvement Proposals (CIPs) and Cardano Problem Statements (CPSs).',
@@ -16,8 +19,6 @@ export const metadata = {
     description: "Home of Cardano Improvement Proposals (CIPs) and Cardano Problem Statements (CPSs).",
     creator: "@Cardano_CF",
   },
-  title: 'Cardano Improvement Proposals',
-  description: 'Home of Cardano Improvement Proposals (CIPs) and Cardano Problem Statements (CPSs).'
 }
 
 export default function RootLayout({ children }) {
