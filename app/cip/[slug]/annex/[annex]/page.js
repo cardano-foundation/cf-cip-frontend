@@ -20,7 +20,14 @@ export async function generateMetadata({params}) {
   }
 
   return {
-    title: `${params.slug} | ${params.annex.split('.')[0]}`,
+    openGraph: {
+      title: `${params.slug} | ${params.annex.split('.')[0]}`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${params.slug} | ${params.annex.split('.')[0]}`,
+      creator: "@Cardano_CF",
+    },
   }
 }
 
