@@ -1,8 +1,4 @@
-## CIP Frontend
-
-First, run the development server:
-
-Cardano CIP Frontend
+## Cardano CIP Frontend
 We wanted to build a CIP Frontend as open and inclusive as Cardano. A repository that is in the hands of the Cardano community and can be constantly evolved by it.
 
 For this to be successful, the repository relies on your contributions, and the fact that you are reading this text probably means that you have something to contribute.
