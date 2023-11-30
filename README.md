@@ -7,7 +7,6 @@ We wanted to build a CIP Frontend as open and inclusive as Cardano. A repository
 
 For this to be successful, the repository relies on your contributions, and the fact that you are reading this text probably means that you have something to contribute.
 
-
 ## Clone the repo
 ```console
 git clone https://github.com/cardano-foundation/cf-cip-frontend.git
@@ -49,4 +48,3 @@ This command starts a local development server and open up a browser window. Mos
 ```console
 npm run dev
 ```
-
