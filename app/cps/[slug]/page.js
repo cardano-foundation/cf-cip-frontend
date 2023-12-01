@@ -35,10 +35,10 @@ export async function generateMetadata({params}) {
 
 function parseAuthors(authors) {
   return authors.map((author) => {
-    const [name, email] = author.split("<")
+    const [name, email] = author.split("<");
     return {
       name: name.trim(),
-      email: email.replace(">", "").trim(),
+      email: email ? email.replace(">", "").trim() : null,
     }
   })
 }
