@@ -39,7 +39,7 @@ export default function Editors() {
           {/* Editors Section */}
           <div className="mt-16 flex w-full flex-col items-center gap-1 text-center text-gray-200">
             <h2 className="text-3xl text-cf-blue-50/80">Editors</h2>
-            <h3 className="text-xl text-slate-200/80 mb-6 max-w-lg">Editors triage, number, and briefly review new CIPs for visibility and potential reviews.</h3>
+            <h3 className="text-sm text-slate-200/80 mb-6 max-w-lg">Editors are the guardians of the CIP process and ensure that the process is properly followed. They cover everything from managing proposals, questions and mediating discussions between reviewers or authors.</h3>
             {Editors.map((person, index) => (
               <div key={index} className="grid grid-cols-1 text-base md:text-lg ">
                 <a
@@ -55,7 +55,7 @@ export default function Editors() {
           {/* Authors Section */}
           <div className="mt-16 flex w-full flex-col items-center gap-1 text-center text-gray-200">
             <h2 className="text-3xl text-cf-blue-50/80">Authors</h2>
-            <h3 className="text-xl text-slate-200/80 mb-6 max-w-lg">Authors open pull requests and await for feedback.</h3>
+            <h3 className="text-sm text-slate-200/80 mb-6 max-w-lg">Authors are people writing CIPs and proposing them as potential solutions. Authors can be individuals, working groups or companies interested in seeing something standardised or explained to a wider group.</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-4">
               {Authors.map((person, index) => (
                 <div key={index} className="grid grid-cols-1 text-base md:text-lg">
@@ -69,7 +69,7 @@ export default function Editors() {
           {/* Reviewer Section */}
           <div className="mt-10 flex w-full flex-col items-center gap-1 text-center text-gray-200">
             <h2 className="text-3xl text-cf-blue-50/80">Reviewers</h2>
-            <h3 className="text-xl text-slate-200/80 mb-6 max-w-lg">Reviewers accept and review CIP and CPS content before it is merged.</h3>
+            <h3 className="text-sm text-slate-200/80 mb-6 max-w-lg">Reviewers, whose vast majority are ecosystem builders from various backgrounds, read and assess proposals from authors.</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-4">
               {Contributors.map((person, index) => (
                 <div key={index} className="grid grid-cols-1 text-base md:text-lg">
