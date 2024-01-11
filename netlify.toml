@@ -1,0 +1,5 @@
+[[redirects]]
+    from = "/cips/cip*"
+    to = "/cip/CIP-:splat"
+    status = 301
+    force = true

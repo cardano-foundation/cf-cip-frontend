@@ -9,7 +9,7 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/cips/cip:code([0-9]{1,4})", // Use a named parameter
+        source: "/cips/cip:code([0-9]{1,4})",
         destination: "/cip/CIP-:code",
       },
     ];
