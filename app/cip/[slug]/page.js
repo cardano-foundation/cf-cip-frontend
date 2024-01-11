@@ -5,6 +5,8 @@ import Badge from '@/components/Badge'
 import Markdown from '@/components/Markdown'
 
 async function getCipFromParams(slug) {
+  slug = `CIP-${slug.split('-')[1].padStart(4, '0')}`
+
   const cip = allCIPs.find((cip) => cip.slug === slug)
 
   if (!cip) {
