@@ -20,6 +20,12 @@ function getMarkdownFiles(dirPath, arrayOfFiles) {
 function extractAuthors(filePath) {
   const content = fs.readFileSync(filePath, 'utf-8');
   const parts = content.split('---');
+
+  if (parts.length < 2) {
+    console.log('ok')
+    return [];
+  }
+
   const headerLines = parts[1].trim().split('\n');
 
   let lastKey = '';

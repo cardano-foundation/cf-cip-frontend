@@ -93,29 +93,6 @@ async function downloadFile(url, filePath) {
     // Create directory if it doesn't exist
     fs.mkdirSync(dirPath, { recursive: true })
     fs.writeFileSync(newFilePath, buffer)
-
-    // If the file is a README file, extract and log the header
-    if (filePath.endsWith('README.md')) {
-      const content = buffer.toString('utf-8')
-      const parts = content.split('---')
-      const headerLines = parts[1].trim().split('\n')
-
-      // Convert the header lines to a JSON object
-      let lastKey = ''
-      const header = headerLines.reduce((obj, line) => {
-        if (line.startsWith('  ')) {
-          // This line is a continuation of the last key
-          obj[lastKey] += ' ' + line.trim()
-        } else {
-          const [key, ...value] = line.split(':')
-          lastKey = key.trim()
-          obj[lastKey] = value.join(':').trim()
-        }
-        return obj
-      }, {})
-
-      // Rest of your code...
-    }
   } else {
     console.error(
       `Failed to download the file. Status code: ${response.status}`,
