@@ -1,6 +1,5 @@
 [[redirects]]
-  from = "/cips/cip:code"
-  to = "/cip/CIP-:code"
-  status = 301
-  force = true
-  query = { code = ":code([0-9]{1,4})" }
+    from = "/cips/cip*"
+    to = "/cip/CIP-:splat"
+    status = 301
+    force = true
