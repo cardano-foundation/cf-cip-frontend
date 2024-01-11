@@ -1,5 +1,5 @@
 [[redirects]]
   force = true
-  from = "/cips/cip:code"
+  from = "/cips/cip:code([0-9]{1,4})"
   status = 200
   to = "/cip/CIP-:code"
