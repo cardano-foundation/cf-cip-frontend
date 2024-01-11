@@ -1,11 +1,6 @@
 [[redirects]]
-      from = "/cips/cip:code([0-9]{1,4})"
-      to = "/cip/CIP-:code"
-      status = 301
-      force = true
-
-[[redirects]]
-    from = "/test"
-    to = "/about"
-    status = 301
-    force = true
+  from = "/cips/cip:code"
+  to = "/cip/CIP-:code"
+  status = 301
+  force = true
+  query = { code = ":code([0-9]{1,4})" }
