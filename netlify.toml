@@ -1,0 +1,5 @@
+[[redirects]]
+  force = true
+  from = "/cips/cip:code"
+  status = 200
+  to = "/cip/CIP-:code"
