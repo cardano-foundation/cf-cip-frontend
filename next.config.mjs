@@ -6,6 +6,14 @@ const nextConfig = {
   images: {
     domains: ['avatars.githubusercontent.com'],
   },
+  async rewrites() {
+    return [
+      {
+        source: "/cips/cip:code([0-9]{1,4})", // Use a named parameter
+        destination: "/cip/CIP-:code",
+      },
+    ];
+  },
 }
 
 export default withContentlayer(nextConfig)
