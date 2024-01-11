@@ -22,7 +22,6 @@ function extractAuthors(filePath) {
   const parts = content.split('---');
 
   if (parts.length < 2) {
-    console.log('ok')
     return [];
   }
 
