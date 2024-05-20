@@ -58,15 +58,18 @@ function extractAuthors(filePath) {
 }
 
 const markdownFiles = getMarkdownFiles('./content');
-let authors = [];
+let authors = new Map();
 
 markdownFiles.forEach((file) => {
   const newAuthors = extractAuthors(file);
   newAuthors.forEach((newAuthor) => {
-    if (!authors.find(author => author.name === newAuthor.name && author.email === newAuthor.email)) {
-      authors.push(newAuthor);
+    if (!authors.has(newAuthor.name)) {
+      authors.set(newAuthor.name, newAuthor);
     }
   });
 });
+
+// Convert Map back to array
+authors = Array.from(authors.values());
 
 fs.writeFileSync('./data/authors.json', JSON.stringify(authors, null, 2));
