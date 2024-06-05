@@ -268,7 +268,7 @@ export default makeSource({
           }
         }
       ],
-      rehypeKatex,
+      rehypeKatex
     ],
   },
 })
