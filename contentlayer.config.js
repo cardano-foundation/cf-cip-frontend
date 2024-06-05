@@ -236,7 +236,7 @@ export default makeSource({
   contentDirPath: 'content',
   documentTypes: [Cip, Cps, CipAnnex, CpsAnnex],
   markdown: {
-    remarkPlugins: [remarkGfm, remarkComment, remarkMath],
+    remarkPlugins: [remarkMath, remarkGfm, remarkComment],
     rehypePlugins: [
       rehypeSlug,
       [
