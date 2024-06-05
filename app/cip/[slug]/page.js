@@ -65,7 +65,6 @@ export default async function Cip({ params }) {
   const cip = await getCipFromParams(params.slug)
   const cleanedHtml = removeAriaHiddenSpans(cip.body.html);
 
-
   return (
     <div className="pt-24 md:pt-40 flex justify-center pb-12">
       <div className="max-w-5xl w-full px-6 sm:px-8 lg:px-12">
