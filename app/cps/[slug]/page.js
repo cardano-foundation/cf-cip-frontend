@@ -2,6 +2,21 @@ import { allCPs } from 'contentlayer/generated'
 import { notFound } from 'next/navigation'
 import Link from "next/link"
 import Badge from "@/components/Badge"
+import Markdown from '@/components/Markdown'
+import { JSDOM } from 'jsdom';
+
+// Removing repetitive $...$ katex spans
+function removeAriaHiddenSpans(html) {
+  const dom = new JSDOM(html);
+  const document = dom.window.document;
+
+  const spans = document.querySelectorAll('span[aria-hidden="true"]');
+  spans.forEach(span => {
+    span.classList.add('hidden');
+  });
+
+  return document.body.innerHTML;
+}
 
 async function getCpsFromParams(slug) {
   const cps = allCPs.find((cps) => cps.slug === slug)
@@ -45,6 +60,7 @@ function parseAuthors(authors) {
 
 export default async function Cps({ params }) {
   const cps = await getCpsFromParams(params.slug)
+  const cleanedHtml = removeAriaHiddenSpans(cps.body.html);
 
   return (
     <div className="pt-24 md:pt-40 flex justify-center pb-12">
@@ -85,7 +101,7 @@ export default async function Cps({ params }) {
           </div>
 
           <div className="prose prose-invert lg:prose-xl mx-auto">
-            <div dangerouslySetInnerHTML={{ __html: cps.body.html }} />
+            <Markdown content={cleanedHtml} />
           </div>
         </article>
       </div>

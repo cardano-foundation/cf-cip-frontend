@@ -7,6 +7,25 @@ import remarkMath from 'remark-math'
 import remarkComment from 'remark-comment'
 import rehypeKatex from 'rehype-katex'
 
+function removeSpecificClass() {
+  return (tree) => {
+    function visit(node) {
+      if (node.type === 'element' && node.properties.className) {
+        const index = node.properties.className.indexOf('katex-html');
+        if (index !== -1) {
+          node.properties.className.splice(index, 1);
+        }
+      }
+
+      if (node.children) {
+        node.children.forEach(visit);
+      }
+    }
+
+    visit(tree);
+  };
+}
+
 const statusBadgeColor = {
   type: 'string',
   resolve: (doc) => {
@@ -236,7 +255,7 @@ export default makeSource({
   contentDirPath: 'content',
   documentTypes: [Cip, Cps, CipAnnex, CpsAnnex],
   markdown: {
-    remarkPlugins: [remarkGfm, remarkComment, remarkMath],
+    remarkPlugins: [remarkMath, remarkGfm, remarkComment],
     rehypePlugins: [
       rehypeSlug,
       [
@@ -268,7 +287,8 @@ export default makeSource({
           }
         }
       ],
-      rehypeKatex
+      rehypeKatex,
+      removeSpecificClass
     ],
   },
 })
