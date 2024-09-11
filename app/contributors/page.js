@@ -7,14 +7,6 @@ export default function Editors() {
   // List of editors
   const Editors = [
     {
-      name: 'Matthias Benkort',
-      github_link: 'https://github.com/KtorZ',
-    },
-    {
-      name: 'Sebastien Guillemot',
-      github_link: 'https://github.com/SebastienGllmt',
-    },
-    {
       name: 'Robert Phair',
       github_link: 'https://github.com/rphair',
     },
@@ -25,6 +17,10 @@ export default function Editors() {
     {
       name: 'Adam Dean',
       github_link: 'https://github.com/Crypto2099',
+    },
+    {
+      name: 'Thomas Vellekoop',
+      github_link: 'https://github.com/perturbing',
     },
   ]
 
