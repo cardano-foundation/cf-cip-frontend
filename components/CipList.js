@@ -8,7 +8,7 @@ const CipList = ({ className, searchParams, ...props }) => {
     if (searchParams.category && !searchParams.category.split(',').includes(cip.Category)) {
       return false
     }
-    if (searchParams.status && !searchParams.status.split(',').includes(cip.Status)) {
+    if (searchParams.status && !searchParams.status.split(',').includes(cip.Status.split(' ')[0])) {
       return false
     }
     if (searchParams.search) {
