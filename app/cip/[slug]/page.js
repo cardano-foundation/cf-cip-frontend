@@ -1,4 +1,4 @@
-import { allCIPs } from 'contentlayer/generated'
+import { allCip } from 'content-collections'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Badge from '@/components/Badge'
@@ -22,7 +22,7 @@ function removeAriaHiddenSpans(html) {
 async function getCipFromParams(slug) {
   slug = `CIP-${slug.split('-')[1].padStart(4, '0')}`
 
-  const cip = allCIPs.find((cip) => cip.slug === slug)
+  const cip = allCip.find((cip) => cip.slug === slug)
 
   if (!cip) {
     notFound()
@@ -63,7 +63,7 @@ function parseAuthors(authors) {
 
 export default async function Cip({ params }) {
   const cip = await getCipFromParams(params.slug)
-  const cleanedHtml = removeAriaHiddenSpans(cip.body.html);
+  const cleanedHtml = removeAriaHiddenSpans(cip.content);
 
   return (
     <div className="pt-24 md:pt-40 flex justify-center pb-12">

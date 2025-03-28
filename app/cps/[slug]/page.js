@@ -1,4 +1,4 @@
-import { allCPs } from 'contentlayer/generated'
+import { allCps } from 'content-collections'
 import { notFound } from 'next/navigation'
 import Link from "next/link"
 import Badge from "@/components/Badge"
@@ -19,7 +19,7 @@ function removeAriaHiddenSpans(html) {
 }
 
 async function getCpsFromParams(slug) {
-  const cps = allCPs.find((cps) => cps.slug === slug)
+  const cps = allCps.find((cps) => cps.slug === slug)
 
   if (!cps) {
     notFound()
@@ -60,7 +60,7 @@ function parseAuthors(authors) {
 
 export default async function Cps({ params }) {
   const cps = await getCpsFromParams(params.slug)
-  const cleanedHtml = removeAriaHiddenSpans(cps.body.html);
+  const cleanedHtml = removeAriaHiddenSpans(cps.content);
 
   return (
     <div className="pt-24 md:pt-40 flex justify-center pb-12">

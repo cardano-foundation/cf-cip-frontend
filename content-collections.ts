@@ -35,7 +35,7 @@ const cip = defineCollection({
     "Post-History": z.string().optional(),
     "Discussions-To": z.string().optional(),
     Discussions: z.array(z.string()).optional(),
-    Created: z.date(),
+    Created: z.string(),
     Updated: z.string().optional(),
     License: z.string().optional(),
   }),
@@ -112,7 +112,7 @@ const cps = defineCollection({
     Authors: z.array(z.string()).optional(),
     "Proposed Solutions": z.array(z.string()).optional(),
     Discussions: z.array(z.string()).optional(),
-    Created: z.date(),
+    Created: z.string(),
   }),
   transform: (doc) => {
     return {

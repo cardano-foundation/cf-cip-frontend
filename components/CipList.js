@@ -1,10 +1,10 @@
 import Filters from "@/components/Filters"
 import ListGroup from "@/components/ListGroup"
-import { allCIPs } from "contentlayer/generated"
+import { allCip } from "content-collections"
 
 const CipList = ({ className, searchParams, ...props }) => {
   // handle filters
-  const filteredCIPs = allCIPs.filter((cip) => {
+  const filteredCIPs = allCip.filter((cip) => {
     if (searchParams.category && !searchParams.category.split(',').includes(cip.Category)) {
       return false
     }

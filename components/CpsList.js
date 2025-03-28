@@ -1,10 +1,10 @@
 import Filters from "@/components/Filters"
 import ListGroup from "@/components/ListGroup"
-import { allCPs } from "contentlayer/generated"
+import { allCps } from "content-collections"
 
 const CpsList = ({ className, searchParams, ...props }) => {
   // handle filters
-  const filteredCPs = allCPs.filter((cps) => {
+  const filteredCPs = allCps.filter((cps) => {
     if (searchParams.category && !searchParams.category.split(',').includes(cps.Category)) {
       return false
     }
