@@ -1,4 +1,13 @@
 import { defineCollection, defineConfig } from "@content-collections/core";
+import { compileMarkdown } from "@content-collections/markdown";
+
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import rehypePrettyCode from 'rehype-pretty-code'
+import rehypeSlug from 'rehype-slug'
+import remarkGfm from 'remark-gfm'
+import remarkMath from 'remark-math'
+import remarkComment from 'remark-comment'
+import rehypeKatex from 'rehype-katex'
 
 const statusBadgeColor = (doc: { Status: string }) => {
   switch (doc.Status) {
@@ -15,6 +24,14 @@ const statusBadgeColor = (doc: { Status: string }) => {
     default:
       return 'bg-white/10 ring-gray-100/10 text-slate-300'
   }
+};
+
+// Define types for rehype plugin node parameters
+type NodeType = {
+  children: any[];
+  properties: {
+    className: string[];
+  };
 };
 
 const cip = defineCollection({
@@ -40,7 +57,7 @@ const cip = defineCollection({
     Updated: z.string().optional(),
     License: z.string().optional(),
   }),
-  transform: (doc) => {
+  transform: async (doc, context) => {
     // Extract CIP number from directory path
     const dirParts = doc._meta.directory.split('/');
     const dirName = dirParts[dirParts.length - 1];
@@ -58,6 +75,45 @@ const cip = defineCollection({
     // Handle Comments-URI field transformation
     const commentsUri = doc["Comments-URI"];
     
+    // Compile markdown to HTML
+    const html = await compileMarkdown(context, doc, {
+        remarkPlugins: [
+          // @ts-ignore
+          remarkMath,
+          // @ts-ignore
+          remarkGfm,
+        ],
+        rehypePlugins: [
+          rehypeKatex,
+          rehypeSlug,
+          [rehypeAutolinkHeadings, {
+            properties: {
+              className: ['subheading-anchor'],
+              ariaLabel: 'Link to section',
+            }
+          }],
+          // @ts-ignore
+          [rehypePrettyCode, {
+            theme: 'github-dark',
+            defaultLang: {
+              inline: 'plaintext',
+            },
+            onVisitLine(node: NodeType) {
+              if (node.children.length === 0) {
+                node.children = [{ type: 'text', value: ' ' }]
+              }
+            },
+            onVisitHighlightedLine(node: NodeType) {
+              node.properties.className.push('line--highlighted')
+            },
+            onVisitHighlightedWord(node: NodeType) {
+              node.properties.className = ['word--highlighted']
+            },
+          }],
+        ],
+        allowDangerousHtml: true,
+      });
+    
     return {
       ...doc,
       Authors: authors,
@@ -66,6 +122,7 @@ const cip = defineCollection({
       statusBadgeColor: statusBadgeColor(doc),
       slug: dirName,
       slugAsParams: doc._meta.path,
+      html, // Add the compiled HTML
       
       // Add compatibility layer for _raw field
       _id: doc._meta.filePath,
@@ -86,16 +143,56 @@ const cipAnnex = defineCollection({
   include: "**/*.md",
   exclude: ["**/README.md", "**/page.md"],
   schema: (z) => ({}),
-  transform: (doc) => {
+  transform: async (doc, context) => {
     // Extract directory and file name
     const dirParts = doc._meta.directory.split('/');
     const dirName = dirParts[dirParts.length - 1];
     const fileName = doc._meta.fileName.replace('.md', '');
     
+    // Compile markdown to HTML
+    const html = await compileMarkdown(context, doc, {
+        remarkPlugins: [
+          // @ts-ignore
+          remarkMath,
+          // @ts-ignore
+          remarkGfm,
+        ],
+        rehypePlugins: [
+          rehypeKatex,
+          rehypeSlug,
+          [rehypeAutolinkHeadings, {
+            properties: {
+              className: ['subheading-anchor'],
+              ariaLabel: 'Link to section',
+            }
+          }],
+          // @ts-ignore
+          [rehypePrettyCode, {
+            theme: 'github-dark',
+            defaultLang: {
+              inline: 'plaintext',
+            },
+            onVisitLine(node: NodeType) {
+              if (node.children.length === 0) {
+                node.children = [{ type: 'text', value: ' ' }]
+              }
+            },
+            onVisitHighlightedLine(node: NodeType) {
+              node.properties.className.push('line--highlighted')
+            },
+            onVisitHighlightedWord(node: NodeType) {
+              node.properties.className = ['word--highlighted']
+            },
+          }],
+        ],
+        allowDangerousHtml: true,
+      });
+    
     return {
       ...doc,
       slug: `${dirName}-${fileName}`,
       slugAsParams: doc._meta.path,
+      html, // Add the compiled HTML
       
       // Add compatibility layer for _raw field
       _id: doc._meta.filePath,
@@ -124,16 +221,56 @@ const cps = defineCollection({
     Discussions: z.union([z.array(z.string()), z.null()]).optional(),
     Created: z.string(),
   }),
-  transform: (doc) => {
+  transform: async (doc, context) => {
     // Extract CPS number from directory path
     const dirParts = doc._meta.directory.split('/');
     const dirName = dirParts[dirParts.length - 1];
+    
+    // Compile markdown to HTML
+    const html = await compileMarkdown(context, doc, {
+        remarkPlugins: [
+          // @ts-ignore
+          remarkMath,
+          // @ts-ignore
+          remarkGfm,
+        ],
+        rehypePlugins: [
+          rehypeKatex,
+          rehypeSlug,
+          [rehypeAutolinkHeadings, {
+            properties: {
+              className: ['subheading-anchor'],
+              ariaLabel: 'Link to section',
+            }
+          }],
+          // @ts-ignore
+          [rehypePrettyCode, {
+            theme: 'github-dark',
+            defaultLang: {
+              inline: 'plaintext',
+            },
+            onVisitLine(node: NodeType) {
+              if (node.children.length === 0) {
+                node.children = [{ type: 'text', value: ' ' }]
+              }
+            },
+            onVisitHighlightedLine(node: NodeType) {
+              node.properties.className.push('line--highlighted')
+            },
+            onVisitHighlightedWord(node: NodeType) {
+              node.properties.className = ['word--highlighted']
+            },
+          }],
+        ],
+        allowDangerousHtml: true,
+      });
     
     return {
       ...doc,
       statusBadgeColor: statusBadgeColor(doc),
       slug: dirName,
       slugAsParams: doc._meta.path,
+      html, // Add the compiled HTML
       
       // Add compatibility layer for _raw field
       _id: doc._meta.filePath,
@@ -154,16 +291,56 @@ const cpsAnnex = defineCollection({
   include: "**/*.md",
   exclude: ["**/README.md", "**/page.md"],
   schema: (z) => ({}),
-  transform: (doc) => {
+  transform: async (doc, context) => {
     // Extract directory and file name
     const dirParts = doc._meta.directory.split('/');
     const dirName = dirParts[dirParts.length - 1];
     const fileName = doc._meta.fileName.replace('.md', '');
     
+    // Compile markdown to HTML
+    const html = await compileMarkdown(context, doc, {
+      remarkPlugins: [
+        // @ts-ignore
+        remarkMath,
+        // @ts-ignore
+        remarkGfm,
+      ],
+      rehypePlugins: [
+        rehypeKatex,
+        rehypeSlug,
+        [rehypeAutolinkHeadings, {
+          properties: {
+            className: ['subheading-anchor'],
+            ariaLabel: 'Link to section',
+          }
+        }],
+        // @ts-ignore
+        [rehypePrettyCode, {
+          theme: 'github-dark',
+          defaultLang: {
+            inline: 'plaintext',
+          },
+          onVisitLine(node: NodeType) {
+            if (node.children.length === 0) {
+              node.children = [{ type: 'text', value: ' ' }]
+            }
+          },
+          onVisitHighlightedLine(node: NodeType) {
+            node.properties.className.push('line--highlighted')
+          },
+          onVisitHighlightedWord(node: NodeType) {
+            node.properties.className = ['word--highlighted']
+          },
+        }],
+      ],
+      allowDangerousHtml: true,
+    });
+    
     return {
       ...doc,
       slug: `${dirName}-${fileName}`,
       slugAsParams: doc._meta.path,
+      html, // Add the compiled HTML
       
       // Add compatibility layer for _raw field
       _id: doc._meta.filePath,
@@ -180,4 +357,4 @@ const cpsAnnex = defineCollection({
 
 export default defineConfig({
   collections: [cip, cipAnnex, cps, cpsAnnex],
-});
+}); 
