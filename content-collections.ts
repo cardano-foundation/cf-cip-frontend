@@ -41,6 +41,10 @@ const cip = defineCollection({
     License: z.string().optional(),
   }),
   transform: (doc) => {
+    // Extract CIP number from directory path
+    const dirParts = doc._meta.directory.split('/');
+    const dirName = dirParts[dirParts.length - 1];
+    
     // Handle Authors field transformation similar to the original computedFields
     const authors = Array.isArray(doc.Authors) 
       ? doc.Authors 
@@ -60,7 +64,7 @@ const cip = defineCollection({
       Implementors: implementors,
       "Comments-URI": commentsUri,
       statusBadgeColor: statusBadgeColor(doc),
-      slug: doc._meta.directory.split('/')[1],
+      slug: dirName,
       slugAsParams: doc._meta.path,
       
       // Add compatibility layer for _raw field
@@ -83,9 +87,14 @@ const cipAnnex = defineCollection({
   exclude: ["**/README.md", "**/page.md"],
   schema: (z) => ({}),
   transform: (doc) => {
+    // Extract directory and file name
+    const dirParts = doc._meta.directory.split('/');
+    const dirName = dirParts[dirParts.length - 1];
+    const fileName = doc._meta.fileName.replace('.md', '');
+    
     return {
       ...doc,
-      slug: `${doc._meta.directory.split('/')[1]}-${doc._meta.fileName}`,
+      slug: `${dirName}-${fileName}`,
       slugAsParams: doc._meta.path,
       
       // Add compatibility layer for _raw field
@@ -116,10 +125,14 @@ const cps = defineCollection({
     Created: z.string(),
   }),
   transform: (doc) => {
+    // Extract CPS number from directory path
+    const dirParts = doc._meta.directory.split('/');
+    const dirName = dirParts[dirParts.length - 1];
+    
     return {
       ...doc,
       statusBadgeColor: statusBadgeColor(doc),
-      slug: doc._meta.directory.split('/')[1],
+      slug: dirName,
       slugAsParams: doc._meta.path,
       
       // Add compatibility layer for _raw field
@@ -142,9 +155,14 @@ const cpsAnnex = defineCollection({
   exclude: ["**/README.md", "**/page.md"],
   schema: (z) => ({}),
   transform: (doc) => {
+    // Extract directory and file name
+    const dirParts = doc._meta.directory.split('/');
+    const dirName = dirParts[dirParts.length - 1];
+    const fileName = doc._meta.fileName.replace('.md', '');
+    
     return {
       ...doc,
-      slug: `${doc._meta.directory.split('/')[1]}-${doc._meta.fileName}`,
+      slug: `${dirName}-${fileName}`,
       slugAsParams: doc._meta.path,
       
       // Add compatibility layer for _raw field

@@ -13,6 +13,7 @@ function parseAuthors(authors) {
 }
 
 export default function ListGroup({items, type}) {
+  console.log(items)
   return (
     <ul
       role="list"

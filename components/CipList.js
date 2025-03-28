@@ -4,8 +4,6 @@ import { allCips } from "content-collections"
 
 const CipList = ({ className, searchParams, ...props }) => {
   // handle filters
-
-  console.log(allCips)
   const filteredCIPs = allCips.filter((cip) => {
     if (searchParams.category && !searchParams.category.split(',').includes(cip.Category)) {
       return false
