@@ -98,6 +98,18 @@ export default function Filters({ type }) {
 
   const handleSearchQueryChange = (e) => {
     setSearchQuery(e.target.value)
+    if (e.target.value === '') {
+      const current = qs.parse(searchParams.toString())
+      const query = {
+        ...current,
+        search: undefined,
+      }
+      const url = qs.stringifyUrl({
+        url: window.location.href,
+        query,
+      }, { skipNull: true })
+      router.replace(url, { scroll: false })
+    }
   }
 
   const handleSearch = () => {
@@ -105,7 +117,7 @@ export default function Filters({ type }) {
 
     const query = {
       ...current,
-      search: debouncedSearchQuery,
+      search: debouncedSearchQuery || undefined,
     }
 
     const url = qs.stringifyUrl({
@@ -118,11 +130,6 @@ export default function Filters({ type }) {
 
   // useEffect that updates the search query in the URL from debouncedSearchQuery
   useEffect(() => {
-    if (searchQuery === '') {
-      return
-    }
-
-
     handleSearch()
   }, [debouncedSearchQuery])
 
