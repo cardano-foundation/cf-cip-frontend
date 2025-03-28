@@ -21,13 +21,14 @@ const cip = defineCollection({
   name: "cip",
   directory: "content/cip",
   include: "**/page.md",
+  exclude: ["**/cip/CIPs/page.md"],
   schema: (z) => ({
     Title: z.string(),
     CIP: z.number(),
     Status: z.string(),
     Category: z.string().optional(),
     Authors: z.union([z.array(z.string()), z.string()]),
-    Implementors: z.array(z.string()).optional(),
+    Implementors: z.union([z.array(z.string()), z.string()]).optional(),
     Type: z.string().optional(),
     Requires: z.string().optional(),
     "Comments-URI": z.union([z.array(z.string()), z.string()]).optional(),
@@ -48,7 +49,7 @@ const cip = defineCollection({
     // Handle Implementors field transformation
     const implementors = Array.isArray(doc.Implementors) 
       ? doc.Implementors 
-      : null;
+      : doc.Implementors ? [doc.Implementors] : null;
     
     // Handle Comments-URI field transformation
     const commentsUri = doc["Comments-URI"];
@@ -110,8 +111,8 @@ const cps = defineCollection({
     Status: z.string(),
     Category: z.string().optional(),
     Authors: z.array(z.string()).optional(),
-    "Proposed Solutions": z.array(z.string()).optional(),
-    Discussions: z.array(z.string()).optional(),
+    "Proposed Solutions": z.array(z.any()).optional(),
+    Discussions: z.union([z.array(z.string()), z.null()]).optional(),
     Created: z.string(),
   }),
   transform: (doc) => {
