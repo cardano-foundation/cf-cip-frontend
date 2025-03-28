@@ -48,7 +48,7 @@ export default function CipSidebar() {
       {/* Mobile menu button */}
       <button
         type="button"
-        className="lg:hidden fixed bottom-6 right-6 z-50 inline-flex items-center justify-center rounded-full bg-cf-blue-50 p-3 text-cf-blue-900 shadow-lg hover:bg-cf-blue-100 focus:outline-none focus:ring-2 focus:ring-white/20"
+        className="lg:hidden fixed bottom-6 right-6 z-50 inline-flex items-center justify-center rounded-full bg-white bg-opacity-[1%] backdrop-blur-lg p-3 text-white border border-gray-100/10 hover:bg-white/5"
         onClick={() => setMobileMenuOpen(true)}
       >
         <span className="sr-only">Open sidebar</span>
@@ -80,7 +80,7 @@ export default function CipSidebar() {
               leaveFrom="translate-x-0"
               leaveTo="translate-x-full"
             >
-              <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-cf-blue-900 shadow-xl">
+              <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white bg-opacity-[1%] backdrop-blur-lg border-l border-gray-100/10">
                 <div className="flex items-center justify-between px-4 py-4 border-b border-gray-100/10">
                   <Dialog.Title className="text-base font-semibold text-white">
                     Cardano Improvement Proposals
