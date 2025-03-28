@@ -12,7 +12,8 @@ async function getAnnexFromParams(slug, annexSlug) {
   return annex
 }
 
-export async function generateMetadata({params}) {
+export async function generateMetadata(props) {
+  const params = await props.params;
   const annex = await getAnnexFromParams(params.slug, params.annex)
 
   if (!annex) {
@@ -32,7 +33,8 @@ export async function generateMetadata({params}) {
   }
 }
 
-export default async function CpsAnnex({ params }) {
+export default async function CpsAnnex(props) {
+  const params = await props.params;
   const annex = await getAnnexFromParams(params.slug, params.annex)
 
   return (

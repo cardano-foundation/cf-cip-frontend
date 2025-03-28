@@ -4,6 +4,7 @@ import Link from "next/link"
 import Badge from "@/components/Badge"
 import Markdown from '@/components/Markdown'
 import { JSDOM } from 'jsdom';
+import { Fragment } from 'react'
 
 // Removing repetitive $...$ katex spans
 function removeAriaHiddenSpans(html) {
@@ -28,7 +29,8 @@ async function getCpsFromParams(slug) {
   return cps
 }
 
-export async function generateMetadata({params}) {
+export async function generateMetadata(props) {
+  const params = await props.params;
   const cps = await getCpsFromParams(params.slug)
 
   if (!cps) {
@@ -58,7 +60,8 @@ function parseAuthors(authors) {
   })
 }
 
-export default async function Cps({ params }) {
+export default async function Cps(props) {
+  const params = await props.params;
   const cps = await getCpsFromParams(params.slug)
   const cleanedHtml = cps.html ? removeAriaHiddenSpans(cps.html) : '';
 
@@ -90,12 +93,12 @@ export default async function Cps({ params }) {
               </time>
               {cps.Authors && <>&nbsp;by&nbsp;</>}
               {cps.Authors && parseAuthors(cps.Authors).map((author ,index) => (
-                <>
+                <Fragment key={index}>
                   {cps.Authors.length !== 1 && index + 1 === cps.Authors.length && <>&nbsp;and&nbsp;</>}
                   <Link href={`mailto:${author.email}`} key={index} className="relative truncate hover:underline">
                     {author.name}{index + 1 < cps.Authors.length && ",\u00A0"}
                   </Link>
-                </>
+                </Fragment>
               ))}
             </div>
           </div>

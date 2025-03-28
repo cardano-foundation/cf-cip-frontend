@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Badge from '@/components/Badge'
 import Markdown from '@/components/Markdown'
 import { JSDOM } from 'jsdom';
+import { Fragment } from 'react'
 
 
 // Removing repetitive $...$ katex spans
@@ -31,7 +32,8 @@ async function getCipFromParams(slug) {
   return cip
 }
 
-export async function generateMetadata({params}) {
+export async function generateMetadata(props) {
+  const params = await props.params;
   const cip = await getCipFromParams(params.slug)
 
   if (!cip) {
@@ -61,9 +63,10 @@ function parseAuthors(authors) {
   })
 }
 
-export default async function Cip({ params }) {
+export default async function Cip(props) {
+  const params = await props.params;
   const cip = await getCipFromParams(params.slug)
-  
+
   const cleanedHtml = cip.html ? removeAriaHiddenSpans(cip.html) : '';
 
   return (
@@ -94,12 +97,12 @@ export default async function Cip({ params }) {
               </time>
               {cip.Authors && <>&nbsp;by&nbsp;</>}
               {cip.Authors && parseAuthors(cip.Authors).map((author ,index) => (
-                <>
+                <Fragment key={index}>
                   {cip.Authors.length !== 1 && index + 1 === cip.Authors.length && <>&nbsp;and&nbsp;</>}
                   <Link href={`mailto:${author.email}`} key={index} className="relative truncate hover:underline">
                     {author.name}{index + 1 < cip.Authors.length && ",\u00A0"}
                   </Link>
-                </>
+                </Fragment>
               ))}
             </div>
           </div>
