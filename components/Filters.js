@@ -98,6 +98,18 @@ export default function Filters({ type }) {
 
   const handleSearchQueryChange = (e) => {
     setSearchQuery(e.target.value)
+    if (e.target.value === '') {
+      const current = qs.parse(searchParams.toString())
+      const query = {
+        ...current,
+        search: undefined,
+      }
+      const url = qs.stringifyUrl({
+        url: window.location.href,
+        query,
+      }, { skipNull: true })
+      router.replace(url, { scroll: false })
+    }
   }
 
   const handleSearch = () => {
@@ -105,7 +117,7 @@ export default function Filters({ type }) {
 
     const query = {
       ...current,
-      search: debouncedSearchQuery,
+      search: debouncedSearchQuery || undefined,
     }
 
     const url = qs.stringifyUrl({
@@ -118,12 +130,6 @@ export default function Filters({ type }) {
 
   // useEffect that updates the search query in the URL from debouncedSearchQuery
   useEffect(() => {
-    if (searchQuery === '') {
-      return
-    }
-
-    console.log('this ran')
-
     handleSearch()
   }, [debouncedSearchQuery])
 
@@ -287,7 +293,7 @@ export default function Filters({ type }) {
                   onChange={handleSearchQueryChange}
                   id="search"
                   type="search"
-                  placeholder="Search"
+                  placeholder="Search by number, title or author"
                   value={searchQuery}
                   className="w-full border-0 rounded-xl bg-transparent pl-6 text-slate-50 text-sm font-medium placeholder:text-cf-slate-300 focus:ring-2 focus:ring-inset focus:ring-cf-blue-50 sm:leading-6"
                 />

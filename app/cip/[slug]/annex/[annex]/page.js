@@ -1,9 +1,9 @@
-import { allCIPAnnexes } from 'contentlayer/generated'
+import { allCipAnnexes } from 'content-collections'
 import { notFound } from 'next/navigation'
 import Markdown from '@/components/Markdown'
 
 async function getAnnexFromParams(slug, annexSlug) {
-  const annex = allCIPAnnexes.find((annex) => annex.slug === `${slug}-${annexSlug}`)
+  const annex = allCipAnnexes.find((annex) => annex.slug === `${slug}-${annexSlug}`)
 
   if (!annex) {
     notFound()
@@ -12,7 +12,8 @@ async function getAnnexFromParams(slug, annexSlug) {
   return annex
 }
 
-export async function generateMetadata({params}) {
+export async function generateMetadata(props) {
+  const params = await props.params;
   const annex = await getAnnexFromParams(params.slug, params.annex)
 
   if (!annex) {
@@ -32,7 +33,8 @@ export async function generateMetadata({params}) {
   }
 }
 
-export default async function CipAnnex({ params }) {
+export default async function CipAnnex(props) {
+  const params = await props.params;
   const annex = await getAnnexFromParams(params.slug, params.annex)
 
   return (
@@ -46,7 +48,7 @@ export default async function CipAnnex({ params }) {
           </div>
 
           <div className="prose prose-invert lg:prose-xl mx-auto">
-            <Markdown content={annex.body.html } />
+            <Markdown content={annex.html} />
           </div>
         </article>
       </div>

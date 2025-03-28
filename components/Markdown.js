@@ -1,45 +1,53 @@
 'use client'
 
-import { useRouter, usePathname } from 'next/navigation'
-import {useEffect} from "react";
+import { usePathname } from 'next/navigation'
+import { useEffect } from 'react'
+import { useMounted} from '@/lib/useMounted'
+import mermaid from 'mermaid'
 
 const Markdown = ({ content }) => {
-  const router = useRouter()
   const pathname = usePathname()
+  const mounted = useMounted()
 
-  const handleClick = (e) => {
-    e.preventDefault()
+  // update images with relative paths if mounted
+  useEffect(() => {
+    if (mounted) {
+      // handle images with relative paths
+      const relativePathImages = document.querySelectorAll('img[src^="./"]')
+      Array.from(relativePathImages).forEach(image => {
+        const cip = pathname.split('/')[2]
+        const imageRelativePath = image.src.split('/').slice(4).join('/')
 
-    const href = e.currentTarget.getAttribute('href')
+        image.src = `https://raw.githubusercontent.com/cardano-foundation/CIPs/master/${cip}/${imageRelativePath}`
+      })
 
-    let newUrl = `${pathname}/annex/${href.split('./')[1]}`
+      // handle links with relative paths
+      const links = document.querySelectorAll('a[href^="./"]')
+      Array.from(links).forEach(link => {
+        const href = link.href
 
-    if (href.split('./')[1] !== 'md') {
-      // pathname looks like this http://localhost:3000/cip/CIP-0003
-      const cip = pathname.split('/')[2]
+        const fileRelativePath = href.split('/').slice(4).join('/')
 
-      newUrl = `https://raw.githubusercontent.com/cardano-foundation/CIPs/master/${cip}/${href.split('./')[1]}`
+        let newUrl = `${pathname}/annex/${fileRelativePath.split('.')[0]}`
+
+        if (!fileRelativePath.includes('.md')) {
+          const cip = pathname.split('/')[2]
+          newUrl = `https://raw.githubusercontent.com/cardano-foundation/CIPs/master/${cip}/${fileRelativePath}`
+        }
+
+        link.href = newUrl
+      })
     }
-
-    router.push(newUrl)
-  }
+  }, [mounted])
 
   useEffect(() => {
-    const links = document.querySelectorAll('a[href^="./"]')
-
-    Array.from(links).forEach(link => {
-      link.addEventListener('click', handleClick)
-    })
-
-    return () => {
-      Array.from(links).forEach(link => {
-        link.removeEventListener('click', handleClick);
-      });
+    if (mounted) {
+      mermaid.init(undefined, document.querySelectorAll('.mermaid'))
     }
-  }, [ ])
+  }, [mounted])
 
   return (
-    <div dangerouslySetInnerHTML={{__html: content}}/>
+    <div dangerouslySetInnerHTML={{ __html: content }} />
   )
 }
 
