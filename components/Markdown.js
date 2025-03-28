@@ -1,7 +1,8 @@
 'use client'
 
 import { useRouter, usePathname } from 'next/navigation'
-import {useEffect} from "react";
+import { useEffect } from 'react'
+import mermaid from 'mermaid'
 
 const Markdown = ({ content }) => {
   const router = useRouter()
@@ -11,13 +12,10 @@ const Markdown = ({ content }) => {
     e.preventDefault()
 
     const href = e.currentTarget.getAttribute('href')
-
     let newUrl = `${pathname}/annex/${href.split('./')[1]}`
 
     if (href.split('./')[1] !== 'md') {
-      // pathname looks like this http://localhost:3000/cip/CIP-0003
       const cip = pathname.split('/')[2]
-
       newUrl = `https://raw.githubusercontent.com/cardano-foundation/CIPs/master/${cip}/${href.split('./')[1]}`
     }
 
@@ -26,20 +24,22 @@ const Markdown = ({ content }) => {
 
   useEffect(() => {
     const links = document.querySelectorAll('a[href^="./"]')
-
     Array.from(links).forEach(link => {
       link.addEventListener('click', handleClick)
     })
-
     return () => {
       Array.from(links).forEach(link => {
-        link.removeEventListener('click', handleClick);
-      });
+        link.removeEventListener('click', handleClick)
+      })
     }
-  }, [ ])
+  }, [])
+
+  useEffect(() => {
+    mermaid.init(undefined, document.querySelectorAll('.mermaid'))
+  }, [content])
 
   return (
-    <div dangerouslySetInnerHTML={{__html: content}}/>
+    <div dangerouslySetInnerHTML={{ __html: content }} />
   )
 }
 

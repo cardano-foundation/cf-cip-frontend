@@ -8,6 +8,8 @@ import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
 import remarkComment from 'remark-comment'
 import rehypeKatex from 'rehype-katex'
+// @ts-ignore
+import remarkMermaid from 'remark-mermaid'
 
 const statusBadgeColor = (doc: { Status: string }) => {
   switch (doc.Status) {
@@ -81,6 +83,7 @@ const cip = defineCollection({
           remarkMath,
           remarkGfm,
           remarkComment,
+          [remarkMermaid, { simple: true }],
         ],
         rehypePlugins: [
           rehypeKatex,
@@ -154,6 +157,7 @@ const cipAnnex = defineCollection({
           remarkMath,
           remarkGfm,
           remarkComment,
+          [remarkMermaid, { simple: true }],
         ],
         rehypePlugins: [
           rehypeKatex,
@@ -228,11 +232,12 @@ const cps = defineCollection({
         remarkPlugins: [
           remarkMath,
           remarkGfm,
+          remarkComment,
+          [remarkMermaid, { simple: true }],
         ],
         rehypePlugins: [
           rehypeKatex,
           rehypeSlug,
-          remarkComment,
           [rehypeAutolinkHeadings, {
             properties: {
               className: ['subheading-anchor'],
@@ -298,11 +303,12 @@ const cpsAnnex = defineCollection({
       remarkPlugins: [
         remarkMath,
         remarkGfm,
+        remarkComment,
+        [remarkMermaid, { simple: true }],
       ],
       rehypePlugins: [
         rehypeKatex,
         rehypeSlug,
-        remarkComment,
         [rehypeAutolinkHeadings, {
           properties: {
             className: ['subheading-anchor'],
