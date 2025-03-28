@@ -80,7 +80,7 @@ export default function CipSidebar() {
               leaveFrom="translate-x-0"
               leaveTo="translate-x-full"
             >
-              <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white bg-opacity-[1%] backdrop-blur-lg border-l border-gray-100/10">
+              <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white bg-opacity-[1%] backdrop-blur-lg border-l border-gray-100/10 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-white/10 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:hover:bg-white/20">
                 <div className="flex items-center justify-between px-4 py-4 border-b border-gray-100/10">
                   <Dialog.Title className="text-base font-semibold text-white">
                     Cardano Improvement Proposals
@@ -103,7 +103,7 @@ export default function CipSidebar() {
 
       {/* Desktop sidebar */}
       <div className="hidden min-[1160px]:block w-64 flex-shrink-0 border-r border-gray-100/10">
-        <div className="sticky top-[49px] h-[calc(100vh-49px)] overflow-y-auto">
+        <div className="sticky top-[49px] h-[calc(100vh-49px)] overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-white/10 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:hover:bg-white/20">
           <SidebarContent />
         </div>
       </div>
