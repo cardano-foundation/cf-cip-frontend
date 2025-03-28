@@ -48,7 +48,7 @@ export default function CipSidebar() {
       {/* Mobile menu button */}
       <button
         type="button"
-        className="lg:hidden fixed bottom-6 right-6 z-50 inline-flex items-center justify-center rounded-full bg-white bg-opacity-[1%] backdrop-blur-lg p-3 text-white border border-gray-100/10 hover:bg-white/5"
+        className="min-[1160px]:hidden fixed bottom-6 right-6 z-50 inline-flex items-center justify-center rounded-full bg-white bg-opacity-[1%] backdrop-blur-lg p-3 text-white border border-gray-100/10 hover:bg-white/5"
         onClick={() => setMobileMenuOpen(true)}
       >
         <span className="sr-only">Open sidebar</span>
@@ -57,7 +57,7 @@ export default function CipSidebar() {
 
       {/* Mobile sidebar */}
       <Transition.Root show={mobileMenuOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-50 lg:hidden" onClose={setMobileMenuOpen}>
+        <Dialog as="div" className="relative z-50 min-[1160px]:hidden" onClose={setMobileMenuOpen}>
           <Transition.Child
             as={Fragment}
             enter="transition-opacity ease-linear duration-300"
@@ -102,7 +102,7 @@ export default function CipSidebar() {
       </Transition.Root>
 
       {/* Desktop sidebar */}
-      <div className="hidden lg:block w-64 flex-shrink-0 border-r border-gray-100/10">
+      <div className="hidden min-[1160px]:block w-64 flex-shrink-0 border-r border-gray-100/10">
         <div className="sticky top-[49px] h-[calc(100vh-49px)] overflow-y-auto">
           <SidebarContent />
         </div>
