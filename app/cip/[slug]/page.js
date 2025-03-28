@@ -72,25 +72,25 @@ export default async function Cip(props) {
 
   return (
     <div className="pt-24 md:pt-40 flex justify-center pb-12">
-      <div className="max-w-7xl w-full px-6 sm:px-8 lg:px-12">
-        <div className="flex gap-8">
+      <div className="max-w-7xl w-full px-4 sm:px-6 lg:px-12">
+        <div className="flex flex-col lg:flex-row lg:gap-8">
           <CipSidebar />
           <div className="flex-1">
             <article>
-              <div className="mb-16 flex flex-col">
+              <div className="mb-8 lg:mb-16 flex flex-col">
                 <div>
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-cf-blue-50 text-3xl">#{cip.CIP}</span>
-                    <div>
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-2">
+                    <span className="text-cf-blue-50 text-2xl sm:text-3xl">#{cip.CIP}</span>
+                    <div className="flex flex-wrap gap-2">
                       <Badge className={`text-sm ${cip.statusBadgeColor}`} title={cip.Status} />
-                      {cip.Category && <Badge className="text-sm bg-white/10 ring-slate-400 text-slate-200 ml-2" title={cip.Category} />}
+                      {cip.Category && <Badge className="text-sm bg-white/10 ring-slate-400 text-slate-200" title={cip.Category} />}
                     </div>
                   </div>
-                  <h1 className="text-5xl font-medium leading-tight tracking-tight text-transparent sm:text-6xl bg-clip-text bg-gradient-to-br from-white via-cf-slate-50 to-cf-blue-50/90">
+                  <h1 className="text-4xl sm:text-5xl lg:text-6xl font-medium leading-tight tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-white via-cf-slate-50 to-cf-blue-50/90">
                     {cip.Title}
                   </h1>
                 </div>
-                <div className="mt-4 text-slate-400 flex flex-wrap">
+                <div className="mt-4 text-slate-400 flex flex-wrap text-sm sm:text-base">
                   Created on&nbsp;
                   <time dateTime={cip.Created}>
                     {new Date(cip.Created).toLocaleDateString("en-US", {
