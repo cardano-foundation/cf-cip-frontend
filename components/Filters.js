@@ -293,7 +293,7 @@ export default function Filters({ type }) {
                   onChange={handleSearchQueryChange}
                   id="search"
                   type="search"
-                  placeholder="Search"
+                  placeholder="Search by number, title or author"
                   value={searchQuery}
                   className="w-full border-0 rounded-xl bg-transparent pl-6 text-slate-50 text-sm font-medium placeholder:text-cf-slate-300 focus:ring-2 focus:ring-inset focus:ring-cf-blue-50 sm:leading-6"
                 />
