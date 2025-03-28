@@ -1,9 +1,9 @@
-import { allCpsAnnex } from 'content-collections'
+import { allCpsAnnexes } from 'content-collections'
 import { notFound } from 'next/navigation'
 import Markdown from '@/components/Markdown'
 
 async function getAnnexFromParams(slug, annexSlug) {
-  const annex = allCpsAnnex.find((annex) => annex.slug === `${slug}-${annexSlug}`)
+  const annex = allCpsAnnexes.find((annex) => annex.slug === `${slug}-${annexSlug}`)
 
   if (!annex) {
     notFound()
@@ -46,7 +46,7 @@ export default async function CpsAnnex({ params }) {
           </div>
 
           <div className="prose prose-invert lg:prose-xl mx-auto">
-            <Markdown content={annex.content} />
+            <Markdown content={annex.html} />
           </div>
         </article>
       </div>

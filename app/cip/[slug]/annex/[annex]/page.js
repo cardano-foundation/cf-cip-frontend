@@ -1,9 +1,9 @@
-import { allCipAnnex } from 'content-collections'
+import { allCipAnnexes } from 'content-collections'
 import { notFound } from 'next/navigation'
 import Markdown from '@/components/Markdown'
 
 async function getAnnexFromParams(slug, annexSlug) {
-  const annex = allCipAnnex.find((annex) => annex.slug === `${slug}-${annexSlug}`)
+  const annex = allCipAnnexes.find((annex) => annex.slug === `${slug}-${annexSlug}`)
 
   if (!annex) {
     notFound()
@@ -46,7 +46,7 @@ export default async function CipAnnex({ params }) {
           </div>
 
           <div className="prose prose-invert lg:prose-xl mx-auto">
-            <Markdown content={annex.content} />
+            <Markdown content={annex.html} />
           </div>
         </article>
       </div>

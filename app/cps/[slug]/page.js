@@ -60,7 +60,7 @@ function parseAuthors(authors) {
 
 export default async function Cps({ params }) {
   const cps = await getCpsFromParams(params.slug)
-  const cleanedHtml = removeAriaHiddenSpans(cps.content);
+  const cleanedHtml = cps.html ? removeAriaHiddenSpans(cps.html) : '';
 
   return (
     <div className="pt-24 md:pt-40 flex justify-center pb-12">

@@ -8,8 +8,6 @@ import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
 import remarkComment from 'remark-comment'
 import rehypeKatex from 'rehype-katex'
-import { Pluggable } from 'unified'
-
 
 const statusBadgeColor = (doc: { Status: string }) => {
   switch (doc.Status) {
@@ -80,10 +78,9 @@ const cip = defineCollection({
     // Compile markdown to HTML
     const html = await compileMarkdown(context, doc, {
         remarkPlugins: [
-          // @ts-ignore
           remarkMath,
-          // @ts-ignore
           remarkGfm,
+          remarkComment,
         ],
         rehypePlugins: [
           rehypeKatex,
@@ -94,10 +91,10 @@ const cip = defineCollection({
               ariaLabel: 'Link to section',
             }
           }],
-          // @ts-ignore
           [rehypePrettyCode, {
-            theme: 'github-dark',
+            theme: 'catppuccin-mocha',
             defaultLang: {
+              block: 'plaintext',
               inline: 'plaintext',
             },
             onVisitLine(node: NodeType) {
@@ -154,10 +151,9 @@ const cipAnnex = defineCollection({
     // Compile markdown to HTML
     const html = await compileMarkdown(context, doc, {
         remarkPlugins: [
-          // @ts-ignore
           remarkMath,
-          // @ts-ignore
           remarkGfm,
+          remarkComment,
         ],
         rehypePlugins: [
           rehypeKatex,
@@ -168,9 +164,8 @@ const cipAnnex = defineCollection({
               ariaLabel: 'Link to section',
             }
           }],
-          // @ts-ignore
           [rehypePrettyCode, {
-            theme: 'github-dark',
+            theme: 'catppuccin-mocha',
             defaultLang: {
               inline: 'plaintext',
             },
@@ -231,22 +226,23 @@ const cps = defineCollection({
     // Compile markdown to HTML
     const html = await compileMarkdown(context, doc, {
         remarkPlugins: [
-          remarkMath as unknown as Pluggable,
-          remarkGfm as unknown as Pluggable,
+          remarkMath,
+          remarkGfm,
         ],
         rehypePlugins: [
           rehypeKatex,
           rehypeSlug,
+          remarkComment,
           [rehypeAutolinkHeadings, {
             properties: {
               className: ['subheading-anchor'],
               ariaLabel: 'Link to section',
             }
           }],
-          // @ts-ignore
           [rehypePrettyCode, {
-            theme: 'github-dark',
+            theme: 'catppuccin-mocha',
             defaultLang: {
+
               inline: 'plaintext',
             },
             onVisitLine(node: NodeType) {
@@ -300,23 +296,21 @@ const cpsAnnex = defineCollection({
     // Compile markdown to HTML
     const html = await compileMarkdown(context, doc, {
       remarkPlugins: [
-        // @ts-ignore
         remarkMath,
-        // @ts-ignore
         remarkGfm,
       ],
       rehypePlugins: [
         rehypeKatex,
         rehypeSlug,
+        remarkComment,
         [rehypeAutolinkHeadings, {
           properties: {
             className: ['subheading-anchor'],
             ariaLabel: 'Link to section',
           }
         }],
-        // @ts-ignore
         [rehypePrettyCode, {
-          theme: 'github-dark',
+          theme: 'catppuccin-mocha',
           defaultLang: {
             inline: 'plaintext',
           },
