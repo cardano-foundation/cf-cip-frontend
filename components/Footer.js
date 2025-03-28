@@ -23,7 +23,7 @@ export default function Footer() {
         </div>
         <div className="mt-4 md:order-1 md:mt-0">
           <p className="text-center text-xs leading-5 text-slate-100">
-            &copy; 2023 Cardano Foundation
+            © {new Date().getFullYear()} Cardano Foundation
           </p>
         </div>
       </div>

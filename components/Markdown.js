@@ -1,42 +1,50 @@
 'use client'
 
-import { useRouter, usePathname } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { useEffect } from 'react'
+import { useMounted} from '@/lib/useMounted'
 import mermaid from 'mermaid'
 
 const Markdown = ({ content }) => {
-  const router = useRouter()
   const pathname = usePathname()
+  const mounted = useMounted()
 
-  const handleClick = (e) => {
-    e.preventDefault()
-
-    const href = e.currentTarget.getAttribute('href')
-    let newUrl = `${pathname}/annex/${href.split('./')[1]}`
-
-    if (href.split('./')[1] !== 'md') {
-      const cip = pathname.split('/')[2]
-      newUrl = `https://raw.githubusercontent.com/cardano-foundation/CIPs/master/${cip}/${href.split('./')[1]}`
-    }
-
-    router.push(newUrl)
-  }
-
+  // update images with relative paths if mounted
   useEffect(() => {
-    const links = document.querySelectorAll('a[href^="./"]')
-    Array.from(links).forEach(link => {
-      link.addEventListener('click', handleClick)
-    })
-    return () => {
+    if (mounted) {
+      // handle images with relative paths
+      const relativePathImages = document.querySelectorAll('img[src^="./"]')
+      Array.from(relativePathImages).forEach(image => {
+        const cip = pathname.split('/')[2]
+        const imageRelativePath = image.src.split('/').slice(4).join('/')
+
+        image.src = `https://raw.githubusercontent.com/cardano-foundation/CIPs/master/${cip}/${imageRelativePath}`
+      })
+
+      // handle links with relative paths
+      const links = document.querySelectorAll('a[href^="./"]')
       Array.from(links).forEach(link => {
-        link.removeEventListener('click', handleClick)
+        const href = link.href
+
+        const fileRelativePath = href.split('/').slice(4).join('/')
+
+        let newUrl = `${pathname}/annex/${fileRelativePath.split('.')[0]}`
+
+        if (!fileRelativePath.includes('.md')) {
+          const cip = pathname.split('/')[2]
+          newUrl = `https://raw.githubusercontent.com/cardano-foundation/CIPs/master/${cip}/${fileRelativePath}`
+        }
+
+        link.href = newUrl
       })
     }
-  }, [])
+  }, [mounted])
 
   useEffect(() => {
-    mermaid.init(undefined, document.querySelectorAll('.mermaid'))
-  }, [content])
+    if (mounted) {
+      mermaid.init(undefined, document.querySelectorAll('.mermaid'))
+    }
+  }, [mounted])
 
   return (
     <div dangerouslySetInnerHTML={{ __html: content }} />

@@ -122,7 +122,6 @@ export default function Filters({ type }) {
       return
     }
 
-    console.log('this ran')
 
     handleSearch()
   }, [debouncedSearchQuery])
