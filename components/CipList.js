@@ -15,7 +15,7 @@ const CipList = ({ className, searchParams, ...props }) => {
       const search = searchParams.search.toLowerCase()
       if (
         !cip.Title.toLowerCase().includes(search) &&
-        cip.CIP != search &&
+        !cip.CIP.toString().includes(search) &&
         !cip.Authors.join(',').toLowerCase().includes(search)
       ) {
         return false
