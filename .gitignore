@@ -36,6 +36,7 @@ yarn-error.log*
 next-env.d.ts
 
 .contentlayer/
+.content-collections
 .idea/
 
 # fetched content

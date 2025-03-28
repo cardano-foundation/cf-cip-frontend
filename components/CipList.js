@@ -1,21 +1,21 @@
 import Filters from "@/components/Filters"
 import ListGroup from "@/components/ListGroup"
-import { allCIPs } from "contentlayer/generated"
+import { allCips } from "content-collections"
 
 const CipList = ({ className, searchParams, ...props }) => {
   // handle filters
-  const filteredCIPs = allCIPs.filter((cip) => {
+  const filteredCIPs = allCips.filter((cip) => {
     if (searchParams.category && !searchParams.category.split(',').includes(cip.Category)) {
       return false
     }
-    if (searchParams.status && !searchParams.status.split(',').includes(cip.Status)) {
+    if (searchParams.status && !searchParams.status.split(',').includes(cip.Status.split(' ')[0])) {
       return false
     }
     if (searchParams.search) {
       const search = searchParams.search.toLowerCase()
       if (
         !cip.Title.toLowerCase().includes(search) &&
-        cip.CIP != search &&
+        !cip.CIP.toString().includes(search) &&
         !cip.Authors.join(',').toLowerCase().includes(search)
       ) {
         return false

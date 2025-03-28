@@ -1,6 +1,7 @@
 import { ChevronRightIcon } from '@heroicons/react/20/solid'
 import Badge from '@/components/Badge'
 import Link from 'next/link'
+import { Fragment } from 'react'
 
 function parseAuthors(authors) {
   return authors.map((author) => {
@@ -37,12 +38,12 @@ export default function ListGroup({items, type}) {
               </p>
               <p className="mt-1 flex text-xs leading-5 text-slate-300 flex-wrap">
                 {item.Authors && parseAuthors(item.Authors).map((author ,index) => (
-                  <>
+                  <Fragment key={index}>
                     {item.Authors.length !== 1 && index + 1 === item.Authors.length && <>&nbsp;and&nbsp;</>}
                     <Link href={`mailto:${author.email}`} key={index} className="relative hover:underline">
                       {author.name}{index + 1 < item.Authors.length && ",\u00A0"}
                     </Link>
-                  </>
+                  </Fragment>
                 ))}
               </p>
             </div>
