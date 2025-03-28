@@ -38,9 +38,13 @@
     "use-debounce": "^10.0.0"
   },
   "devDependencies": {
+    "@content-collections/core": "^0.8.2",
+    "@content-collections/next": "^0.2.6",
     "@tailwindcss/forms": "^0.5.6",
     "@tailwindcss/typography": "^0.5.10",
-    "@types/react": "18.2.34",
+    "@types/node": "^22.13.14",
+    "@types/react": "^18.2.34",
+    "@types/react-dom": "^19.0.3",
     "autoprefixer": "^10",
     "cypress": "^13",
     "eslint": "^8",
@@ -48,6 +52,7 @@
     "postcss": "^8",
     "prettier": "^3.0.3",
     "prettier-plugin-tailwindcss": "^0.5.5",
-    "tailwindcss": "^3"
+    "tailwindcss": "^3",
+    "typescript": "^5.8.2"
   }
 }
