@@ -64,7 +64,6 @@ function parseAuthors(authors) {
 export default async function Cip({ params }) {
   const cip = await getCipFromParams(params.slug)
   
-  console.log(cip)
   const cleanedHtml = cip.html ? removeAriaHiddenSpans(cip.html) : '';
 
   return (
