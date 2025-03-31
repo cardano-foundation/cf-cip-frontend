@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation'
 import Markdown from '@/components/Markdown'
 
 async function getAnnexFromParams(slug, annexSlug) {
+  slug = `CIP-${slug.split('-')[1].padStart(4, '0')}`
+
   const annex = allCipAnnexes.find((annex) => annex.slug === `${slug}-${annexSlug}`)
 
   if (!annex) {

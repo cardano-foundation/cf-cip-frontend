@@ -21,6 +21,8 @@ function removeAriaHiddenSpans(html) {
 }
 
 async function getCpsFromParams(slug) {
+  slug = `CPS-${slug.split('-')[1].padStart(4, '0')}`
+
   const cps = allCps.find((cps) => cps.slug === slug)
 
   if (!cps) {
