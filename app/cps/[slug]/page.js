@@ -20,7 +20,7 @@ function removeAriaHiddenSpans(html) {
   return document.body.innerHTML;
 }
 
-async function getCpsFromParams(slug) {
+function getCpsFromParams(slug) {
   slug = `CPS-${slug.split('-')[1].padStart(4, '0')}`
 
   const cps = allCps.find((cps) => cps.slug === slug)
@@ -63,9 +63,9 @@ function parseAuthors(authors) {
   })
 }
 
-export default async function Cps(props) {
-  const params = await props.params;
-  const cps = await getCpsFromParams(params.slug)
+export default function Cps(props) {
+  const params = props.params;
+  const cps = getCpsFromParams(params.slug)
   const cleanedHtml = cps.html ? removeAriaHiddenSpans(cps.html) : '';
 
   return (

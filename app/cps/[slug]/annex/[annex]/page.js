@@ -2,7 +2,7 @@ import { allCpsAnnexes } from 'content-collections'
 import { notFound } from 'next/navigation'
 import Markdown from '@/components/Markdown'
 
-async function getAnnexFromParams(slug, annexSlug) {
+function getAnnexFromParams(slug, annexSlug) {
   slug = `CPS-${slug.split('-')[1].padStart(4, '0')}`
 
   const annex = allCpsAnnexes.find((annex) => annex.slug === `${slug}-${annexSlug}`)
@@ -35,9 +35,9 @@ export async function generateMetadata(props) {
   }
 }
 
-export default async function CpsAnnex(props) {
-  const params = await props.params;
-  const annex = await getAnnexFromParams(params.slug, params.annex)
+export default function CpsAnnex(props) {
+  const params = props.params;
+  const annex = getAnnexFromParams(params.slug, params.annex)
 
   return (
     <div className="pt-24 md:pt-40 flex justify-center pb-12">

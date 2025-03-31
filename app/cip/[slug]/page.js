@@ -21,7 +21,7 @@ function removeAriaHiddenSpans(html) {
   return document.body.innerHTML;
 }
 
-async function getCipFromParams(slug) {
+function getCipFromParams(slug) {
   slug = `CIP-${slug.split('-')[1].padStart(4, '0')}`
 
   const cip = allCips.find((cip) => cip.slug === slug)
@@ -64,9 +64,9 @@ function parseAuthors(authors) {
   })
 }
 
-export default async function Cip(props) {
-  const params = await props.params;
-  const cip = await getCipFromParams(params.slug)
+export default function Cip(props) {
+  const params = props.params;
+  const cip = getCipFromParams(params.slug)
 
   const cleanedHtml = cip.html ? removeAriaHiddenSpans(cip.html) : '';
 
