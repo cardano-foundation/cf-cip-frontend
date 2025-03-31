@@ -5,7 +5,7 @@ import Badge from '@/components/Badge'
 import Markdown from '@/components/Markdown'
 import { JSDOM } from 'jsdom';
 import { Fragment } from 'react'
-import CipSidebar from '@/components/CipSidebar'
+import DocumentSidebar from '@/components/DocumentSidebar'
 
 
 // Removing repetitive $...$ katex spans
@@ -74,7 +74,7 @@ export default async function Cip(props) {
     <div className="pt-24 md:pt-40 flex justify-center pb-12">
       <div className="max-w-7xl w-full px-4 sm:px-6 lg:px-12">
         <div className="flex flex-col lg:flex-row lg:gap-8">
-          <CipSidebar />
+          <DocumentSidebar />
           <div className="flex-1">
             <article>
               <div className="mb-8 lg:mb-16 flex flex-col">
