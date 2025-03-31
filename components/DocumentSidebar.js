@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { allCps } from 'content-collections'
+import { allCips, allCps } from 'content-collections'
 import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
@@ -11,35 +11,74 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function CpsSidebar() {
+export default function DocumentSidebar() {
   const pathname = usePathname()
-  const currentSlug = pathname.split('/')[2]
+  const pathParts = pathname.split('/')
+  const documentType = pathParts[1] // "cip" or "cps"
+  const currentSlug = pathParts[2]
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-  // Sort CPS by number
+  // Sort CIPs and CPSs by number
+  const sortedCips = [...allCips].sort((a, b) => a.CIP - b.CIP)
   const sortedCps = [...allCps].sort((a, b) => a.CPS - b.CPS)
 
   const SidebarContent = () => (
-    <nav className="space-y-1 px-4 py-4">
-      {sortedCps.map((cps) => {
-        const isActive = cps.slug === currentSlug
-        return (
-          <Link
-            key={cps.slug}
-            href={`/cps/${cps.slug}`}
-            onClick={() => setMobileMenuOpen(false)}
-            className={classNames(
-              isActive
-                ? 'bg-white/10 text-white'
-                : 'text-slate-300 hover:bg-white/5 hover:text-white',
-              'group flex items-center rounded-md px-2 py-2 text-sm font-medium'
-            )}
-          >
-            <span className="mr-2 text-cf-blue-50">#{cps.CPS}</span>
-            <span className="truncate">{cps.Title}</span>
-          </Link>
-        )
-      })}
+    <nav className="space-y-4 px-4 py-4">
+      {/* CIPs Section */}
+      <div>
+        <h3 className="px-2 text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+          CIP
+        </h3>
+        <div className="space-y-1">
+          {sortedCips.map((cip) => {
+            const isActive = documentType === 'cip' && cip.slug === currentSlug
+            return (
+              <Link
+                key={cip.slug}
+                href={`/cip/${cip.slug}`}
+                onClick={() => setMobileMenuOpen(false)}
+                className={classNames(
+                  isActive
+                    ? 'bg-white/10 text-white'
+                    : 'text-slate-300 hover:bg-white/5 hover:text-white',
+                  'group flex items-center rounded-md px-2 py-2 text-sm font-medium'
+                )}
+              >
+                <span className="mr-2 text-cf-blue-50">#{cip.CIP}</span>
+                <span className="truncate">{cip.Title}</span>
+              </Link>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* CPSs Section */}
+      <div>
+        <h3 className="px-2 text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+          CPS
+        </h3>
+        <div className="space-y-1">
+          {sortedCps.map((cps) => {
+            const isActive = documentType === 'cps' && cps.slug === currentSlug
+            return (
+              <Link
+                key={cps.slug}
+                href={`/cps/${cps.slug}`}
+                onClick={() => setMobileMenuOpen(false)}
+                className={classNames(
+                  isActive
+                    ? 'bg-white/10 text-white'
+                    : 'text-slate-300 hover:bg-white/5 hover:text-white',
+                  'group flex items-center rounded-md px-2 py-2 text-sm font-medium'
+                )}
+              >
+                <span className="mr-2 text-cf-blue-50">#{cps.CPS}</span>
+                <span className="truncate">{cps.Title}</span>
+              </Link>
+            )
+          })}
+        </div>
+      </div>
     </nav>
   )
 
@@ -83,7 +122,7 @@ export default function CpsSidebar() {
               <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white bg-opacity-[1%] backdrop-blur-lg border-l border-gray-100/10 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-white/10 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:hover:bg-white/20">
                 <div className="flex items-center justify-between px-4 py-4 border-b border-gray-100/10">
                   <Dialog.Title className="text-base font-semibold text-white">
-                    Cardano Problem Statements
+                    All Documents
                   </Dialog.Title>
                   <button
                     type="button"
