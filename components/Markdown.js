@@ -5,6 +5,9 @@ import { useEffect } from 'react'
 import { useMounted} from '@/lib/useMounted'
 import mermaid from 'mermaid'
 
+import "remark-github-alerts/styles/github-colors-dark-class.css"
+import "remark-github-alerts/styles/github-base.css";
+
 const Markdown = ({ content }) => {
   const pathname = usePathname()
   const mounted = useMounted()

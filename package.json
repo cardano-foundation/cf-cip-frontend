@@ -33,6 +33,7 @@
     "rehype-stringify": "^10.0.1",
     "remark-comment": "^1.0.0",
     "remark-gfm": "^4.0.1",
+    "remark-github-alerts": "^0.1.1",
     "remark-math": "^6.0.0",
     "remark-mermaid": "^0.2.0",
     "remark-parse": "^11.0.0",

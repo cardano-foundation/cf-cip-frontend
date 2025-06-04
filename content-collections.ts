@@ -7,6 +7,7 @@ import rehypeSlug from 'rehype-slug'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
 import remarkComment from 'remark-comment'
+import remarkGithubAlerts from 'remark-github-alerts'
 import rehypeKatex from 'rehype-katex'
 // @ts-ignore
 import remarkMermaid from 'remark-mermaid'
@@ -83,6 +84,7 @@ const cip = defineCollection({
           remarkMath,
           remarkGfm,
           remarkComment,
+          remarkGithubAlerts,
           [remarkMermaid, { simple: true }],
         ],
         rehypePlugins: [
