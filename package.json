@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "node scripts/fetchMainBranch.mjs && node scripts/fetchPullRequests.mjs && node scripts/createAuthorsArray.mjs && node scripts/fetchGithubContributors.mjs && node scripts/fetchGithubLabels.mjs && node scripts/fetchGithubData.mjs && next build",
+    "build-no-fetch": "next build",
     "start": "next start",
     "lint": "next lint",
     "cypress": "cypress open"
@@ -20,7 +21,7 @@
     "dotenv": "^16.3.1",
     "jsdom": "^24.1.0",
     "mermaid": "^11.6.0",
-    "next": "15.2.4",
+    "next": "15.3.3",
     "node-fetch": "^3.3.2",
     "query-string": "^8.1.0",
     "react": "19.0.0",
