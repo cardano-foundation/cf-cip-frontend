@@ -7,6 +7,10 @@ import { JSDOM } from 'jsdom';
 import { Fragment } from 'react'
 import DocumentSidebar from '@/components/DocumentSidebar'
 
+export async function generateStaticParams() {
+  return allCps.map((cps) => ({ slug: cps.slug }))
+}
+
 // Removing repetitive $...$ katex spans
 function removeAriaHiddenSpans(html) {
   const dom = new JSDOM(html);
@@ -63,8 +67,8 @@ function parseAuthors(authors) {
   })
 }
 
-export default function Cps(props) {
-  const params = props.params;
+export default async function Cps(props) {
+  const params = await props.params;
   const cps = getCpsFromParams(params.slug)
   const cleanedHtml = cps.html ? removeAriaHiddenSpans(cps.html) : '';
 
