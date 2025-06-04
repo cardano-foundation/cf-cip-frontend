@@ -2,6 +2,15 @@ import { allCipAnnexes } from 'content-collections'
 import { notFound } from 'next/navigation'
 import Markdown from '@/components/Markdown'
 
+export async function generateStaticParams() {
+  return allCipAnnexes.map((annex) => {
+    const parts = annex.slug.split('-');
+    const slugParam = parts.slice(0, 2).join('-');
+    const annexParam = parts.slice(2).join('-');
+    return { slug: slugParam, annex: annexParam };
+  });
+}
+
 function getAnnexFromParams(slug, annexSlug) {
   slug = `CIP-${slug.split('-')[1].padStart(4, '0')}`
 
@@ -35,8 +44,8 @@ export async function generateMetadata(props) {
   }
 }
 
-export default function CipAnnex(props) {
-  const params = props.params;
+export default async function CipAnnex(props) {
+  const params = await props.params;
   const annex = getAnnexFromParams(params.slug, params.annex)
 
   return (
