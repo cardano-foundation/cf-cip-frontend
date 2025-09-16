@@ -12,12 +12,7 @@ const github_token = process.env.GITHUB_TOKEN
 const url = `https://api.github.com/repos/${owner}/${repo}/contents`
 const fileHeaders = { CIPs: [], CPSs: [] }
 
-async function fetchGitHubData(
-  url,
-  token,
-  destination_path,
-  isInsideCipCps = false,
-) {
+async function fetchGitHubData(url, token, destination_path) {
   if (!url) {
     console.error('Invalid URL')
     return
@@ -32,43 +27,29 @@ async function fetchGitHubData(
     const data = await response.json()
     // Process each item in the data
     const promises = data.map(async (item) => {
-      if (item.type === 'dir') {
-        // Check if we're at the root level and item is a CIP or CPS directory
-        if (
-          !isInsideCipCps &&
-          (item.name.includes('CIP') || item.name.includes('CPS'))
-        ) {
-          // Set directory path based on whether item name includes 'CIP' or 'CPS'
-          let dirPath = ''
-          if (item.name.includes('CIP')) {
-            dirPath = `${destination_path}/cip/${item.name}`
-          } else if (item.name.includes('CPS')) {
-            dirPath = `${destination_path}/cps/${item.name}`
-          }
-
-          // Create directory
-          fs.mkdirSync(dirPath, { recursive: true })
-
-          // Fetch data for the directory, marking that we're now inside a CIP/CPS directory
-          await fetchGitHubData(item.url, token, dirPath, true)
-        } else if (isInsideCipCps) {
-          // We're inside a CIP/CPS directory, so process all subdirectories
-          const subDirPath = `${destination_path}/${item.name}`
-
-          // Create subdirectory
-          fs.mkdirSync(subDirPath, { recursive: true })
-
-          // Recursively fetch subdirectory contents
-          await fetchGitHubData(item.url, token, subDirPath, true)
+      // Check if item is a directory and its name includes 'CIP' or 'CPS'
+      if (
+        item.type === 'dir' &&
+        (item.name.includes('CIP') || item.name.includes('CPS'))
+      ) {
+        // Set directory path based on whether item name includes 'CIP' or 'CPS'
+        let dirPath = ''
+        if (item.name.includes('CIP')) {
+          dirPath = `${destination_path}/cip/${item.name}`
+        } else if (item.name.includes('CPS')) {
+          dirPath = `${destination_path}/cps/${item.name}`
         }
+
+        // Create directory
+        fs.mkdirSync(dirPath, { recursive: true })
+
+        // Fetch data for the directory
+        await fetchGitHubData(item.url, token, dirPath)
       } else if (item.type === 'file') {
-        // Set file path based on whether we're inside a CIP/CPS directory or the item path includes 'CIP' or 'CPS'
+
+        // Set file path based on whether item path includes 'CIP' or 'CPS'
         let filePath = ''
-        if (
-          isInsideCipCps ||
-          item.path.includes('CIP') ||
-          item.path.includes('CPS')
-        ) {
+        if (item.path.includes('CIP') || item.path.includes('CPS')) {
           filePath = `${destination_path}/${item.name}`
         }
 
@@ -96,18 +77,18 @@ async function downloadFile(url, filePath) {
     const dirPath = path.dirname(filePath)
 
     // Get the original file extension
-    const ext = path.extname(filePath)
+    const ext = path.extname(filePath);
 
     // Change the file extension to .mdx if it's .md
-    let fileName = path.basename(filePath, ext) + ext
+    let fileName = path.basename(filePath, ext) + ext;
 
     // If the file is README.md, rename it to page.mdx
     if (fileName === 'README.md') {
-      fileName = 'page.md'
+      fileName = 'page.md';
     }
 
     // Construct the new file path
-    const newFilePath = path.join(dirPath, fileName)
+    const newFilePath = path.join(dirPath, fileName);
 
     // Create directory if it doesn't exist
     fs.mkdirSync(dirPath, { recursive: true })

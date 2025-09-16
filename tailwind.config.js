@@ -11,24 +11,13 @@ module.exports = {
         DEFAULT: {
           css: {
             'code::before': {
-              content: '""'
+              content: '""',
             },
             'code::after': {
-              content: '""'
-            }
-          }
-        }
-      },
-      animation: {
-        blob: "blob 45s infinite",
-      },
-      keyframes: {
-        blob: {
-          "0%": { transform: "scale(1)" },
-          "33%": { transform: "scale(1.1)" },
-          "66%": { transform: "scale(0.9)" },
-          "100%": { transform: "scale(1)" },
-        }
+              content: '""',
+            },
+          },
+        },
       },
       colors: {
         // brand colours
@@ -41,15 +30,6 @@ module.exports = {
           500: '#023CC7',
           600: '#0033AD',
           900: '#030321',
-        },
-        'cf-gray': {
-          50: '#CDCDCD',
-          100: '#999999',
-          200: '#7B7B7B',
-          300: '#595959',
-          400: '#3E3E3E',
-          500: '#1F1F1F',
-          600: '#61787B',
         },
         'cf-red': {
           50: '#FFE5E5',
@@ -82,7 +62,7 @@ module.exports = {
         // one off colours
         'cf-offwhite': '#FBFBFB',
         'cf-neutral-gray': '#61787B',
-      }
+      },
     },
   },
   safelist: [
@@ -101,9 +81,5 @@ module.exports = {
     'bg-cf-blue-600/30',
     'ring-cf-blue-600/30',
     'text-blue-600',
-  ],
-  plugins: [
-    require('@tailwindcss/typography'),
-    require('@tailwindcss/forms'),
   ],
 }
