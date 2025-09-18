@@ -12,6 +12,7 @@ import rehypeKatex from 'rehype-katex'
 // @ts-ignore
 import remarkMermaid from 'remark-mermaid'
 import remarkRemoveToc from './lib/remark-remove-toc'
+import remarkHeadingIds from './lib/remark-heading-ids'
 import remarkRelativeLinks from './lib/remark-relative-links'
 import rehypeRelativeImages from './lib/rehype-relative-images'
 
@@ -91,6 +92,7 @@ const cip = defineCollection({
         remarkComment,
         remarkGithubAlerts,
         remarkRemoveToc,
+        remarkHeadingIds,
         [
           remarkRelativeLinks,
           {
@@ -207,6 +209,7 @@ const cipAnnex = defineCollection({
         remarkGfm,
         remarkComment,
         remarkRemoveToc,
+        remarkHeadingIds,
         [
           remarkRelativeLinks,
           {
@@ -318,6 +321,7 @@ const cps = defineCollection({
         remarkGfm,
         remarkComment,
         remarkRemoveToc,
+        remarkHeadingIds,
         [
           remarkRelativeLinks,
           {
@@ -430,6 +434,7 @@ const cpsAnnex = defineCollection({
         remarkGfm,
         remarkComment,
         remarkRemoveToc,
+        remarkHeadingIds,
         [
           remarkRelativeLinks,
           {
