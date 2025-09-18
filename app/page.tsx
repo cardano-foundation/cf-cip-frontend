@@ -40,7 +40,7 @@ export default function About() {
                 asChild
                 variant="outline"
                 size="lg"
-                className="w-full text-base lg:w-auto"
+                className="w-full lg:w-auto"
               >
                 <Link
                   href="https://github.com/cardano-foundation/CIPs/blob/master/.github/CPS-TEMPLATE.md"
