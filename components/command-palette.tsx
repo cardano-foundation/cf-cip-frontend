@@ -119,6 +119,9 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
   const [recentItems, setRecentItems] = useState<string[]>([])
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
   const [selectedStatuses, setSelectedStatuses] = useState<string[]>([])
+  const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false)
+  const [isStatusDropdownOpen, setIsStatusDropdownOpen] = useState(false)
+  const dropdownStateRef = useRef({ category: false, status: false })
   const { setQuery, setType } = useSidebarState()
   const router = useRouter()
   const { setTheme, theme } = useTheme()
@@ -140,6 +143,16 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
         }
       }
     }, 100)
+  }, [])
+
+  const handleCategoryDropdownChange = useCallback((open: boolean) => {
+    dropdownStateRef.current.category = open
+    setIsCategoryDropdownOpen(open)
+  }, [])
+
+  const handleStatusDropdownChange = useCallback((open: boolean) => {
+    dropdownStateRef.current.status = open
+    setIsStatusDropdownOpen(open)
   }, [])
 
   useEffect(() => {
@@ -487,16 +500,13 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
           })
           break
         case 'Escape':
-          e.preventDefault()
-          onOpenChange(false)
-          break
+          return
         case 'c':
         case 'C':
           // Cmd+Shift+C for categories
           if (e.metaKey && e.shiftKey) {
             e.preventDefault()
             e.stopPropagation()
-            console.log('Opening category combobox')
             categoryComboboxRef.current?.click()
           }
           break
@@ -506,7 +516,6 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
           if (e.metaKey && e.shiftKey) {
             e.preventDefault()
             e.stopPropagation()
-            console.log('Opening status combobox')
             statusComboboxRef.current?.click()
           }
           break
@@ -516,7 +525,6 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
           if (e.metaKey && !e.shiftKey) {
             e.preventDefault()
             e.stopPropagation()
-            console.log('Resetting all filters and search')
             setSearch('')
             setSelectedCategories([])
             setSelectedStatuses([])
@@ -530,12 +538,23 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
 
   const handleOpenChange = useCallback(
     (newOpen: boolean) => {
+      const anyDropdownOpen =
+        dropdownStateRef.current.category || dropdownStateRef.current.status
+
+      if (!newOpen && anyDropdownOpen) {
+        return
+      }
+
       onOpenChange(newOpen)
       if (!newOpen) {
         setSearch('')
         setSelectedIndex(0)
         setSelectedCategories([])
         setSelectedStatuses([])
+        dropdownStateRef.current.category = false
+        dropdownStateRef.current.status = false
+        setIsCategoryDropdownOpen(false)
+        setIsStatusDropdownOpen(false)
       }
     },
     [onOpenChange],
@@ -567,28 +586,63 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
         if (e.key === 'C' || e.key === 'c') {
           e.preventDefault()
           e.stopPropagation()
-          console.log('Global: Opening category combobox')
           categoryComboboxRef.current?.click()
         } else if (e.key === 'S' || e.key === 's') {
           e.preventDefault()
           e.stopPropagation()
-          console.log('Global: Opening status combobox')
           statusComboboxRef.current?.click()
         }
       } else if (e.metaKey && !e.shiftKey && (e.key === 'R' || e.key === 'r')) {
         e.preventDefault()
         e.stopPropagation()
-        console.log('Global: Resetting all filters and search')
         setSearch('')
         setSelectedCategories([])
         setSelectedStatuses([])
         setSelectedIndex(0)
+      } else if (e.key === 'Escape') {
+        const stateDropdownOpen =
+          dropdownStateRef.current.category || dropdownStateRef.current.status
+
+        const openPopovers = document.querySelectorAll('[data-state="open"]')
+        const domDropdownOpen = openPopovers.length > 1
+
+        const anyDropdownOpen = stateDropdownOpen || domDropdownOpen
+
+        if (anyDropdownOpen) {
+          return
+        }
+
+        e.preventDefault()
+        e.stopPropagation()
+        onOpenChange(false)
       }
     }
 
     document.addEventListener('keydown', handleGlobalKeyDown, true)
     return () =>
       document.removeEventListener('keydown', handleGlobalKeyDown, true)
+  }, [open])
+
+  useEffect(() => {
+    if (!open) return
+
+    const syncDropdownState = () => {
+      const openPopovers = document.querySelectorAll('[data-state="open"]')
+      const actualDropdownOpen = openPopovers.length > 1
+
+      const currentStateOpen =
+        dropdownStateRef.current.category || dropdownStateRef.current.status
+
+      if (currentStateOpen && !actualDropdownOpen) {
+        dropdownStateRef.current.category = false
+        dropdownStateRef.current.status = false
+        setIsCategoryDropdownOpen(false)
+        setIsStatusDropdownOpen(false)
+      }
+    }
+
+    const interval = setInterval(syncDropdownState, 100)
+    return () => clearInterval(interval)
   }, [open])
 
   return (
@@ -631,6 +685,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                     placeholder="Categories"
                     className="!flex !w-full !min-w-0"
                     onClose={returnFocusToSearch}
+                    onOpenChange={handleCategoryDropdownChange}
                   />
                   {selectedCategories.length > 0 && (
                     <button
@@ -653,6 +708,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                     placeholder="Statuses"
                     className="!flex !w-full !min-w-0"
                     onClose={returnFocusToSearch}
+                    onOpenChange={handleStatusDropdownChange}
                   />
                   {selectedStatuses.length > 0 && (
                     <button

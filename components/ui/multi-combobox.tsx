@@ -1,6 +1,7 @@
 'use client'
 
 import {
+  KeyboardEvent,
   forwardRef,
   useCallback,
   useEffect,
@@ -31,6 +32,7 @@ export const MultiCombobox = forwardRef<
     placeholder?: string
     className?: string
     onClose?: () => void
+    onOpenChange?: (open: boolean) => void
   }
 >(
   (
@@ -41,6 +43,7 @@ export const MultiCombobox = forwardRef<
       placeholder = 'Select...',
       className,
       onClose,
+      onOpenChange,
     },
     ref,
   ) => {
@@ -102,6 +105,17 @@ export const MultiCombobox = forwardRef<
       [value, onChange],
     )
 
+    const handleOpenChange = useCallback(
+      (newOpen: boolean) => {
+        setOpen(newOpen)
+        onOpenChange?.(newOpen)
+        if (!newOpen && onClose) {
+          setTimeout(() => onClose(), 0)
+        }
+      },
+      [onClose, onOpenChange],
+    )
+
     const handleKeyDown = useCallback(
       (e: KeyboardEvent) => {
         if (!open) return
@@ -125,22 +139,11 @@ export const MultiCombobox = forwardRef<
             break
           case 'Escape':
             e.preventDefault()
-            setOpen(false)
+            handleOpenChange(false)
             break
         }
       },
-      [open, filteredOptions, selectedIndex, handleSelect],
-    )
-
-    const handleOpenChange = useCallback(
-      (newOpen: boolean) => {
-        setOpen(newOpen)
-        if (!newOpen && onClose) {
-          // Small delay to ensure the popover closes before returning focus
-          setTimeout(() => onClose(), 0)
-        }
-      },
-      [onClose],
+      [open, filteredOptions, selectedIndex, handleSelect, handleOpenChange],
     )
 
     const getDisplayText = () => {
