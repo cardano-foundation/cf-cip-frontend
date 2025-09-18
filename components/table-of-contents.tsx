@@ -121,7 +121,6 @@ export function TableOfContents({ className }: TableOfContentsProps) {
         element.getBoundingClientRect().top + window.pageYOffset + yOffset
       window.scrollTo({ top: y, behavior: 'smooth' })
 
-      console.log('update')
       const { pathname, search } = window.location
       window.history.replaceState(null, '', `${pathname}${search}#${id}`)
     }
