@@ -25,7 +25,7 @@ export default function About() {
             </div>
 
             <div className="flex flex-col items-center justify-center gap-4 lg:flex-row">
-              <Button asChild size="lg">
+              <Button asChild size="lg" className="w-full lg:w-auto">
                 <Link
                   href="https://github.com/cardano-foundation/CIPs/blob/master/.github/CIP-TEMPLATE.md"
                   target="_blank"
@@ -36,7 +36,12 @@ export default function About() {
                   <ExternalLinkIcon className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="text-base">
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="w-full lg:w-auto"
+              >
                 <Link
                   href="https://github.com/cardano-foundation/CIPs/blob/master/.github/CPS-TEMPLATE.md"
                   target="_blank"
@@ -110,7 +115,7 @@ export default function About() {
             </div>
 
             <div className="flex flex-col gap-3 sm:justify-center xl:flex-row">
-              <Button asChild size="lg">
+              <Button asChild size="lg" className="w-full sm:w-auto">
                 <Link
                   href="https://github.com/cardano-foundation/CIPs"
                   target="_blank"
@@ -122,7 +127,12 @@ export default function About() {
                 </Link>
               </Button>
 
-              <Button asChild variant="outline" size="lg">
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="w-full sm:w-auto"
+              >
                 <Link
                   href="https://github.com/cardano-foundation/cf-cip-frontend"
                   target="_blank"
@@ -134,7 +144,12 @@ export default function About() {
                 </Link>
               </Button>
 
-              <Button asChild variant="outline" size="lg">
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="w-full sm:w-auto"
+              >
                 <Link href="/contributors">
                   <UsersIcon className="mr-2 h-4 w-4" />
                   Meet Contributors

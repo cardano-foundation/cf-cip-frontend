@@ -1,28 +1,70 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 
 export function useTouchPrimary() {
-  const [isTouchPrimary, setIsTouchPrimary] = useState(false);
+  const [isTouchPrimary, setIsTouchPrimary] = useState(false)
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    if (typeof window === 'undefined') return
 
-    const controller = new AbortController();
-    const { signal } = controller;
+    const coarseQuery = window.matchMedia?.('(pointer: coarse)') ?? null
+    const fineQuery = window.matchMedia?.('(pointer: fine)') ?? null
 
-    const handleTouch = () => {
-      const hasTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
-      const prefersTouch = window.matchMedia("(pointer: coarse)").matches;
-      setIsTouchPrimary(hasTouch && prefersTouch);
-    };
+    const updateTouchPreference = () => {
+      const hasTouch =
+        'ontouchstart' in window ||
+        navigator.maxTouchPoints > 0 ||
+        // @ts-expect-error: older browsers expose msMaxTouchPoints on navigator
+        navigator.msMaxTouchPoints > 0
 
-    const mq = window.matchMedia("(pointer: coarse)");
-    mq.addEventListener("change", handleTouch, { signal });
-    window.addEventListener("pointerdown", handleTouch, { signal });
+      const coarseSupported = coarseQuery?.media !== 'not all'
+      const fineSupported = fineQuery?.media !== 'not all'
 
-    handleTouch();
+      const prefersCoarse = coarseSupported ? coarseQuery.matches : false
+      const prefersFine = fineSupported ? fineQuery.matches : false
 
-    return () => controller.abort();
-  }, []);
+      // Treat devices that report touch but have no fine pointer (like iOS Safari)
+      // as primary touch even when the coarse pointer media query is unavailable.
+      const prefersTouch = prefersCoarse || (!prefersFine && hasTouch)
 
-  return isTouchPrimary;
+      setIsTouchPrimary(hasTouch && prefersTouch)
+    }
+
+    const handleChange = () => updateTouchPreference()
+
+    updateTouchPreference()
+
+    if (coarseQuery?.addEventListener) {
+      coarseQuery.addEventListener('change', handleChange)
+    } else if (coarseQuery?.addListener) {
+      coarseQuery.addListener(handleChange)
+    }
+
+    if (fineQuery?.addEventListener) {
+      fineQuery.addEventListener('change', handleChange)
+    } else if (fineQuery?.addListener) {
+      fineQuery.addListener(handleChange)
+    }
+
+    window.addEventListener('pointerdown', handleChange)
+    window.addEventListener('touchstart', handleChange)
+
+    return () => {
+      if (coarseQuery?.removeEventListener) {
+        coarseQuery.removeEventListener('change', handleChange)
+      } else if (coarseQuery?.removeListener) {
+        coarseQuery.removeListener(handleChange)
+      }
+
+      if (fineQuery?.removeEventListener) {
+        fineQuery.removeEventListener('change', handleChange)
+      } else if (fineQuery?.removeListener) {
+        fineQuery.removeListener(handleChange)
+      }
+
+      window.removeEventListener('pointerdown', handleChange)
+      window.removeEventListener('touchstart', handleChange)
+    }
+  }, [])
+
+  return isTouchPrimary
 }
