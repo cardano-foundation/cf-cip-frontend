@@ -23,6 +23,11 @@ import {
   SidebarSeparator,
   SidebarTrigger,
 } from '@/components/ui/sidebar'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
 import { ModeToggle } from '@/components/ui/mode-toggle'
 import { ToggleTabs } from '@/components/ui/toggle-tabs'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -108,17 +113,27 @@ export function AppSidebar() {
                 <SidebarMenu>
                   {filtered.map((item) => (
                     <SidebarMenuItem key={item.id}>
-                      <SidebarMenuButton asChild>
-                        <Link
-                          href={item.url}
-                          className="grid w-full min-w-0 grid-cols-[auto_1fr] items-center gap-2"
-                        >
-                          <span className="font-mono text-xs opacity-70">
-                            {item.id}
-                          </span>
-                          <span className="min-w-0 truncate">{item.title}</span>
-                        </Link>
-                      </SidebarMenuButton>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <SidebarMenuButton asChild>
+                            <Link
+                              href={item.url}
+                              className="grid w-full min-w-0 grid-cols-[auto_1fr] items-center gap-2"
+                            >
+                              <span className="font-mono text-xs opacity-70">
+                                {item.id}
+                              </span>
+                              <span className="min-w-0 truncate">
+                                {item.title}
+                              </span>
+                            </Link>
+                          </SidebarMenuButton>
+                        </TooltipTrigger>
+                        <TooltipContent side="right" className="max-w-sm">
+                          <div className="font-medium">{item.id}</div>
+                          <div className="text-xs opacity-90">{item.title}</div>
+                        </TooltipContent>
+                      </Tooltip>
                     </SidebarMenuItem>
                   ))}
                 </SidebarMenu>
