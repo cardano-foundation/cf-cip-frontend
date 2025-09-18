@@ -288,6 +288,9 @@
   .typography h5:not(.not-typography h5),
   .typography h6:not(.not-typography h6) {
     position: relative;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
   }
 
   .typography .subheading-anchor {
@@ -306,6 +309,7 @@
     line-height: 1;
     border-radius: 0.25rem;
     box-sizing: border-box;
+    flex-shrink: 0;
   }
 
   .typography .subheading-anchor::before {
