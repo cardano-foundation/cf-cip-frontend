@@ -1,6 +1,13 @@
 'use client'
 
-import * as React from 'react'
+import {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import { ChevronsUpDown, Check, Search, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -15,7 +22,7 @@ import { cn } from '@/lib/utils'
 
 type Option = { label: string; value: string }
 
-export const MultiCombobox = React.forwardRef<
+export const MultiCombobox = forwardRef<
   HTMLButtonElement,
   {
     options: Option[]
@@ -37,35 +44,31 @@ export const MultiCombobox = React.forwardRef<
     },
     ref,
   ) => {
-    const [open, setOpen] = React.useState(false)
-    const [search, setSearch] = React.useState('')
-    const [selectedIndex, setSelectedIndex] = React.useState(0)
-    const listRef = React.useRef<HTMLDivElement>(null)
+    const [open, setOpen] = useState(false)
+    const [search, setSearch] = useState('')
+    const [selectedIndex, setSelectedIndex] = useState(0)
+    const listRef = useRef<HTMLDivElement>(null)
 
     const selectedOptions = options.filter((option) =>
       value.includes(option.value),
     )
 
-    // Filter options based on search
-    const filteredOptions = React.useMemo(() => {
+    const filteredOptions = useMemo(() => {
       if (!search) return options
       return options.filter((option) =>
         option.label.toLowerCase().includes(search.toLowerCase()),
       )
     }, [options, search])
 
-    // Reset selected index when filtered options change
-    React.useEffect(() => {
+    useEffect(() => {
       setSelectedIndex(0)
     }, [filteredOptions])
 
-    // Reset search when closing and auto-focus when opening
-    React.useEffect(() => {
+    useEffect(() => {
       if (!open) {
         setSearch('')
         setSelectedIndex(0)
       } else {
-        // Auto-focus the search input when opening
         const searchInput = document.querySelector(
           '[data-multi-combobox-search]',
         ) as HTMLInputElement
@@ -75,8 +78,7 @@ export const MultiCombobox = React.forwardRef<
       }
     }, [open])
 
-    // Scroll selected item into view
-    React.useEffect(() => {
+    useEffect(() => {
       if (selectedIndex >= 0 && open) {
         const selectedElement = document.querySelector(
           `[data-multi-combobox-item="${selectedIndex}"]`,
@@ -90,7 +92,7 @@ export const MultiCombobox = React.forwardRef<
       }
     }, [selectedIndex, open])
 
-    const handleSelect = React.useCallback(
+    const handleSelect = useCallback(
       (optionValue: string) => {
         const newValue = value.includes(optionValue)
           ? value.filter((v) => v !== optionValue)
@@ -100,9 +102,8 @@ export const MultiCombobox = React.forwardRef<
       [value, onChange],
     )
 
-    // Handle keyboard navigation
-    const handleKeyDown = React.useCallback(
-      (e: React.KeyboardEvent) => {
+    const handleKeyDown = useCallback(
+      (e: KeyboardEvent) => {
         if (!open) return
 
         switch (e.key) {
@@ -131,7 +132,7 @@ export const MultiCombobox = React.forwardRef<
       [open, filteredOptions, selectedIndex, handleSelect],
     )
 
-    const handleOpenChange = React.useCallback(
+    const handleOpenChange = useCallback(
       (newOpen: boolean) => {
         setOpen(newOpen)
         if (!newOpen && onClose) {
