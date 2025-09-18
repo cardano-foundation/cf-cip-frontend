@@ -90,11 +90,21 @@ export function OpenButton({
     <div className={className}>
       <Popover>
         <PopoverTrigger>
-          <Button variant="outline" size="sm">
-            <Sparkles className="mr-2 h-4 w-4" />
-            Open
-            <ChevronDownIcon className="ml-2 h-4 w-4" />
-          </Button>
+          <div className="group relative">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="animate-gradient-x cursor-pointer rounded-lg border-0 font-medium text-white shadow-lg transition-all duration-200 hover:text-white hover:shadow-xl"
+              style={{
+                background:
+                  'linear-gradient(-45deg, #0033AD, #0056D2, #007BFF, #0099FF, #0056D2, #0033AD)',
+              }}
+            >
+              <Sparkles className="mr-2 h-4 w-4" />
+              Open
+              <ChevronDownIcon className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
         </PopoverTrigger>
         <PopoverContent
           className="bg-card/95 border-border/50 !w-[280px] p-2 shadow-xl backdrop-blur-sm"

@@ -532,3 +532,34 @@
 [data-sidebar='content']::-webkit-scrollbar-thumb:active {
   background-color: hsl(var(--sidebar-border) / 0.8);
 }
+
+/* Custom animations for glowing button */
+@keyframes gradient-x {
+  0%,
+  100% {
+    background-size: 400% 400%;
+    background-position: left center;
+  }
+  25% {
+    background-size: 400% 400%;
+    background-position: center top;
+  }
+  50% {
+    background-size: 400% 400%;
+    background-position: right center;
+  }
+  75% {
+    background-size: 400% 400%;
+    background-position: center bottom;
+  }
+}
+
+.animate-gradient-x {
+  animation: gradient-x 8s ease infinite;
+  background-size: 400% 400%;
+}
+
+.animate-gradient-x:hover {
+  filter: brightness(1.1) saturate(1.1);
+  animation-duration: 4s;
+}
