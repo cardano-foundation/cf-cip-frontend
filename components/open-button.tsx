@@ -5,7 +5,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-import { ExternalLinkIcon, ChevronDownIcon, GithubIcon } from 'lucide-react'
+import {
+  ExternalLinkIcon,
+  ChevronDownIcon,
+  GithubIcon,
+  Sparkles,
+} from 'lucide-react'
 
 function OpenAIIcon({ className }: { className?: string }) {
   return (
@@ -86,6 +91,7 @@ export function OpenButton({
       <Popover>
         <PopoverTrigger>
           <Button variant="outline" size="sm">
+            <Sparkles className="mr-2 h-4 w-4" />
             Open
             <ChevronDownIcon className="ml-2 h-4 w-4" />
           </Button>
