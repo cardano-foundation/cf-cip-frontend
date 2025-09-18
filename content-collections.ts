@@ -109,9 +109,11 @@ const cip = defineCollection({
         [
           rehypeAutolinkHeadings,
           {
+            behavior: 'append',
             properties: {
               className: ['subheading-anchor'],
               ariaLabel: 'Link to section',
+              tabIndex: -1,
             },
           },
         ],
@@ -226,9 +228,11 @@ const cipAnnex = defineCollection({
         [
           rehypeAutolinkHeadings,
           {
+            behavior: 'append',
             properties: {
               className: ['subheading-anchor'],
               ariaLabel: 'Link to section',
+              tabIndex: -1,
             },
           },
         ],
@@ -338,9 +342,11 @@ const cps = defineCollection({
         [
           rehypeAutolinkHeadings,
           {
+            behavior: 'append',
             properties: {
               className: ['subheading-anchor'],
               ariaLabel: 'Link to section',
+              tabIndex: -1,
             },
           },
         ],
@@ -451,9 +457,11 @@ const cpsAnnex = defineCollection({
         [
           rehypeAutolinkHeadings,
           {
+            behavior: 'append',
             properties: {
               className: ['subheading-anchor'],
               ariaLabel: 'Link to section',
+              tabIndex: -1,
             },
           },
         ],

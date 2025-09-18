@@ -280,6 +280,71 @@
     line-height: 1;
   }
 
+  /* GitHub-style heading anchor links */
+  .typography h1:not(.not-typography h1),
+  .typography h2:not(.not-typography h2),
+  .typography h3:not(.not-typography h3),
+  .typography h4:not(.not-typography h4),
+  .typography h5:not(.not-typography h5),
+  .typography h6:not(.not-typography h6) {
+    position: relative;
+  }
+
+  .typography .subheading-anchor {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    text-decoration: none !important;
+    color: var(--color-muted-foreground);
+    font-weight: normal;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 0.875rem;
+    line-height: 1;
+    border-radius: 0.25rem;
+    box-sizing: border-box;
+  }
+
+  .typography .subheading-anchor::before {
+    content: '';
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    mask-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='black'%3e%3cpath stroke-linecap='round' stroke-linejoin='round' d='M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244'/%3e%3c/svg%3e");
+    -webkit-mask-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='black'%3e%3cpath stroke-linecap='round' stroke-linejoin='round' d='M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244'/%3e%3c/svg%3e");
+    mask-size: contain;
+    -webkit-mask-size: contain;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-position: center;
+    background-color: currentColor;
+  }
+
+  .typography .subheading-anchor:hover {
+    color: var(--color-primary);
+    background-color: var(--color-accent);
+  }
+
+  .typography h1:hover .subheading-anchor,
+  .typography h2:hover .subheading-anchor,
+  .typography h3:hover .subheading-anchor,
+  .typography h4:hover .subheading-anchor,
+  .typography h5:hover .subheading-anchor,
+  .typography h6:hover .subheading-anchor {
+    opacity: 1;
+  }
+
+  /* Focus state for accessibility */
+  .typography .subheading-anchor:focus {
+    opacity: 1;
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+
   @media (min-width: 1024px) {
     .typography h1:not(.not-typography h1) {
       font-size: var(--text-5xl);
