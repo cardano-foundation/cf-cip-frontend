@@ -14,6 +14,7 @@ import remarkMermaid from 'remark-mermaid'
 import remarkRemoveToc from './lib/remark-remove-toc'
 import remarkRelativeLinks from './lib/remark-relative-links'
 import rehypeRelativeImages from './lib/rehype-relative-images'
+import rehypeUniqueIds from './lib/rehype-unique-ids'
 
 const statusBadgeColor = (doc: { Status: string }) => {
   switch (doc.Status) {
@@ -104,12 +105,15 @@ const cip = defineCollection({
       rehypePlugins: [
         rehypeKatex,
         rehypeSlug,
+        rehypeUniqueIds,
         [
           rehypeAutolinkHeadings,
           {
+            behavior: 'append',
             properties: {
               className: ['subheading-anchor'],
               ariaLabel: 'Link to section',
+              tabIndex: -1,
             },
           },
         ],
@@ -220,12 +224,15 @@ const cipAnnex = defineCollection({
       rehypePlugins: [
         rehypeKatex,
         rehypeSlug,
+        rehypeUniqueIds,
         [
           rehypeAutolinkHeadings,
           {
+            behavior: 'append',
             properties: {
               className: ['subheading-anchor'],
               ariaLabel: 'Link to section',
+              tabIndex: -1,
             },
           },
         ],
@@ -331,12 +338,15 @@ const cps = defineCollection({
       rehypePlugins: [
         rehypeKatex,
         rehypeSlug,
+        rehypeUniqueIds,
         [
           rehypeAutolinkHeadings,
           {
+            behavior: 'append',
             properties: {
               className: ['subheading-anchor'],
               ariaLabel: 'Link to section',
+              tabIndex: -1,
             },
           },
         ],
@@ -443,12 +453,15 @@ const cpsAnnex = defineCollection({
       rehypePlugins: [
         rehypeKatex,
         rehypeSlug,
+        rehypeUniqueIds,
         [
           rehypeAutolinkHeadings,
           {
+            behavior: 'append',
             properties: {
               className: ['subheading-anchor'],
               ariaLabel: 'Link to section',
+              tabIndex: -1,
             },
           },
         ],

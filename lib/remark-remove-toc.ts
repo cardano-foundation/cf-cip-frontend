@@ -17,34 +17,57 @@ interface InlineCodeNode extends Node {
   value: string
 }
 
+interface HtmlNode extends Node {
+  type: 'html'
+  value: string
+}
+
 export default function remarkRemoveToc() {
   return (tree: Node) => {
     const nodesToRemove: { node: Node; index: number; parent: Parent }[] = []
-    let foundTocHeading = false
+    let tocMode: 'none' | 'heading' | 'html' = 'none'
     let tocLevel = 0
 
     visit(
       tree,
       (node: Node, index: number | undefined, parent: Parent | null) => {
+        if (!parent || index === undefined) return
+
+        if (tocMode === 'heading') {
+          if (node.type === 'heading' && (node as HeadingNode).depth <= tocLevel) {
+            tocMode = 'none'
+            tocLevel = 0
+            return
+          }
+
+          nodesToRemove.push({ node, index, parent })
+          return
+        }
+
+        if (tocMode === 'html') {
+          nodesToRemove.push({ node, index, parent })
+
+          if (node.type === 'html' && isTocHtmlClose(node as HtmlNode)) {
+            tocMode = 'none'
+          }
+
+          return
+        }
+
         if (node.type === 'heading') {
           const headingText = getHeadingText(node as HeadingNode).toLowerCase()
 
           if (isTocHeading(headingText)) {
-            foundTocHeading = true
+            tocMode = 'heading'
             tocLevel = (node as HeadingNode).depth
-            if (parent && index !== undefined) {
-              nodesToRemove.push({ node, index, parent })
-            }
-            return
+            nodesToRemove.push({ node, index, parent })
           }
 
-          if (foundTocHeading && (node as HeadingNode).depth <= tocLevel) {
-            foundTocHeading = false
-            tocLevel = 0
-          }
+          return
         }
 
-        if (foundTocHeading && parent && index !== undefined) {
+        if (node.type === 'html' && isTocHtmlOpen(node as HtmlNode)) {
+          tocMode = 'html'
           nodesToRemove.push({ node, index, parent })
         }
       },
@@ -71,13 +94,34 @@ function getHeadingText(node: HeadingNode): string {
 }
 
 function isTocHeading(text: string): boolean {
-  const tocPatterns = [
-    'table of contents',
-    'toc',
-    'contents',
-    'outline',
-    'index',
-  ]
+  const normalized = text.toLowerCase()
 
-  return tocPatterns.some((pattern) => text.includes(pattern))
+  if (normalized.includes('table of contents')) return true
+  if (normalized.includes('table-of-contents')) return true
+
+  const tokens = normalized
+    .replace(/[^a-z0-9]+/g, ' ')
+    .split(' ')
+    .filter(Boolean)
+
+  const tocTokens = new Set(['toc', 'contents', 'outline', 'index'])
+
+  return tokens.some((token) => tocTokens.has(token))
+}
+
+function isTocHtmlOpen(node: HtmlNode): boolean {
+  const value = node.value.toLowerCase()
+
+  if (!value.includes('<details')) return false
+  if (!value.includes('<summary')) return false
+
+  return isTocHeading(normalizeHtmlText(value))
+}
+
+function isTocHtmlClose(node: HtmlNode): boolean {
+  return node.value.trim().toLowerCase() === '</details>'
+}
+
+function normalizeHtmlText(value: string): string {
+  return value.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()
 }
