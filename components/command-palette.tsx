@@ -34,7 +34,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
-import { Combobox } from '@/components/ui/combobox'
+import { MultiCombobox } from '@/components/ui/multi-combobox'
 import * as DialogPrimitive from '@radix-ui/react-dialog'
 import { useSidebarState } from '@/components/sidebar-provider'
 import { useTheme } from 'next-themes'
@@ -117,8 +117,8 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
   const [search, setSearch] = useState('')
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [recentItems, setRecentItems] = useState<string[]>([])
-  const [selectedCategory, setSelectedCategory] = useState<string>('')
-  const [selectedStatus, setSelectedStatus] = useState<string>('')
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([])
+  const [selectedStatuses, setSelectedStatuses] = useState<string[]>([])
   const { setQuery, setType } = useSidebarState()
   const router = useRouter()
   const { setTheme, theme } = useTheme()
@@ -261,7 +261,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
         item.type === 'Contribute' ||
         item.type === 'Other'
       ) {
-        return !selectedCategory && !selectedStatus
+        return selectedCategories.length === 0 && selectedStatuses.length === 0
       }
 
       const originalData =
@@ -271,16 +271,16 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
 
       if (!originalData) return false
 
-      if (selectedCategory) {
+      if (selectedCategories.length > 0) {
         if (
           !originalData.Category ||
-          originalData.Category !== selectedCategory
+          !selectedCategories.includes(originalData.Category)
         ) {
           return false
         }
       }
 
-      if (selectedStatus) {
+      if (selectedStatuses.length > 0) {
         let status: string | undefined
         if (item.type === 'CIP') {
           status = originalData.Status?.split(' ')[0].toLowerCase()
@@ -288,7 +288,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
           status = originalData.Status?.toLowerCase()
         }
 
-        if (!status || status !== selectedStatus) {
+        if (!status || !selectedStatuses.includes(status)) {
           return false
         }
       }
@@ -297,7 +297,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
     })
 
     if (!q) {
-      if (selectedCategory || selectedStatus) {
+      if (selectedCategories.length > 0 || selectedStatuses.length > 0) {
         return filteredByFilters
       }
 
@@ -385,7 +385,13 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
       .slice(0, 20) // Increase limit slightly for better full-text results
 
     return searchResults
-  }, [allItems, search, memoizedRecentItems, selectedCategory, selectedStatus])
+  }, [
+    allItems,
+    search,
+    memoizedRecentItems,
+    selectedCategories,
+    selectedStatuses,
+  ])
 
   useEffect(() => {
     setSelectedIndex(0)
@@ -393,7 +399,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
 
   useEffect(() => {
     setSelectedIndex(0)
-  }, [selectedCategory, selectedStatus])
+  }, [selectedCategories, selectedStatuses])
 
   useEffect(() => {
     if (selectedIndex >= 0 && open) {
@@ -512,8 +518,8 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
             e.stopPropagation()
             console.log('Resetting all filters and search')
             setSearch('')
-            setSelectedCategory('')
-            setSelectedStatus('')
+            setSelectedCategories([])
+            setSelectedStatuses([])
             setSelectedIndex(0)
           }
           break
@@ -528,8 +534,8 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
       if (!newOpen) {
         setSearch('')
         setSelectedIndex(0)
-        setSelectedCategory('')
-        setSelectedStatus('')
+        setSelectedCategories([])
+        setSelectedStatuses([])
       }
     },
     [onOpenChange],
@@ -574,8 +580,8 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
         e.stopPropagation()
         console.log('Global: Resetting all filters and search')
         setSearch('')
-        setSelectedCategory('')
-        setSelectedStatus('')
+        setSelectedCategories([])
+        setSelectedStatuses([])
         setSelectedIndex(0)
       }
     }
@@ -617,19 +623,19 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
             <div className="shrink-0 border-b px-3 py-3">
               <div className="grid grid-cols-2 gap-3">
                 <div className="relative">
-                  <Combobox
+                  <MultiCombobox
                     ref={categoryComboboxRef}
                     options={categories}
-                    value={selectedCategory}
-                    onChange={setSelectedCategory}
-                    placeholder="Category"
+                    value={selectedCategories}
+                    onChange={setSelectedCategories}
+                    placeholder="Categories"
                     className="!flex !w-full !min-w-0"
                     onClose={returnFocusToSearch}
                   />
-                  {selectedCategory && (
+                  {selectedCategories.length > 0 && (
                     <button
                       onClick={() => {
-                        setSelectedCategory('')
+                        setSelectedCategories([])
                         returnFocusToSearch()
                       }}
                       className="text-muted-foreground hover:text-foreground hover:bg-muted/50 absolute top-1/2 right-7 -translate-y-1/2 rounded-sm p-0.5 transition-colors"
@@ -639,19 +645,19 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                   )}
                 </div>
                 <div className="relative">
-                  <Combobox
+                  <MultiCombobox
                     ref={statusComboboxRef}
                     options={statuses}
-                    value={selectedStatus}
-                    onChange={setSelectedStatus}
-                    placeholder="Status"
+                    value={selectedStatuses}
+                    onChange={setSelectedStatuses}
+                    placeholder="Statuses"
                     className="!flex !w-full !min-w-0"
                     onClose={returnFocusToSearch}
                   />
-                  {selectedStatus && (
+                  {selectedStatuses.length > 0 && (
                     <button
                       onClick={() => {
-                        setSelectedStatus('')
+                        setSelectedStatuses([])
                         returnFocusToSearch()
                       }}
                       className="text-muted-foreground hover:text-foreground hover:bg-muted/50 absolute top-1/2 right-7 -translate-y-1/2 rounded-sm p-0.5 transition-colors"
@@ -667,7 +673,9 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
               <ScrollArea className="h-96 w-full" maskHeight={0}>
                 <div className="w-full max-w-full p-2">
                   {filtered.length === 0 &&
-                  (search || selectedCategory || selectedStatus) ? (
+                  (search ||
+                    selectedCategories.length > 0 ||
+                    selectedStatuses.length > 0) ? (
                     <div className="flex flex-col items-center justify-center py-12 text-center">
                       <Search className="text-muted-foreground/50 mb-3 h-8 w-8" />
                       <p className="text-muted-foreground mb-1 text-sm">
@@ -680,8 +688,8 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                   ) : (
                     <>
                       {!search &&
-                        !selectedCategory &&
-                        !selectedStatus &&
+                        selectedCategories.length === 0 &&
+                        selectedStatuses.length === 0 &&
                         memoizedRecentItems.length > 0 && (
                           <div className="mb-2 px-2">
                             <p className="text-muted-foreground/60 flex items-center gap-2 text-xs font-medium tracking-wide uppercase">
@@ -693,29 +701,29 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                       {filtered.map((item, index) => {
                         const isRecent =
                           !search &&
-                          !selectedCategory &&
-                          !selectedStatus &&
+                          selectedCategories.length === 0 &&
+                          selectedStatuses.length === 0 &&
                           memoizedRecentItems.includes(item.id)
                         const isFirstPage =
                           item.type === 'Page' &&
                           !search &&
-                          !selectedCategory &&
-                          !selectedStatus &&
+                          selectedCategories.length === 0 &&
+                          selectedStatuses.length === 0 &&
                           (index === 0 || filtered[index - 1].type !== 'Page')
 
                         const isFirstContribute =
                           item.type === 'Contribute' &&
                           !search &&
-                          !selectedCategory &&
-                          !selectedStatus &&
+                          selectedCategories.length === 0 &&
+                          selectedStatuses.length === 0 &&
                           (index === 0 ||
                             filtered[index - 1].type !== 'Contribute')
 
                         const isFirstOther =
                           item.type === 'Other' &&
                           !search &&
-                          !selectedCategory &&
-                          !selectedStatus &&
+                          selectedCategories.length === 0 &&
+                          selectedStatuses.length === 0 &&
                           (index === 0 || filtered[index - 1].type !== 'Other')
 
                         return (
