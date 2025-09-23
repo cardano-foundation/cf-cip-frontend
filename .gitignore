@@ -39,10 +39,9 @@ next-env.d.ts
 .content-collections
 .idea/
 
-# fetched content
-/content/cip/
-/content/cps/
-/content/pr/
+# fetched content - ignore everything inside content folder
+/content/*
+!/content/.gitkeep
 /data/contributors.json
 /data/labels.json
 /data/stats.json
