@@ -130,7 +130,7 @@ function SearchPageContent() {
         <div className="space-y-6">
           <header>
             <h1 className="text-4xl leading-tight font-bold tracking-tight sm:text-5xl">
-              Search
+              Advanced Search
             </h1>
           </header>
 
