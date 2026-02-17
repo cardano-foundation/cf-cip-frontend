@@ -28,6 +28,13 @@ import { allCips, allCps } from 'content-collections'
 
 import { cn } from '@/lib/utils'
 import {
+  highlightSearchTerm,
+  getContentSnippet,
+  scoreItem,
+  getFilterOptions,
+  getAllSearchableItems,
+} from '@/lib/search'
+import {
   Dialog,
   DialogPortal,
   DialogOverlay,
@@ -51,66 +58,6 @@ type Item = {
 interface CommandPaletteProps {
   open: boolean
   onOpenChange: (open: boolean) => void
-}
-
-const highlightSearchTerm = (
-  text: string,
-  searchTerm: string,
-): React.ReactNode => {
-  if (!searchTerm || !text) return text
-
-  const regex = new RegExp(
-    `(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`,
-    'gi',
-  )
-  const parts = text.split(regex)
-
-  return parts.map((part, index) => {
-    if (part.toLowerCase() === searchTerm.toLowerCase()) {
-      return (
-        <mark
-          key={index}
-          className="bg-cf-blue-100 text-cf-blue-900 dark:bg-cf-blue-900/50 dark:text-cf-blue-100 rounded px-0.5"
-        >
-          {part}
-        </mark>
-      )
-    }
-    return part
-  })
-}
-
-const getContentSnippet = (
-  content: string,
-  searchTerm: string,
-  maxLength: number = 100,
-): string => {
-  if (!content || !searchTerm) return ''
-
-  const lowerContent = content.toLowerCase()
-  const lowerTerm = searchTerm.toLowerCase()
-  const index = lowerContent.indexOf(lowerTerm)
-
-  if (index === -1) return ''
-
-  const start = Math.max(0, index - Math.floor(maxLength / 2))
-  const end = Math.min(content.length, start + maxLength)
-
-  let snippet = content.slice(start, end)
-
-  snippet = snippet
-    .replace(/#{1,6}\s*/g, '') // Remove headers
-    .replace(/\*\*(.*?)\*\*/g, '$1') // Remove bold
-    .replace(/\*(.*?)\*/g, '$1') // Remove italic
-    .replace(/`(.*?)`/g, '$1') // Remove inline code
-    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Remove links, keep text
-    .trim()
-
-  // Add ellipsis if truncated
-  if (start > 0) snippet = '...' + snippet
-  if (end < content.length) snippet = snippet + '...'
-
-  return snippet
 }
 
 export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
@@ -178,38 +125,10 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
 
   const memoizedRecentItems = useMemo(() => recentItems, [recentItems])
 
-  const { categories, statuses } = useMemo(() => {
-    const categorySet = new Set<string>()
-    const statusSet = new Set<string>()
-
-    allCips.forEach((cip) => {
-      if (cip.Category) categorySet.add(cip.Category)
-      if (cip.Status) statusSet.add(cip.Status.split(' ')[0].toLowerCase())
-    })
-
-    allCps.forEach((cps) => {
-      if (cps.Category) categorySet.add(cps.Category)
-      if (cps.Status) statusSet.add(cps.Status.toLowerCase())
-    })
-
-    return {
-      categories: [
-        { label: 'All Categories', value: '' },
-        ...Array.from(categorySet)
-          .sort()
-          .map((cat) => ({ label: cat, value: cat })),
-      ],
-      statuses: [
-        { label: 'All Statuses', value: '' },
-        ...Array.from(statusSet)
-          .sort()
-          .map((status) => ({
-            label: status.charAt(0).toUpperCase() + status.slice(1),
-            value: status,
-          })),
-      ],
-    }
-  }, [])
+  const { categories, statuses } = useMemo(
+    () => getFilterOptions(getAllSearchableItems()),
+    [],
+  )
 
   const sortedCips = [...allCips].sort((a, b) => a.CIP - b.CIP)
   const sortedCps = [...allCps].sort((a, b) => a.CPS - b.CPS)
@@ -337,65 +256,24 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
     // Enhanced search algorithm with scoring and full-text search
     const searchResults = filteredByFilters
       .map((item) => {
-        const titleLower = item.title.toLowerCase()
-        const idLower = item.id.toLowerCase()
-        const contentLower = item.content?.toLowerCase() || ''
-
-        let score = 0
-
-        // Exact ID match gets highest score
-        if (idLower === q) score += 100
-        // ID starts with search gets high score
-        else if (idLower.startsWith(q)) score += 80
-        // ID contains search gets medium score
-        else if (idLower.includes(q)) score += 60
-
-        // Title starts with search gets high score
-        if (titleLower.startsWith(q)) score += 70
-        // Title contains search gets lower score
-        else if (titleLower.includes(q)) score += 40
-
-        // Word boundary matches get bonus
-        const words = titleLower.split(/\s+/)
-        if (words.some((word) => word.startsWith(q))) score += 20
-
-        // Full-text content search (only for CIP/CPS items with content)
-        if (item.content && (item.type === 'CIP' || item.type === 'CPS')) {
-          // Exact phrase match in content gets medium score
-          if (contentLower.includes(q)) {
-            score += 30
-
-            // Bonus for multiple occurrences
-            const occurrences = (
-              contentLower.match(
-                new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'),
-              ) || []
-            ).length
-            if (occurrences > 1) score += Math.min(occurrences * 5, 25) // Cap bonus at 25
-          }
-
-          // Word boundary matches in content
-          const contentWords = contentLower.split(/\s+/)
-          const matchingWords = contentWords.filter((word) =>
-            word.includes(q),
-          ).length
-          if (matchingWords > 0) {
-            score += Math.min(matchingWords * 2, 15) // Cap bonus at 15
-          }
-
-          // Bonus for matches in headers (lines starting with #)
-          const lines = contentLower.split('\n')
-          const headerMatches = lines.filter(
-            (line) => line.trim().startsWith('#') && line.includes(q),
-          ).length
-          if (headerMatches > 0) score += headerMatches * 10
+        const searchableItem = {
+          id: item.id,
+          title: item.title,
+          url: item.url,
+          type: item.type as 'CIP' | 'CPS',
+          content: item.content || '',
+          status: '',
+          category: '',
+          statusBadgeColor: '',
+          authors: [] as string[],
+          implementors: [] as string[],
+          created: '',
         }
-
-        return { ...item, score }
+        return { ...item, score: scoreItem(searchableItem, q) }
       })
       .filter((item) => item.score > 0)
       .sort((a, b) => b.score - a.score)
-      .slice(0, 20) // Increase limit slightly for better full-text results
+      .slice(0, 20)
 
     return searchResults
   }, [
@@ -675,8 +553,8 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
 
             {/* Filters */}
             <div className="shrink-0 border-b px-3 py-3">
-              <div className="grid grid-cols-2 gap-3">
-                <div className="relative">
+              <div className="flex items-center gap-3">
+                <div className="relative min-w-0 flex-1">
                   <MultiCombobox
                     ref={categoryComboboxRef}
                     options={categories}
@@ -699,7 +577,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                     </button>
                   )}
                 </div>
-                <div className="relative">
+                <div className="relative min-w-0 flex-1">
                   <MultiCombobox
                     ref={statusComboboxRef}
                     options={statuses}
@@ -722,6 +600,26 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                     </button>
                   )}
                 </div>
+                <button
+                  onClick={() => {
+                    const params = new URLSearchParams()
+                    if (search) params.set('q', search)
+                    if (selectedCategories.length > 0)
+                      params.set('category', selectedCategories.join(','))
+                    if (selectedStatuses.length > 0)
+                      params.set('status', selectedStatuses.join(','))
+                    const qs = params.toString()
+                    router.push(qs ? `/search?${qs}` : '/search')
+                    onOpenChange(false)
+                    setSearch('')
+                    setSelectedCategories([])
+                    setSelectedStatuses([])
+                  }}
+                  className="bg-muted hover:bg-muted/80 text-muted-foreground hover:text-foreground flex h-8 shrink-0 items-center gap-1.5 rounded-md border px-3 text-xs font-medium transition-colors"
+                >
+                  <Search className="h-3 w-3" />
+                  <span className="hidden sm:inline">Advanced</span>
+                </button>
               </div>
             </div>
 
