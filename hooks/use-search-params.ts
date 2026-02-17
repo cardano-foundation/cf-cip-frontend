@@ -1,7 +1,7 @@
 'use client'
 
 import { useSearchParams, usePathname } from 'next/navigation'
-import { useState, useMemo, useCallback, useDeferredValue } from 'react'
+import { useState, useMemo, useCallback, useDeferredValue, useEffect } from 'react'
 import {
   getAllSearchableItems,
   getFilterOptions,
@@ -55,6 +55,17 @@ export function useSearchState() {
   const [authors, setAuthors] = useState(() => parseParam(initialParams, 'author'))
   const [implementors, setImplementors] = useState(() => parseParam(initialParams, 'implementor'))
   const [sort, setSort] = useState<SortOption>(() => (initialParams.get('sort') as SortOption) || 'number-asc')
+
+  // Sync local state when URL changes via navigation (e.g. command palette)
+  useEffect(() => {
+    setQuery(initialParams.get('q') || '')
+    setCategories(parseParam(initialParams, 'category'))
+    setStatuses(parseParam(initialParams, 'status'))
+    setTypes(parseParam(initialParams, 'type'))
+    setAuthors(parseParam(initialParams, 'author'))
+    setImplementors(parseParam(initialParams, 'implementor'))
+    setSort((initialParams.get('sort') as SortOption) || 'number-asc')
+  }, [initialParams])
 
   const allItems = useMemo(() => getAllSearchableItems(), [])
   const filterOptions = useMemo(() => getFilterOptions(allItems), [allItems])
