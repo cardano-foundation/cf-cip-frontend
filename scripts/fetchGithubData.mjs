@@ -34,12 +34,19 @@ async function fetchAllPages(url, token) {
 
 // Fetch GitHub contributors
 async function getContributors() {
-    const response = await fetch('https://github.com/cardano-foundation/CIPs')
-    const html = await response.text()
-    const regex = /Contributors\s*<span\s+title="(\d+)"/g
-    const result = regex.exec(html)
-
-    return Number(result[1])
+    const url = `https://api.github.com/repos/${repo}/contributors?per_page=1&anon=true`
+    const response = await fetch(url, {
+        headers: {
+            Authorization: `token ${token}`,
+        },
+    })
+    const link = response.headers.get('link')
+    if (link) {
+        const match = link.match(/page=(\d+)>;\s*rel="last"/)
+        if (match) return Number(match[1])
+    }
+    const data = await response.json()
+    return Array.isArray(data) ? data.length : 0
 }
 
 // Fetch amount of merged PRs into master for the past 1 month
