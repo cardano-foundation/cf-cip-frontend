@@ -15,10 +15,6 @@ export default function Editors() {
       github_link: 'https://github.com/Ryun1',
     },
     {
-      name: 'Adam Dean',
-      github_link: 'https://github.com/Crypto2099',
-    },
-    {
       name: 'Thomas Vellekoop',
       github_link: 'https://github.com/perturbing',
     },
