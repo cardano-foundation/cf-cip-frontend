@@ -310,13 +310,21 @@ const cps = defineCollection({
     Category: z.string().optional(),
     Authors: z.array(z.string()).optional(),
     'Proposed Solutions': z.array(z.any()).optional(),
-    Discussions: z.union([z.array(z.string()), z.null()]).optional(),
+    Discussions: z.union([z.array(z.any()), z.null()]).optional(),
     Created: z.string(),
   }),
   transform: async (doc, context) => {
     // Extract CPS number from directory path
     const dirParts = doc._meta.directory.split('/')
     const dirName = dirParts[dirParts.length - 1]
+
+    // Normalize Discussions to URL strings. CPS frontmatter often uses a
+    // "Label: URL" format which YAML parses into objects rather than strings.
+    const discussions = Array.isArray(doc.Discussions)
+      ? doc.Discussions.map((d) =>
+          typeof d === 'string' ? d : String(Object.values(d)[0]),
+        )
+      : doc.Discussions
 
     // Compile markdown to HTML
     const html = await compileMarkdown(context, doc, {
@@ -388,6 +396,7 @@ const cps = defineCollection({
 
     return {
       ...doc,
+      Discussions: discussions,
       statusBadgeColor: statusBadgeColor(doc),
       slug: dirName,
       slugAsParams: doc._meta.path,
