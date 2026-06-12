@@ -16,7 +16,102 @@ import {
   ClockIcon,
   FlagIcon,
   FolderIcon,
+  LightbulbIcon,
+  TargetIcon,
 } from 'lucide-react'
+import type { LinkEntry } from '@/lib/link-entries'
+
+// Fallback chip text for link entries without an authored label
+function deriveLinkLabel(url: string): string {
+  if (url.startsWith('/')) {
+    // Internal document links, e.g. /cip/CIP-0161
+    return url.split('/').filter(Boolean).pop()?.split('#')[0] || url
+  }
+
+  try {
+    const parsed = new URL(url)
+    const host = parsed.hostname.replace(/^www\./, '')
+    const parts = parsed.pathname.split('/').filter(Boolean)
+
+    if (host === 'github.com') {
+      const [owner, repo, kind, num] = parts
+      if (kind === 'pull' && num) return `${repo} PR #${num}`
+      if (kind === 'issues' && num) return `${repo} issue #${num}`
+      if (kind === 'discussions' && num) return `${repo} discussion #${num}`
+      const docRef = parts.find((part) => /^(CIP|CPS)-\d+/i.test(part))
+      if (docRef) return docRef
+      return repo ? `${owner}/${repo}` : 'GitHub'
+    }
+    if (host === 'forum.cardano.org') return 'Cardano Forum'
+    if (host === 'twitter.com' || host === 'x.com') {
+      return parts[0] ? `@${parts[0]}` : 'X (Twitter)'
+    }
+    if (host === 'youtube.com' || host === 'youtu.be') return 'YouTube'
+    return host
+  } catch {
+    return url
+  }
+}
+
+// Fill in missing labels from the URL and disambiguate repeats so two
+// chips never share the same accessible name.
+function resolveLinkLabels(links: LinkEntry[]) {
+  const resolved = links.map((link) => ({
+    url: link.url,
+    label: link.label || deriveLinkLabel(link.url),
+  }))
+
+  const counts = new Map<string, number>()
+  for (const link of resolved) {
+    counts.set(link.label, (counts.get(link.label) ?? 0) + 1)
+  }
+
+  const seen = new Map<string, number>()
+  return resolved.map((link) => {
+    if ((counts.get(link.label) ?? 0) < 2) return link
+    const ordinal = (seen.get(link.label) ?? 0) + 1
+    seen.set(link.label, ordinal)
+    return { ...link, label: `${link.label} (${ordinal})` }
+  })
+}
+
+function LinkChips({
+  links,
+  tooltip,
+  chipClassName,
+}: {
+  links: LinkEntry[]
+  tooltip: string
+  chipClassName: string
+}) {
+  return (
+    <>
+      {resolveLinkLabels(links).map((link, index) => {
+        const isExternal = !link.url.startsWith('/')
+        return (
+          <Tooltip key={index}>
+            <TooltipTrigger asChild>
+              <Link
+                href={link.url}
+                {...(isExternal
+                  ? { target: '_blank', rel: 'noopener noreferrer' }
+                  : {})}
+                className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${chipClassName}`}
+              >
+                {link.label}
+                {isExternal && <ExternalLinkIcon className="h-3 w-3" />}
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>{tooltip}</p>
+              <p className="text-xs opacity-80">{link.url}</p>
+            </TooltipContent>
+          </Tooltip>
+        )
+      })}
+    </>
+  )
+}
 
 function parseAuthors(authors: string[]) {
   return authors.map((author) => {
@@ -110,12 +205,14 @@ interface DocumentMetadataProps {
     License?: string
     Authors?: string[]
     Implementors?: (string | Record<string, string>)[] | null
-    Requires?: string
+    Requires?: string | (string | number)[]
     'Comments-Summary'?: string
     'Post-History'?: string
     'Comments-URI'?: string | string[]
     'Discussions-To'?: string
-    Discussions?: string[] | null
+    Discussions?: LinkEntry[] | null
+    'Solution To'?: LinkEntry[] | null
+    'Proposed Solutions'?: LinkEntry[] | null
   }
   type?: 'CIP' | 'CPS'
 }
@@ -332,26 +429,29 @@ export function DocumentMetadata({
         </div>
       </>
 
-      {document.Requires && (
-        <>
-          <div className="-mx-6">
-            <Separator />
-          </div>
-          <div className="space-y-3">
-            <div className="flex items-center gap-3">
-              <FileTextIcon className="text-primary/70 h-4 w-4" />
-              <div className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
-                Requirements
+      {document.Requires &&
+        (!Array.isArray(document.Requires) || document.Requires.length > 0) && (
+          <>
+            <div className="-mx-6">
+              <Separator />
+            </div>
+            <div className="space-y-3">
+              <div className="flex items-center gap-3">
+                <FileTextIcon className="text-primary/70 h-4 w-4" />
+                <div className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+                  Requirements
+                </div>
+              </div>
+              <div className="bg-muted/50 rounded-lg p-3">
+                <div className="text-foreground font-mono text-sm">
+                  {Array.isArray(document.Requires)
+                    ? document.Requires.join(', ')
+                    : document.Requires}
+                </div>
               </div>
             </div>
-            <div className="bg-muted/50 rounded-lg p-3">
-              <div className="text-foreground font-mono text-sm">
-                {document.Requires}
-              </div>
-            </div>
-          </div>
-        </>
-      )}
+          </>
+        )}
 
       {document['Comments-Summary'] && (
         <>
@@ -485,30 +585,64 @@ export function DocumentMetadata({
                   </TooltipContent>
                 </Tooltip>
               )}
-              {document.Discussions &&
-                document.Discussions.map((discussion, index) => (
-                  <Tooltip key={index}>
-                    <TooltipTrigger asChild>
-                      <Link
-                        href={discussion}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 rounded-lg bg-blue-500/10 px-3 py-1.5 text-sm font-medium text-blue-600 transition-colors hover:bg-blue-500/20 dark:text-blue-400"
-                      >
-                        Discussion {index + 1}
-                        <ExternalLinkIcon className="h-3 w-3" />
-                      </Link>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Join the discussion</p>
-                      <p className="text-xs opacity-80">{discussion}</p>
-                    </TooltipContent>
-                  </Tooltip>
-                ))}
+              {document.Discussions && (
+                <LinkChips
+                  links={document.Discussions}
+                  tooltip="Join the discussion"
+                  chipClassName="bg-blue-500/10 text-blue-600 hover:bg-blue-500/20 dark:text-blue-400"
+                />
+              )}
             </div>
           </div>
         </>
       )}
+
+      {document['Solution To'] && document['Solution To'].length > 0 && (
+        <>
+          <div className="-mx-6">
+            <Separator />
+          </div>
+          <div className="space-y-3">
+            <div className="flex items-center gap-3">
+              <TargetIcon className="text-primary/70 h-4 w-4" />
+              <div className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+                Solution To
+              </div>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <LinkChips
+                links={document['Solution To']}
+                tooltip="View problem statement"
+                chipClassName="bg-purple-500/10 text-purple-600 hover:bg-purple-500/20 dark:text-purple-400"
+              />
+            </div>
+          </div>
+        </>
+      )}
+
+      {document['Proposed Solutions'] &&
+        document['Proposed Solutions'].length > 0 && (
+          <>
+            <div className="-mx-6">
+              <Separator />
+            </div>
+            <div className="space-y-3">
+              <div className="flex items-center gap-3">
+                <LightbulbIcon className="text-primary/70 h-4 w-4" />
+                <div className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+                  Proposed Solutions
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <LinkChips
+                  links={document['Proposed Solutions']}
+                  tooltip="View proposed solution"
+                  chipClassName="bg-purple-500/10 text-purple-600 hover:bg-purple-500/20 dark:text-purple-400"
+                />
+              </div>
+            </div>
+          </>
+        )}
     </div>
   )
 }

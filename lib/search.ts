@@ -39,8 +39,16 @@ export function getAllSearchableItems(): SearchableItem[] {
       status: cip.Status?.split(' ')[0].toLowerCase() || '',
       category: cip.Category || '',
       statusBadgeColor: cip.statusBadgeColor,
-      authors: cleanNames(Array.isArray(cip.Authors) ? cip.Authors : [cip.Authors]),
-      implementors: cleanNames(Array.isArray(cip.Implementors) ? cip.Implementors.map(String) : cip.Implementors ? [String(cip.Implementors)] : []),
+      authors: cleanNames(
+        Array.isArray(cip.Authors) ? cip.Authors : [cip.Authors],
+      ),
+      implementors: cleanNames(
+        Array.isArray(cip.Implementors)
+          ? cip.Implementors.map(String)
+          : cip.Implementors
+            ? [String(cip.Implementors)]
+            : [],
+      ),
       created: cip.Created,
     })),
     ...sortedCps.map((cps) => ({
@@ -49,7 +57,7 @@ export function getAllSearchableItems(): SearchableItem[] {
       url: `/cps/${cps.slug}`,
       type: 'CPS' as const,
       content: cps.content || '',
-      status: cps.Status?.toLowerCase() || '',
+      status: cps.Status?.split(' ')[0].toLowerCase() || '',
       category: cps.Category || '',
       statusBadgeColor: cps.statusBadgeColor,
       authors: cleanNames(cps.Authors || []),
@@ -70,8 +78,12 @@ export function getFilterOptions(items: SearchableItem[]) {
     if (item.category) categorySet.add(item.category)
     if (item.status) statusSet.add(item.status)
     typeSet.add(item.type)
-    item.authors.forEach((a) => { if (a) authorSet.add(a) })
-    item.implementors.forEach((i) => { if (i) implementorSet.add(i) })
+    item.authors.forEach((a) => {
+      if (a) authorSet.add(a)
+    })
+    item.implementors.forEach((i) => {
+      if (i) implementorSet.add(i)
+    })
   })
 
   return {
@@ -154,9 +166,7 @@ export function scoreItem(item: SearchableItem, query: string): number {
 
     // Word boundary matches in content
     const contentWords = contentLower.split(/\s+/)
-    const matchingWords = contentWords.filter((word) =>
-      word.includes(q),
-    ).length
+    const matchingWords = contentWords.filter((word) => word.includes(q)).length
     if (matchingWords > 0) {
       score += Math.min(matchingWords * 2, 15)
     }
@@ -180,7 +190,13 @@ export type SearchFilters = {
   implementors?: string[]
 }
 
-export type SortOption = 'number-asc' | 'number-desc' | 'title-asc' | 'title-desc' | 'created-asc' | 'created-desc'
+export type SortOption =
+  | 'number-asc'
+  | 'number-desc'
+  | 'title-asc'
+  | 'title-desc'
+  | 'created-asc'
+  | 'created-desc'
 
 function extractNumber(id: string): number {
   const match = id.match(/\d+/)
@@ -194,7 +210,13 @@ export function searchItems(
   sort: SortOption = 'number-asc',
   limit?: number,
 ): ScoredItem[] {
-  const { categories = [], statuses = [], types = [], authors = [], implementors = [] } = filters
+  const {
+    categories = [],
+    statuses = [],
+    types = [],
+    authors = [],
+    implementors = [],
+  } = filters
 
   // Apply filters
   let filtered = items.filter((item) => {
@@ -210,7 +232,10 @@ export function searchItems(
     if (authors.length > 0 && !item.authors.some((a) => authors.includes(a))) {
       return false
     }
-    if (implementors.length > 0 && !item.implementors.some((i) => implementors.includes(i))) {
+    if (
+      implementors.length > 0 &&
+      !item.implementors.some((i) => implementors.includes(i))
+    ) {
       return false
     }
     return true
@@ -232,7 +257,11 @@ export function searchItems(
   return applySorting(scored, sort, limit)
 }
 
-function applySorting(items: ScoredItem[], sort: SortOption, limit?: number): ScoredItem[] {
+function applySorting(
+  items: ScoredItem[],
+  sort: SortOption,
+  limit?: number,
+): ScoredItem[] {
   const sorted = [...items]
 
   switch (sort) {

@@ -15,9 +15,12 @@ import remarkRemoveToc from './lib/remark-remove-toc'
 import remarkRelativeLinks from './lib/remark-relative-links'
 import rehypeRelativeImages from './lib/rehype-relative-images'
 import rehypeUniqueIds from './lib/rehype-unique-ids'
+import { normalizeLinkEntries } from './lib/link-entries'
 
 const statusBadgeColor = (doc: { Status: string }) => {
-  switch (doc.Status) {
+  // Statuses may carry a parenthetical reason, e.g. 'Inactive (superseded by CIP-0121)'
+  const status = doc.Status.replace(/\s*\(.*\)\s*$/, '').trim()
+  switch (status) {
     case 'Proposed':
     case 'Draft':
       return 'bg-cf-blue-600/30 ring-cf-blue-600/30 text-blue-600'
@@ -31,6 +34,28 @@ const statusBadgeColor = (doc: { Status: string }) => {
     default:
       return 'bg-white/10 ring-gray-100/10 text-slate-300'
   }
+}
+
+// Document numbers are usually plain integers but may be quoted strings
+// (e.g. '0381') or '?' placeholders; fall back to the directory name
+// (CIP-XXXX / CPS-XXXX), which always carries the assigned number.
+const docNumber = (value: number | string, dirName: string) => {
+  if (typeof value === 'number') return value
+  const source = /^\d+$/.test(value.trim())
+    ? value.trim()
+    : dirName.split('-')[1]
+  return parseInt(source, 10)
+}
+
+// Authors may be a 'Name <email>, Name <email>' string in older documents;
+// non-string array entries are dropped rather than failing the document.
+const normalizeAuthors = (authors: unknown) => {
+  if (Array.isArray(authors)) {
+    return authors.filter(
+      (author): author is string => typeof author === 'string',
+    )
+  }
+  return typeof authors === 'string' ? authors.split(', ') : []
 }
 
 // Define types for rehype plugin node parameters
@@ -48,18 +73,21 @@ const cip = defineCollection({
   exclude: ['**/cip/CIPs/page.md'],
   schema: (z) => ({
     Title: z.string(),
-    CIP: z.number(),
+    CIP: z.union([z.number(), z.string()]),
     Status: z.string(),
     Category: z.string().optional(),
-    Authors: z.union([z.array(z.string()), z.string()]),
-    Implementors: z.union([z.array(z.any()), z.string()]).optional(),
+    Authors: z.union([z.array(z.any()), z.string(), z.null()]).optional(),
+    Implementors: z.union([z.array(z.any()), z.string(), z.null()]).optional(),
     Type: z.string().optional(),
-    Requires: z.string().optional(),
+    Requires: z.union([z.array(z.any()), z.string()]).optional(),
     'Comments-URI': z.union([z.array(z.string()), z.string()]).optional(),
     'Comments-Summary': z.string().optional(),
     'Post-History': z.string().optional(),
     'Discussions-To': z.string().optional(),
-    Discussions: z.array(z.any()).optional(),
+    Discussions: z.union([z.array(z.any()), z.string(), z.null()]).optional(),
+    'Solution To': z.union([z.array(z.any()), z.string(), z.null()]).optional(),
+    // Legacy spelling of 'Solution To', with bare CPS-NNNN references
+    'Solution-To': z.union([z.array(z.any()), z.string(), z.null()]).optional(),
     Created: z.string(),
     Updated: z.string().optional(),
     License: z.string().optional(),
@@ -69,10 +97,7 @@ const cip = defineCollection({
     const dirParts = doc._meta.directory.split('/')
     const dirName = dirParts[dirParts.length - 1]
 
-    // Handle Authors field transformation similar to the original computedFields
-    const authors = Array.isArray(doc.Authors)
-      ? doc.Authors
-      : doc.Authors.split(', ')
+    const authors = normalizeAuthors(doc.Authors)
 
     // Handle Implementors field transformation
     const implementors = Array.isArray(doc.Implementors)
@@ -83,6 +108,11 @@ const cip = defineCollection({
 
     // Handle Comments-URI field transformation
     const commentsUri = doc['Comments-URI']
+
+    const discussions = normalizeLinkEntries(doc.Discussions)
+    const solutionTo = normalizeLinkEntries(
+      doc['Solution To'] ?? doc['Solution-To'],
+    )
 
     // Compile markdown to HTML
     const html = await compileMarkdown(context, doc, {
@@ -156,9 +186,12 @@ const cip = defineCollection({
 
     return {
       ...doc,
+      CIP: docNumber(doc.CIP, dirName),
       Authors: authors,
       Implementors: implementors,
       'Comments-URI': commentsUri,
+      Discussions: discussions,
+      'Solution To': solutionTo,
       statusBadgeColor: statusBadgeColor(doc),
       slug: dirName,
       slugAsParams: doc._meta.path,
@@ -305,26 +338,25 @@ const cps = defineCollection({
   include: '**/page.md',
   schema: (z) => ({
     Title: z.string(),
-    CPS: z.number(),
+    CPS: z.union([z.number(), z.string()]),
     Status: z.string(),
     Category: z.string().optional(),
-    Authors: z.array(z.string()).optional(),
-    'Proposed Solutions': z.array(z.any()).optional(),
-    Discussions: z.union([z.array(z.any()), z.null()]).optional(),
+    Authors: z.union([z.array(z.any()), z.string(), z.null()]).optional(),
+    'Proposed Solutions': z
+      .union([z.array(z.any()), z.string(), z.null()])
+      .optional(),
+    Discussions: z.union([z.array(z.any()), z.string(), z.null()]).optional(),
     Created: z.string(),
+    License: z.string().optional(),
   }),
   transform: async (doc, context) => {
     // Extract CPS number from directory path
     const dirParts = doc._meta.directory.split('/')
     const dirName = dirParts[dirParts.length - 1]
 
-    // Normalize Discussions to URL strings. CPS frontmatter often uses a
-    // "Label: URL" format which YAML parses into objects rather than strings.
-    const discussions = Array.isArray(doc.Discussions)
-      ? doc.Discussions.map((d) =>
-          typeof d === 'string' ? d : String(Object.values(d)[0]),
-        )
-      : doc.Discussions
+    const authors = normalizeAuthors(doc.Authors)
+    const discussions = normalizeLinkEntries(doc.Discussions)
+    const proposedSolutions = normalizeLinkEntries(doc['Proposed Solutions'])
 
     // Compile markdown to HTML
     const html = await compileMarkdown(context, doc, {
@@ -396,7 +428,10 @@ const cps = defineCollection({
 
     return {
       ...doc,
+      CPS: docNumber(doc.CPS, dirName),
+      Authors: authors,
       Discussions: discussions,
+      'Proposed Solutions': proposedSolutions,
       statusBadgeColor: statusBadgeColor(doc),
       slug: dirName,
       slugAsParams: doc._meta.path,

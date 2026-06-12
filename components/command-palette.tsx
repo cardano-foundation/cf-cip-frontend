@@ -213,12 +213,9 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
       }
 
       if (selectedStatuses.length > 0) {
-        let status: string | undefined
-        if (item.type === 'CIP') {
-          status = originalData.Status?.split(' ')[0].toLowerCase()
-        } else {
-          status = originalData.Status?.toLowerCase()
-        }
+        // Match the base-status normalization used by getAllSearchableItems,
+        // which produces the filter options ('Inactive (reason)' -> 'inactive')
+        const status = originalData.Status?.split(' ')[0].toLowerCase()
 
         if (!status || !selectedStatuses.includes(status)) {
           return false
