@@ -28,6 +28,10 @@ export default function ContributorsPage() {
       name: 'Thomas Vellekoop',
       github_link: 'https://github.com/perturbing',
     },
+    {
+      name: 'Sebastian Nagel',
+      github_link: 'https://github.com/ch1bo',
+    },
   ]
 
   return (
