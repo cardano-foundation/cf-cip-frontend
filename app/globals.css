@@ -563,3 +563,24 @@
   filter: brightness(1.1) saturate(1.1);
   animation-duration: 4s;
 }
+
+/* Sidebar list order from the stored sort, applied before hydration
+   (see lib/sidebar-sort.ts) */
+[data-sort='number-asc'] [data-sort-item] {
+  order: var(--sort-number-asc);
+}
+[data-sort='number-desc'] [data-sort-item] {
+  order: var(--sort-number-desc);
+}
+[data-sort='created-asc'] [data-sort-item] {
+  order: var(--sort-created-asc);
+}
+[data-sort='created-desc'] [data-sort-item] {
+  order: var(--sort-created-desc);
+}
+[data-sort='updated-asc'] [data-sort-item] {
+  order: var(--sort-updated-asc);
+}
+[data-sort='updated-desc'] [data-sort-item] {
+  order: var(--sort-updated-desc);
+}

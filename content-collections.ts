@@ -1,6 +1,7 @@
 import { defineCollection, defineConfig } from '@content-collections/core'
 import { compileMarkdown } from '@content-collections/markdown'
 import { z } from 'zod'
+import fs from 'fs'
 
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypePrettyCode from 'rehype-pretty-code'
@@ -58,6 +59,23 @@ const normalizeAuthors = (authors: unknown) => {
   }
   return typeof authors === 'string' ? authors.split(', ') : []
 }
+
+// Latest upstream commit date per CIP/CPS directory, written by
+// scripts/fetchLastUpdated.mjs; absent when building without a fetch.
+const lastUpdated: Record<string, string> = (() => {
+  try {
+    return JSON.parse(fs.readFileSync('./data/updated.json', 'utf8'))
+  } catch {
+    return {}
+  }
+})()
+
+// Explicit frontmatter dates win over the commit date; falls back to Created
+// so every document has a sortable date.
+const updatedDate = (
+  doc: { Created: string; Updated?: string },
+  dirName: string,
+) => doc.Updated ?? lastUpdated[dirName] ?? doc.Created
 
 // Define types for rehype plugin node parameters
 type NodeType = {
@@ -194,6 +212,7 @@ const cip = defineCollection({
       'Comments-URI': commentsUri,
       Discussions: discussions,
       'Solution To': solutionTo,
+      Updated: updatedDate(doc, dirName),
       statusBadgeColor: statusBadgeColor(doc),
       slug: dirName,
       slugAsParams: doc._meta.path,
@@ -352,6 +371,7 @@ const cps = defineCollection({
       .optional(),
     Discussions: z.union([z.array(z.any()), z.string(), z.null()]).optional(),
     Created: z.string(),
+    Updated: z.string().optional(),
     License: z.string().optional(),
   }),
   transform: async (doc, context) => {
@@ -437,6 +457,7 @@ const cps = defineCollection({
       Authors: authors,
       Discussions: discussions,
       'Proposed Solutions': proposedSolutions,
+      Updated: updatedDate(doc, dirName),
       statusBadgeColor: statusBadgeColor(doc),
       slug: dirName,
       slugAsParams: doc._meta.path,
