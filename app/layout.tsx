@@ -6,6 +6,7 @@ import { AppSidebar } from '@/components/app-sidebar'
 import { ThemeProvider } from '@/components/theme-provider'
 import { SidebarStateProvider } from '@/components/sidebar-provider'
 import { CommandPaletteProvider } from '@/components/command-palette'
+import { sortInitScript } from '@/lib/sidebar-sort'
 
 export const metadata = {
   metadataBase: new URL('https://cips.cardano.org'),
@@ -37,6 +38,9 @@ export default function RootLayout({
       className={`${GeistSans.variable} ${GeistMono.variable}`}
       suppressHydrationWarning
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: sortInitScript }} />
+      </head>
       <body>
         <ThemeProvider
           attribute="class"

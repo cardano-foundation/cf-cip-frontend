@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "node scripts/fetchMainBranch.mjs && node scripts/fetchPullRequests.mjs && node scripts/createAuthorsArray.mjs && node scripts/fetchGithubContributors.mjs && node scripts/fetchGithubLabels.mjs && node scripts/fetchGithubData.mjs && next build",
+    "build": "node scripts/fetchMainBranch.mjs && node scripts/fetchPullRequests.mjs && node scripts/createAuthorsArray.mjs && node scripts/fetchGithubContributors.mjs && node scripts/fetchGithubLabels.mjs && node scripts/fetchGithubData.mjs && node scripts/fetchLastUpdated.mjs && next build",
     "build-no-fetch": "next build",
     "start": "next start",
     "lint": "next lint"
