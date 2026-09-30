@@ -1,7 +1,16 @@
 'use client'
 
-import { Search as SearchIcon, Command, Info, Users } from 'lucide-react'
-import { useMemo } from 'react'
+import {
+  Search as SearchIcon,
+  Command,
+  Info,
+  Users,
+  ArrowDownWideNarrow,
+  ArrowDown,
+  ArrowUp,
+  Check,
+} from 'lucide-react'
+import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import { allCips, allCps } from 'content-collections'
 import socialsData from '@/data/socials.json'
@@ -30,38 +39,103 @@ import {
 } from '@/components/ui/tooltip'
 import { ModeToggle } from '@/components/ui/mode-toggle'
 import { ToggleTabs } from '@/components/ui/toggle-tabs'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { FloatingIsland } from '@/components/floating-island'
-import { useSidebarState } from '@/components/sidebar-provider'
+import {
+  useSidebarState,
+  type SortDirection,
+  type SortOrder,
+} from '@/components/sidebar-provider'
 import { CommandPalette, useCommandPalette } from '@/components/command-palette'
 
-type Item = { id: string; title: string; url: string }
+type Item = {
+  id: string
+  title: string
+  url: string
+  number: number
+  created: string
+  updated: string
+}
+
+const sortOptions: { value: SortOrder; label: string }[] = [
+  { value: 'number', label: 'Number' },
+  { value: 'created', label: 'Created' },
+  { value: 'updated', label: 'Updated' },
+]
+
+const directionOptions: {
+  value: SortDirection
+  label: string
+  icon: typeof ArrowUp
+}[] = [
+  { value: 'asc', label: 'Ascending', icon: ArrowUp },
+  { value: 'desc', label: 'Descending', icon: ArrowDown },
+]
+
+const formatDate = (date: string) =>
+  new Date(date).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  })
+
+// Date ties fall back to the number so the order stays stable
+const compareItems =
+  (sort: SortOrder, direction: SortDirection) => (a: Item, b: Item) => {
+    const sign = direction === 'asc' ? 1 : -1
+    if (sort === 'number') return sign * (a.number - b.number)
+    return (
+      sign * (new Date(a[sort]).getTime() - new Date(b[sort]).getTime()) ||
+      sign * (a.number - b.number)
+    )
+  }
 
 export function AppSidebar() {
-  const { query, setQuery, type, setType } = useSidebarState()
+  const {
+    query,
+    setQuery,
+    type,
+    setType,
+    sort,
+    setSort,
+    direction,
+    setDirection,
+  } = useSidebarState()
+  const isDefaultSort = sort === 'number' && direction === 'asc'
   const { open, setOpen } = useCommandPalette()
+  const [sortOpen, setSortOpen] = useState(false)
 
-  const sortedCips = [...allCips].sort((a, b) => a.CIP - b.CIP)
-  const sortedCps = [...allCps].sort((a, b) => a.CPS - b.CPS)
-
-  const cipItems: Item[] = sortedCips.map((cip) => ({
+  const cipItems: Item[] = allCips.map((cip) => ({
     id: `CIP-${cip.CIP}`,
     title: cip.Title,
     url: `/cip/${cip.slug}`,
+    number: cip.CIP,
+    created: cip.Created,
+    updated: cip.Updated,
   }))
 
-  const cpsItems: Item[] = sortedCps.map((cps) => ({
+  const cpsItems: Item[] = allCps.map((cps) => ({
     id: `CPS-${cps.CPS}`,
     title: cps.Title,
     url: `/cps/${cps.slug}`,
+    number: cps.CPS,
+    created: cps.Created,
+    updated: cps.Updated,
   }))
 
   const items: Item[] = type === 'CIP' ? cipItems : cpsItems
   const filtered = useMemo(() => {
     const q = query.toLowerCase().trim()
-    if (!q) return items
-    return items.filter((i) => i.title.toLowerCase().includes(q))
-  }, [items, query])
+    const matches = q
+      ? items.filter((i) => i.title.toLowerCase().includes(q))
+      : items
+    return [...matches].sort(compareItems(sort, direction))
+  }, [items, query, sort, direction])
 
   return (
     <>
@@ -94,7 +168,7 @@ export function AppSidebar() {
               </div>
             </div>
           </div>
-          <div className="px-3">
+          <div className="flex items-center gap-2 px-3">
             <ToggleTabs
               options={[
                 { value: 'CIP', label: 'CIP' },
@@ -103,6 +177,62 @@ export function AppSidebar() {
               value={type}
               onChange={(v) => setType(v as 'CIP' | 'CPS')}
             />
+            <Popover
+              open={sortOpen}
+              onOpenChange={setSortOpen}
+              className="w-auto shrink-0"
+            >
+              <PopoverTrigger>
+                <button
+                  type="button"
+                  aria-label="Sort order"
+                  className={cn(
+                    'bg-muted hover:text-foreground relative flex size-8 items-center justify-center rounded-md transition-colors',
+                    isDefaultSort ? 'text-muted-foreground' : 'text-foreground',
+                  )}
+                >
+                  <ArrowDownWideNarrow className="size-4" />
+                  {!isDefaultSort && (
+                    <span className="bg-cf-blue-600 absolute top-1 right-1 size-1.5 rounded-full" />
+                  )}
+                </button>
+              </PopoverTrigger>
+              <PopoverContent align="end" className="!w-44">
+                <div className="text-muted-foreground px-2 py-1.5 text-xs font-medium">
+                  Sort by
+                </div>
+                {sortOptions.map((option) => (
+                  <button
+                    key={option.value}
+                    type="button"
+                    onClick={() => {
+                      setSort(option.value)
+                      // Dates read most naturally newest first
+                      setDirection(option.value === 'number' ? 'asc' : 'desc')
+                    }}
+                    className="hover:bg-accent flex w-full items-center justify-between rounded-sm px-2 py-1.5 text-sm"
+                  >
+                    {option.label}
+                    {sort === option.value && <Check className="size-4" />}
+                  </button>
+                ))}
+                <div className="bg-border -mx-1 my-1 h-px" />
+                {directionOptions.map((option) => (
+                  <button
+                    key={option.value}
+                    type="button"
+                    onClick={() => setDirection(option.value)}
+                    className="hover:bg-accent flex w-full items-center justify-between rounded-sm px-2 py-1.5 text-sm"
+                  >
+                    <span className="flex items-center gap-2">
+                      <option.icon className="text-muted-foreground size-3.5" />
+                      {option.label}
+                    </span>
+                    {direction === option.value && <Check className="size-4" />}
+                  </button>
+                ))}
+              </PopoverContent>
+            </Popover>
           </div>
         </SidebarHeader>
         <SidebarSeparator className="mx-0 w-full" />
@@ -132,6 +262,10 @@ export function AppSidebar() {
                         <TooltipContent side="right" className="max-w-sm">
                           <div className="font-medium">{item.id}</div>
                           <div className="text-xs opacity-90">{item.title}</div>
+                          <div className="mt-1 text-xs opacity-70">
+                            Created {formatDate(item.created)} · Updated{' '}
+                            {formatDate(item.updated)}
+                          </div>
                         </TooltipContent>
                       </Tooltip>
                     </SidebarMenuItem>
