@@ -32,6 +32,10 @@ export default function ContributorsPage() {
       name: 'Sebastian Nagel',
       github_link: 'https://github.com/ch1bo',
     },
+    {
+      name: 'Adam Dean',
+      github_link: 'https://github.com/Crypto2099',
+    },
   ]
 
   return (
